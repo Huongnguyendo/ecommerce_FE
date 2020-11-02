@@ -4,17 +4,32 @@ import { ToastContainer, toast } from 'react-toastify';
 import * as types from "../constants/cart.constants";
 
 
-const addToCart = (productId, qty) => async (dispatch) => {
+const addToCart = (product, quantity) => async (dispatch) => {
   try {
-    console.log("haha ", productId, qty);
+    // console.log("haha ", productId, quantity);
     dispatch({ type: types.CART_ADD_ITEM_REQUEST, payload: null });
     try {
-        const res = await api.post("/products/cart/", { productId, qty });
+        const res = await api.post("/cart/add/", { product, quantity });
+        console.log(res);
         dispatch({ type: types.CART_ADD_ITEM_SUCCESS, payload: res.data.data });
         // dispatch(routeActions.redirect("/login"));
         toast.success(`Add to cart successfull`);
       } catch (error) {
         dispatch({ type: types.CART_ADD_ITEM_FAILURE, payload: error });
+      }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const getCartItems = () => async (dispatch) => {
+  try {
+    dispatch({ type: types.GET_CART_ITEMS_REQUEST, payload: null });
+    try {
+        const res = await api.get("/cart");
+        dispatch({ type: types.GET_CART_ITEMS_SUCCESS, payload: res.data.data });
+      } catch (error) {
+        dispatch({ type: types.GET_CART_ITEMS_FAILURE, payload: error });
       }
   } catch (error) {
     console.log(error);
@@ -35,4 +50,5 @@ const addToCart = (productId, qty) => async (dispatch) => {
 
 export const cartActions = {
     addToCart, 
+    getCartItems,
   };

@@ -22,6 +22,9 @@ const PublicNavbar = () => {
       <Nav.Link as={Link} to="/admin/profile">
         <FontAwesomeIcon icon="user" size="sm" /> Admin
       </Nav.Link>
+      <Nav.Link as={Link} to="/cart">
+        <FontAwesomeIcon icon="cart" size="sm" /> Cart
+      </Nav.Link>
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
     </Nav>
   );

@@ -7,24 +7,30 @@ import { Link } from 'react-router-dom';
 const CartScreen = () => {
   const params = useParams();
   const history = useHistory();
-  const cart = useSelector(state => state.cartItems);
+  const cart = useSelector(state => state.cart.cartItems);
 
-  console.log("cart ne: ", cart)
+  
 
-  // const productId = params.productId;
-  const productId = window.location.pathname.split("/")[3]
-  const qty = window.location.search.split('qty=')[1] ;
-  console.log("productId ne: ", productId);
-  console.log("qty ne: ", qty);
+  // const product = params.product;
+  const product = window.location.pathname.split("/")[3]
+  const quantity = window.location.search.split('quantity=')[1] ;
+  console.log("product ne: ", product);
+  console.log("quantity ne: ", quantity);
+  console.log("cart ", cart);
   const dispatch = useDispatch();
-  // const removeFromCartHandler = (productId) => {
-  //   dispatch(removeFromCart(productId));
+  // const removeFromCartHandler = (product) => {
+  //   dispatch(removeFromCart(product));
   // }
   useEffect(() => {
-    if (productId) {
-      dispatch(cartActions.addToCart(productId, qty));
+    if (product) {
+      dispatch(cartActions.addToCart(product, quantity));
     }
   }, []);
+
+  useEffect(() => {
+    dispatch(cartActions.getCartItems());
+  }, []);
+  console.log("cart", cart);
 
   const checkoutHandler = () => {
     history.push("/signin?redirect=shipping");
@@ -60,8 +66,8 @@ const CartScreen = () => {
 
                   </div>
                   <div>
-                    Qty:
-                  <select value={item.qty} onChange={(e) => dispatch(cartActions.addToCart(item.product, e.target.value))}>
+                    quantity:
+                  <select value={item.quantity} onChange={(e) => dispatch(cartActions.addToCart(item.product, e.target.value))}>
                       {[...Array(item.countInStock).keys()].map(x =>
                         <option key={x + 1} value={x + 1}>{x + 1}</option>
                       )}
@@ -82,9 +88,9 @@ const CartScreen = () => {
     </div>
     {/* <div className="cart-action">
       <h3>
-        Subtotal ( {cartItems.reduce((a, c) => a + c.qty, 0)} items)
+        Subtotal ( {cartItems.reduce((a, c) => a + c.quantity, 0)} items)
         :
-         $ {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+         $ {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
       </h3>
       <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length === 0}>
         Proceed to Checkout

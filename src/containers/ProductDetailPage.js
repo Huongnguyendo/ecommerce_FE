@@ -13,7 +13,7 @@ import moment from "moment";
 
 const ProductDetailPage = () => {
   let { id } = useParams();
-  const [qty, setQty] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   let productDetail = useSelector((state) => state.product.selectedProduct);
   console.log("state.product.selectedProduct", productDetail);
@@ -45,8 +45,8 @@ const ProductDetailPage = () => {
   };
 
   const handleAddToCart = () => {
-    history.push('/products/cart/' + id + '?qty=' + qty);
-    // dispatch(cartActions.addToCart(id, qty));
+    // history.push('/cart/add/' + id + '?quantity=' + quantity);
+    dispatch(cartActions.addToCart(id, quantity));
   };
 
   useEffect(() => {
@@ -119,8 +119,9 @@ const ProductDetailPage = () => {
                       roundedCircle
                     />{" "}
                     <div style={{ width: "fit-content", display: "flex" }}>
-                      {productDetail.seller.name} <br /> wrote{" "}
-                      {moment(productDetail.updatedAt).fromNow()}
+                      {productDetail.seller.name} 
+                      {/* <br /> wrote{" "}
+                      {moment(productDetail.updatedAt).fromNow()} */}
                     </div>
                   </small>
                 </Card.Footer>
@@ -149,9 +150,9 @@ const ProductDetailPage = () => {
                 <li>
                   Qty:{' '}
                   <select
-                    value={qty}
+                    value={quantity}
                     onChange={(e) => {
-                      setQty(e.target.value);
+                      setQuantity(e.target.value);
                     }}
                   >
                     {[...Array(productDetail.inStockNum).keys()].map((x) => (
