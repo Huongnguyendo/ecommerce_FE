@@ -11,7 +11,9 @@ const PublicNavbar = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
+
   
+
 
   const handleLogout = () => {
     dispatch(authActions.logout());
@@ -23,7 +25,9 @@ const PublicNavbar = () => {
         <FontAwesomeIcon icon="user" size="sm" /> Admin
       </Nav.Link>
       <Nav.Link as={Link} to="/cart">
-        <FontAwesomeIcon icon="cart" size="sm" /> Cart
+            <a className="cart-drawer">
+              <i class="fa fa-shopping-cart"></i>
+            </a>
       </Nav.Link>
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
     </Nav>
@@ -60,10 +64,10 @@ const PublicNavbar = () => {
           </div>
           
         </div>
-
       </div>
+      
 
-      <div className="header-with-search__cart-wrapper">
+      {/* <div className="header-with-search__cart-wrapper">
             <div role="button" className="stardust-popover__target">
               <div className="cart-drawer-container">
                 <a className="cart-drawer">
@@ -71,7 +75,7 @@ const PublicNavbar = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto"></Nav>
         {!loading && <>{isAuthenticated ? authLinks : publicLinks}</>}

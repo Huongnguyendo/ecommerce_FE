@@ -99,7 +99,7 @@ a {
     padding: .1875rem;
     border-radius: 2px;
     background: #fff;
-    width: 100%;
+    width: 150%;
     box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.09);
 }
 
@@ -159,4 +159,15 @@ a {
 /* PRODUCT DETAILS */
 .product-card {
   border: none !important;
+}
+
+/* CART */
+.cart-item-row {
+  display: flex;
+  margin-top: 20px;
+}
+
+.cart-image img {
+  width:120px;
+  margin-right: 20px;
 }

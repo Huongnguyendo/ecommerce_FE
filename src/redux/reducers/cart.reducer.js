@@ -15,18 +15,12 @@ const cartReducer = (state = initialState, action) => {
   switch (type) {
     case types.GET_CART_ITEMS_REQUEST:
     case types.CART_ADD_ITEM_REQUEST:
+    case types.CART_REMOVE_ITEM_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_CART_ITEMS_SUCCESS:
     case types.CART_ADD_ITEM_SUCCESS:
-      // const item = payload;
-      // const product = state.cartItems.find(x => x.product === item.product);
-      // if (product) {
-      //   return {
-      //     cartItems:
-      //       state.cartItems.map(x => x.product === product.product ? item : x)
-      //   };
-      // }
+    case types.CART_REMOVE_ITEM_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -36,6 +30,7 @@ const cartReducer = (state = initialState, action) => {
 
     case types.GET_CART_ITEMS_FAILURE:
     case types.CART_ADD_ITEM_FAILURE:
+    case types.CART_REMOVE_ITEM_FAILURE:
       return { ...state, loading: false, error: payload };
       
     

@@ -16,7 +16,7 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   let productDetail = useSelector((state) => state.product.selectedProduct);
-  console.log("state.product.selectedProduct", productDetail);
+  // console.log("state.product.selectedProduct", productDetail);
   const loading = useSelector((state) => state.product.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const history = useHistory();

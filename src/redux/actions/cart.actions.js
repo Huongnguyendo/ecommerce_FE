@@ -35,20 +35,27 @@ const getCartItems = () => async (dispatch) => {
     console.log(error);
   }
 }
-// const removeFromCart = (productId) => (dispatch, getState) => {
-//   dispatch({ type: CART_REMOVE_ITEM, payload: productId });
 
-//   const { cart: { cartItems } } = getState();
-//   Cookie.set("cartItems", JSON.stringify(cartItems));
-// }
-// const saveShipping = (data) => (dispatch) => {
-//   dispatch({ type: CART_SAVE_SHIPPING, payload: data });
-// }
-// const savePayment = (data) => (dispatch) => {
-//   dispatch({ type: CART_SAVE_PAYMENT, payload: data });
-// }
+const removeFromCart = (product) => async (dispatch) => {
+  try {
+    // console.log("haha ", productId, quantity);
+    dispatch({ type: types.CART_REMOVE_ITEM_REQUEST, payload: null });
+    try {
+        const res = await api.post("/cart/remove/", { product });
+        // console.log(res);
+        dispatch({ type: types.CART_REMOVE_ITEM_SUCCESS, payload: res.data.data });
+        // dispatch(routeActions.redirect("/login"));
+        toast.success(`Remove from cart successfull`);
+      } catch (error) {
+        dispatch({ type: types.CART_REMOVE_ITEM_FAILURE, payload: error });
+      }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const cartActions = {
     addToCart, 
     getCartItems,
+    removeFromCart,
   };
