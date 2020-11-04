@@ -12,23 +12,40 @@ const PublicNavbar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
 
-  
-
 
   const handleLogout = () => {
     dispatch(authActions.logout());
   };
 
+  const currentUser = useSelector((state) => state.auth.user);
+  const isSeller = (currentUser && currentUser.role === "Seller");
+
   const authLinks = (
     <Nav>
-      <Nav.Link as={Link} to="/admin/profile">
-        <FontAwesomeIcon icon="user" size="sm" /> Admin
+        <Nav.Link as={Link} to="/user/profile">
+        <FontAwesomeIcon icon="user" size="sm" /> Profile
       </Nav.Link>
+      
       <Nav.Link as={Link} to="/cart">
             <a className="cart-drawer">
               <i class="fa fa-shopping-cart"></i>
             </a>
       </Nav.Link>
+      <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+    </Nav>
+  );
+
+  const sellerLinks = (
+    <Nav>
+        <Nav.Link as={Link} to="/seller/profile">
+        <FontAwesomeIcon icon="user" size="sm" /> Seller Profile
+      </Nav.Link>
+      
+      {/* <Nav.Link as={Link} to="/cart">
+            <a className="cart-drawer">
+              <i class="fa fa-shopping-cart"></i>
+            </a>
+      </Nav.Link> */}
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
     </Nav>
   );
@@ -46,7 +63,6 @@ const PublicNavbar = () => {
 
   return (
     <Navbar expand="sm" className="container header-with-search">
-      
       
       <Navbar.Brand as={Link} to="/" className="mr-auto header-with-search__logo-section">
         <img src={logo} alt="logo" height="60px" />
@@ -78,7 +94,9 @@ const PublicNavbar = () => {
           </div> */}
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto"></Nav>
-        {!loading && <>{isAuthenticated ? authLinks : publicLinks}</>}
+        {!loading && 
+        <>{isSeller ? sellerLinks : isAuthenticated ? 
+        authLinks : publicLinks}</>}
       </Navbar.Collapse>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       

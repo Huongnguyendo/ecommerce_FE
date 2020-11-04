@@ -1,30 +1,35 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import { Switch, Route } from "react-router-dom";
 import NotFoundPage from "components/NotFoundPage";
 import AddEditProductPage from "../../AddEditProductPage";
-import ProfilePage from "../../Admin/ProfilePage";
+import ProfilePage from "../../Profile/ProfilePage";
+import SellerProfilePage from "../../Profile/SellerProfilePage"
 import ProductDetailPage from "../../ProductDetailPage";
 import PublicNavbar from "../../PublicNavbar";
 import AlertMsg from "components/AlertMsg";
+import PrivateSellerRoute from "../../Routes/PrivateSellerRoute";
 
-const AdminLayout = () => {
+const SellerLayout = () => {
+  let currentUser = useSelector((state) => state.auth.user);
+  console.log("currentUser ne: ", currentUser);
+
   return (
     <>
+    <h1>Hello</h1>
       <PublicNavbar />
       <Container fluid>
         <Row>
           {/* <SideMenu /> */}
           <Col md={9} lg={10}>
-            <AlertMsg />
+            {/* <AlertMsg /> */}
             <Switch>
-              <Route exact path="/admin/profile" component={ProfilePage} />
-              {/* <Route exact path="/admin/products" component={BlogListPage} />
-              <Route exact path="/admin/products/:id" component={ProductDetailPage} />
-              <Route exact path="/admin/products/add" component={AddEditBlogPage} /> */}
-              <Route
+              <PrivateSellerRoute  path="/seller/profile" component={SellerProfilePage} />
+              <PrivateSellerRoute exact path="/products/add" component={AddEditProductPage} />
+              <PrivateSellerRoute
                 exact
-                path="/admin/products/edit/:id"
+                path="/products/edit/:id"
                 component={AddEditProductPage}
               />
               <Route component={NotFoundPage} />
@@ -36,4 +41,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default SellerLayout;

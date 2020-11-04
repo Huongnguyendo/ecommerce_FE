@@ -10,8 +10,6 @@ const getProductList = (pageNum = 1, limit = 10) => async (dispatch) => {
   try {
     const res = await api.get(`/products?page=${pageNum}&limit=${limit}`);
     dispatch({ type: types.GET_PRODUCTS_SUCCESS, payload: res.data.data });
-    console.log("res ne", res);
-    console.log("res.data ne", res.data);
     console.log("res.data.data ne", res.data.data);
   } catch (err) {
     dispatch({ type: types.GET_PRODUCTS_FAILURE, payload: err });
@@ -96,6 +94,20 @@ const deleteProduct = (productId, redirectTo="__GO_BACK__") => async (dispatch) 
   }
 };
 
+
+const searchProductsByKeyword = (keyword, pageNum = 1, limit = 10) => async (dispatch) => {
+  dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_REQUEST, payload: null });
+
+  try {
+    const res = await api.get(`/products/keyword?page=${pageNum}&limit=${limit}`, { keyword });
+    dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_SUCCESS, payload: res.data.data });
+    console.log("res kw ne", res);
+  } catch (err) {
+    dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_FAILURE, payload: err });
+  }
+};
+
+
 export const productActions = {
   getProductList,
   getProductDetail,
@@ -103,4 +115,5 @@ export const productActions = {
   createNewProduct,
   updateProduct,
   deleteProduct,
+  searchProductsByKeyword,
 };

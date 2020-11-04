@@ -2,7 +2,7 @@ import * as types from "redux/constants/auth.constants";
 const initialState = {
   user: {},
   isAuthenticated: false,
-  loading: false,
+  loading: true,
 };
 
 const authReducer = (state = initialState, action) => {

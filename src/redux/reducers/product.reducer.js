@@ -12,6 +12,7 @@ const productReducer = (state = initialState, action) => {
 
   switch (type) {
     case types.GET_PRODUCTS_REQUEST || types.GET_PRODUCTDETAIL_REQUEST:
+    case types.GET_PRODUCTS_BYKEYWORD_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_PRODUCTS_SUCCESS:
@@ -21,7 +22,15 @@ const productReducer = (state = initialState, action) => {
         products: payload.products,
         totalPageNum: payload.totalPages,
       };
+    case types.GET_PRODUCTS_BYKEYWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        products: payload.products,
+        totalPageNum: payload.totalPages,
+      };
 
+    case types.GET_PRODUCTS_BYKEYWORD_FAILURE:
     case types.GET_PRODUCTS_FAILURE:
       return { ...state, loading: false, error: payload };
 

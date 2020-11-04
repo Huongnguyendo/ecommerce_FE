@@ -8,6 +8,7 @@ import {
   Form,
   ButtonGroup,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { authActions } from "../../redux/actions/auth.actions";
 // import { ClipLoader } from "react-spinners";
@@ -38,42 +39,40 @@ const ProfilePage = () => {
     setEditable(false);
   };
 
-  // const uploadWidget = () => {
-  //   window.cloudinary.openUploadWidget(
-  //     {
-  //       cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-  //       upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
-  //       tags: ["socialBlog", "userAvatar"],
-  //     },
-  //     function (error, result) {
-  //       if (error) console.log(error);
-  //       if (result && result.length && !error) {
-  //         setFormData({
-  //           ...formData,
-  //           avatarUrl: result[0].secure_url,
-  //         });
-  //       }
-  //     }
-  //   );
-  // };
+  const uploadWidget = () => {
+    window.cloudinary.openUploadWidget(
+      {
+        cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+        upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
+        tags: ["socialBlog", "userAvatar"],
+      },
+      function (error, result) {
+        if (error) console.log(error);
+        if (result && result.length && !error) {
+          setFormData({
+            ...formData,
+            avatarUrl: result[0].secure_url,
+          });
+        }
+      }
+    );
+  };
 
   return (
     <Container fluid>
-      <br />
+      {/* <br />
       <Row>
-        <Col>
-          <h4>Profile Page</h4>
-        </Col>
+        
         <Col className="d-flex justify-content-end align-items-start">
           <Button variant="primary" onClick={() => setEditable(true)}>
-            {/* <FontAwesomeIcon icon="edit" size="1x" />  */}
             Edit
           </Button>
         </Col>
       </Row>
-      <br />
+      <br /> */}
 
       <Row>
+          <h1>Seller Profile Page ne</h1>
         <Col md={{ span: 8, offset: 2 }}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
@@ -93,10 +92,22 @@ const ProfilePage = () => {
                       />
                     </div>
                   )}
+                {/* <Link to="/products/add">
+                    <Button variant="primary">Add more product</Button>
+                </Link> */}
+
+                  <Button
+                    variant="success"
+                    className="btn-block w-100 mb-5"
+                    onClick={() => setEditable(true)}
+                  >
+                    Edit info
+                  </Button>
+
                   <Button
                     variant="info"
-                    // className="btn-block w-50 "
-                    // onClick={uploadWidget}
+                    className="btn-block w-100 "
+                    onClick={uploadWidget}
                     disabled={!editable}
                   >
                     Edit avatar

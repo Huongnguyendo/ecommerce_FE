@@ -4,11 +4,11 @@ import { Form, Button, Col } from "react-bootstrap";
 const SearchItem = ({
   searchInput,
   handleInputChange,
-  handleSubmit,
+  handleSearchSubmit,
   loading,
 }) => {
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSearchSubmit}>
       <Form.Row>
         <Col>
           <Form.Control
