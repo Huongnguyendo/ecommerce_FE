@@ -58,9 +58,9 @@ const ProductDetailPage = () => {
   return (
     <>
       <div className="d-flex justify-content-between">
-          <Button onClick={handleGoBackClick}>
+          {/* <Button onClick={handleGoBackClick}>
             <FontAwesomeIcon icon="chevron-left" size="1x" /> Back
-          </Button>
+          </Button> */}
           {currentUser?._id === productDetail?.seller?._id ? (
             <Link to={`/products/edit/${productDetail?._id}`}>
               <Button variant="primary">
@@ -89,7 +89,7 @@ const ProductDetailPage = () => {
             {/* <Col sm={12}> */}
               <Card className="product-card">
                 <Card.Body>
-                  <Card.Title>Name: {productDetail.name}</Card.Title>
+                  <Card.Title>{productDetail.name}</Card.Title>
                   <div>
                     {/* <Card.Text>Description: {productDetail.description}</Card.Text>{" "} */}
                     {productDetail.image && (
@@ -127,7 +127,7 @@ const ProductDetailPage = () => {
                 </Card.Footer>
                 <Card>
                   <Card.Body>
-                      Description: <Markdown source={productDetail.description} />
+                      <i>Product description</i> <Markdown source={productDetail.description} />
                   </Card.Body>
                 </Card>
               </Card>
@@ -142,13 +142,13 @@ const ProductDetailPage = () => {
 
 
               <ul>
-                <li>Price: {productDetail.price}</li>
+                <li>Price: ${productDetail.price}</li>
                 <li>
                   Status:{' '}
                   {productDetail.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}
                 </li>
                 <li>
-                  Qty:{' '}
+                  Quantity:{' '}
                   <select
                     value={quantity}
                     onChange={(e) => {
@@ -162,17 +162,16 @@ const ProductDetailPage = () => {
                     ))}
                   </select>
                 </li>
-                <li>
+              </ul>
                   {productDetail.inStockNum > 0 && (
-                    <button
+                    <Button
+                      variant="success"
                       onClick={handleAddToCart}
                       className="button primary"
                     >
                       Add to Cart
-                    </button>
+                    </Button>
                   )}
-                </li>
-              </ul>
             
           </Container>
         
