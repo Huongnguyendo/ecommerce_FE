@@ -17,7 +17,6 @@ const SellerLayout = () => {
 
   return (
     <>
-    <h1>Hello</h1>
       <PublicNavbar />
       <Container fluid>
         <Row>
@@ -26,10 +25,10 @@ const SellerLayout = () => {
             {/* <AlertMsg /> */}
             <Switch>
               <PrivateSellerRoute  path="/seller/profile" component={SellerProfilePage} />
-              <PrivateSellerRoute exact path="/products/add" component={AddEditProductPage} />
+              <PrivateSellerRoute exact path="/seller/products/add" component={AddEditProductPage} />
               <PrivateSellerRoute
                 exact
-                path="/products/edit/:id"
+                path="/seller/products/edit/:id"
                 component={AddEditProductPage}
               />
               <Route component={NotFoundPage} />

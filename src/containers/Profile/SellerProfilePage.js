@@ -92,9 +92,10 @@ const ProfilePage = () => {
                       />
                     </div>
                   )}
-                {/* <Link to="/products/add">
+
+                <Link to="/seller/products/add">
                     <Button variant="primary">Add more product</Button>
-                </Link> */}
+                </Link>
 
                   <Button
                     variant="success"

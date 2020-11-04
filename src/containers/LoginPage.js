@@ -7,11 +7,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { REACT_APP_FB, REACT_APP_GG } from "../config/constants";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from 'react-google-login';
+import PublicNavbar from "../containers/PublicNavbar"
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "user.b@gmail.com",
+    password: "123456",
   });
   const [errors, setErrors] = useState({
     email: "",
@@ -34,6 +35,7 @@ const LoginPage = () => {
     dispatch(authActions.loginRequest(email, password));
   };
 
+
   // log in with facebook
   // send the token to backend via redux
   const loginWithFacebook = (response) => {
@@ -46,14 +48,16 @@ const LoginPage = () => {
     dispatch(authActions.loginGoogleRequest(response.accessToken));
   };
 
-  useEffect(() => {
-    if (isAuthenticated) return <Redirect to="/" />;
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated) return <Redirect to="/" />;
+  // }, [isAuthenticated]);
 
   
   return (
+    <>
+    <PublicNavbar />
     <Container>
-      Hihi: {isAuthenticated}
+      {isAuthenticated}
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
@@ -172,6 +176,7 @@ const LoginPage = () => {
         </Col>
       </Row>
     </Container>
+    </>
   );
 };
 

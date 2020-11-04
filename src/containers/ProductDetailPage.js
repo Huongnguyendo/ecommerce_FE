@@ -55,6 +55,8 @@ const ProductDetailPage = () => {
     }
   }, [id]);
 
+  if (loading) return <></>
+
   return (
     <>
       <div className="d-flex justify-content-between">
@@ -62,7 +64,7 @@ const ProductDetailPage = () => {
             <FontAwesomeIcon icon="chevron-left" size="1x" /> Back
           </Button> */}
           {currentUser?._id === productDetail?.seller?._id ? (
-            <Link to={`/products/edit/${productDetail?._id}`}>
+            <Link to={`/seller/products/edit/${productDetail?._id}`}>
               <Button variant="primary">
                 <FontAwesomeIcon icon="edit" size="1x" /> Edit
               </Button>
@@ -89,7 +91,7 @@ const ProductDetailPage = () => {
             {/* <Col sm={12}> */}
               <Card className="product-card">
                 <Card.Body>
-                  <Card.Title>{productDetail.name}</Card.Title>
+                  <Card.Title>Product name: {productDetail.name}</Card.Title>
                   <div>
                     {/* <Card.Text>Description: {productDetail.description}</Card.Text>{" "} */}
                     {productDetail.image && (
@@ -106,11 +108,9 @@ const ProductDetailPage = () => {
                     }}
                   > Seller: 
                     <Image
-                      src={
-                        productDetail.seller.avatarUrl === ""
-                          ? "../images/defaultavapic.png"
-                          : `${productDetail.seller.avatarUrl}`
-                      }
+                      src={ productDetail && productDetail.seller &&
+                        productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}`
+                        : "../images/defaultavapic.png"}
                       style={{
                         width: "30px",
                         height: "30px",
@@ -119,7 +119,7 @@ const ProductDetailPage = () => {
                       roundedCircle
                     />{" "}
                     <div style={{ width: "fit-content", display: "flex" }}>
-                      {productDetail.seller.name} 
+                      {productDetail?.seller?.name} 
                       {/* <br /> wrote{" "}
                       {moment(productDetail.updatedAt).fromNow()} */}
                     </div>

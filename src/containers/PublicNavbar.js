@@ -68,7 +68,8 @@ const PublicNavbar = () => {
         <img src={logo} alt="logo" height="60px" />
         <span style={{ marginLeft: "10px", color: "#161b45" }}></span>
       </Navbar.Brand>
-      <div className="header-with-search__search-section">
+
+      {/* <div className="header-with-search__search-section">
         <div className="searchbar">
           <div className="searchbar__main">
             <form role="search" className="searchbar-input">
@@ -80,7 +81,7 @@ const PublicNavbar = () => {
           </div>
           
         </div>
-      </div>
+      </div> */}
       
 
       {/* <div className="header-with-search__cart-wrapper">

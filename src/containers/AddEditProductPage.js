@@ -15,9 +15,13 @@ import { productActions } from "../redux/actions";
 
 const AddEditProductPage = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-    images: ["http://placeimg.com/400/300", "http://placeimg.com/400/300"],
+    name: "",
+    description: "",
+    image: "http://placeimg.com/400/300",
+    brand: "",
+    price: 0,
+    category: "",
+    inStockNum: 0
   });
   const loading = useSelector((state) => state.product.loading);
   const dispatch = useDispatch();
@@ -28,16 +32,23 @@ const AddEditProductPage = () => {
   const addOrEdit = params.id ? "Edit" : "Add";
   const productId = params.id;
 
+  console.log("add or edit ne: ", addOrEdit);
+
   useEffect(() => {
     if (productId) {
       if (!selectedProduct) {
-        dispatch(productActions.getSingleProduct(productId));
+        // dispatch(productActions.getSingleProduct(productId));
+        dispatch(productActions.getProductDetail(productId));
       }
       setFormData((formData) => ({
         ...formData,
-        title: selectedProduct.title,
-        content: selectedProduct.content,
-        images: selectedProduct.images,
+        name: selectedProduct?.name,
+        description: selectedProduct?.description,
+        image: selectedProduct?.image,
+        brand: selectedProduct?.brand, 
+        price: selectedProduct?.price, 
+        category: selectedProduct?.category, 
+        inStockNum: selectedProduct?.inStockNum
       }));
     }
   }, [productId, , dispatch]);
@@ -48,12 +59,12 @@ const AddEditProductPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { title, content, images } = formData;
+    const { name, description, image, brand, price, category, inStockNum } = formData;
     if (addOrEdit === "Add") {
-      dispatch(productActions.createNewProduct(title, content, images));
+      dispatch(productActions.createNewProduct(name, description, image, brand, price, category, inStockNum));
     } else if (addOrEdit === "Edit") {
       dispatch(
-        productActions.updateProduct(selectedProduct._id, title, content, images)
+        productActions.updateProduct(selectedProduct._id, name, description, image, brand, price, category, inStockNum)
       );
     }
   };
@@ -93,9 +104,9 @@ const AddEditProductPage = () => {
               <Form.Control
                 type="text"
                 required
-                placeholder="Title"
-                name="title"
-                value={formData.title}
+                placeholder="name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -103,12 +114,36 @@ const AddEditProductPage = () => {
               <Form.Control
                 as="textarea"
                 rows="10"
-                placeholder="Content"
-                name="content"
-                value={formData.content}
+                placeholder="description"
+                name="description"
+                value={formData.description}
                 onChange={handleChange}
               />
             </Form.Group>
+
+            <Form.Group>
+              <Form.Control
+                as="textarea"
+                placeholder="brand"
+                name="brand"
+                value={formData.brand}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <input placeholder="price" type="number" id="price" name="price"/>
+
+            <Form.Group>
+              <Form.Control
+                as="textarea"
+                placeholder="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+              />
+            </Form.Group>
+
+            <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"/>
 
             <ButtonGroup className="d-flex mb-3">
               {loading ? (
