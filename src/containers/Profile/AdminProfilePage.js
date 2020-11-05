@@ -8,6 +8,7 @@ import {
   Form,
   ButtonGroup,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { authActions } from "../../redux/actions/auth.actions";
 // import { ClipLoader } from "react-spinners";
@@ -90,6 +91,11 @@ const ProfilePage = () => {
                       />
                     </div>
                   )}
+
+                {/* <Link to="/seller/products/add">
+                    <Button variant="primary">Add more product</Button>
+                </Link> */}
+
                   <Button
                     variant="success"
                     className="btn-block w-100 mb-5"

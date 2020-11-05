@@ -82,8 +82,8 @@ const ProductDetailPage = () => {
         {productDetail && (
           <Container
             style={{
-              minHeight: "80vh",
-              // display: "flex",
+              // minHeight: "80vh",
+              display: "flex",
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -91,15 +91,15 @@ const ProductDetailPage = () => {
             {/* <Col sm={12}> */}
               <Card className="product-card">
                 <Card.Body>
-                  <Card.Title>Product name: {productDetail.name}</Card.Title>
+                  
                   <div>
                     {/* <Card.Text>Description: {productDetail.description}</Card.Text>{" "} */}
                     {productDetail.image && (
-                      <Image src={productDetail.image} style={{ width: "80%" }} />
+                      <Image src={productDetail.image} style={{ width: "100%" }} />
                     )}
                   </div>
                 </Card.Body>
-                <Card.Footer>
+                <div>
                   <small
                     className="text-muted"
                     style={{
@@ -115,6 +115,7 @@ const ProductDetailPage = () => {
                         width: "30px",
                         height: "30px",
                         marginRight: "10px",
+
                       }}
                       roundedCircle
                     />{" "}
@@ -124,30 +125,39 @@ const ProductDetailPage = () => {
                       {moment(productDetail.updatedAt).fromNow()} */}
                     </div>
                   </small>
-                </Card.Footer>
-                <Card>
-                  <Card.Body>
-                      <i>Product description</i> <Markdown source={productDetail.description} />
-                  </Card.Body>
-                </Card>
+                </div>
+                {/* <Card>
+                  <Card.Body style={{ width: "80%" }}> */}
+                       <Markdown source={productDetail.description} />
+                  {/* </Card.Body>
+                </Card> */}
               </Card>
             {/* </Col> */}
             
-            
-            
-            <ReviewList
-              reviews={productDetail.reviews}
-              loading={submitLoading}
-            />
+            <div>
+              <Card.Title>{productDetail.name}</Card.Title>
+              <ReviewList
+                reviews={productDetail.reviews}
+                loading={submitLoading}
+              />
+            </div>
 
 
-              <ul>
-                <li>Price: ${productDetail.price}</li>
-                <li>
+                
+            
+          </Container>
+          
+        
+          
+        )}
+
+        <div>
+                <p>Price: ${productDetail?.price}</p>
+                <p>
                   Status:{' '}
-                  {productDetail.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}
-                </li>
-                <li>
+                  {productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}
+                </p>
+                <p>
                   Quantity:{' '}
                   <select
                     value={quantity}
@@ -155,15 +165,14 @@ const ProductDetailPage = () => {
                       setQuantity(e.target.value);
                     }}
                   >
-                    {[...Array(productDetail.inStockNum).keys()].map((x) => (
+                    {[...Array(productDetail?.inStockNum).keys()].map((x) => (
                       <option key={x + 1} value={x + 1}>
                         {x + 1}
                       </option>
                     ))}
                   </select>
-                </li>
-              </ul>
-                  {productDetail.inStockNum > 0 && (
+                </p>
+                {productDetail?.inStockNum > 0 && (
                     <Button
                       variant="success"
                       onClick={handleAddToCart}
@@ -172,14 +181,12 @@ const ProductDetailPage = () => {
                       Add to Cart
                     </Button>
                   )}
-            
-          </Container>
-        
-          
-        )}
+      </div>
+                
 
           {isAuthenticated && (
               <ReviewForm
+              style={{marginTop: "20px" }}
                 reviewText={reviewText}
                 handleInputChange={handleInputChange}
                 handleSubmitReview={handleSubmitReview}

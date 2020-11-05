@@ -32,26 +32,31 @@ const AddEditProductPage = () => {
   const addOrEdit = params.id ? "Edit" : "Add";
   const productId = params.id;
 
+  const error = useSelector((state) => state.product.error);
+
+  console.log("hihahohe: ", error);
   console.log("add or edit ne: ", addOrEdit);
+  console.log("selectedProduct ne: ", selectedProduct)
 
   useEffect(() => {
     if (productId) {
       if (!selectedProduct) {
         // dispatch(productActions.getSingleProduct(productId));
-        dispatch(productActions.getProductDetail(productId));
+        dispatch(productActions.getProductDetailForSeller(productId));
+      } else {
+        setFormData((formData) => ({
+          ...formData,
+          name: selectedProduct?.name,
+          description: selectedProduct?.description,
+          image: selectedProduct?.image,
+          brand: selectedProduct?.brand, 
+          price: selectedProduct?.price, 
+          category: selectedProduct?.category, 
+          inStockNum: selectedProduct?.inStockNum
+        }));
       }
-      setFormData((formData) => ({
-        ...formData,
-        name: selectedProduct?.name,
-        description: selectedProduct?.description,
-        image: selectedProduct?.image,
-        brand: selectedProduct?.brand, 
-        price: selectedProduct?.price, 
-        category: selectedProduct?.category, 
-        inStockNum: selectedProduct?.inStockNum
-      }));
     }
-  }, [productId, , dispatch]);
+  }, [productId, selectedProduct, dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -64,7 +69,7 @@ const AddEditProductPage = () => {
       dispatch(productActions.createNewProduct(name, description, image, brand, price, category, inStockNum));
     } else if (addOrEdit === "Edit") {
       dispatch(
-        productActions.updateProduct(selectedProduct._id, name, description, image, brand, price, category, inStockNum)
+        productActions.updateProduct(selectedProduct?._id, name, description, image, brand, price, category, inStockNum)
       );
     }
   };
@@ -76,6 +81,8 @@ const AddEditProductPage = () => {
   const handleDelete = () => {
     dispatch(productActions.deleteProduct(selectedProduct._id, '/'));
   };
+
+  // useEffect(() => {dispatch(productActions.getProductDetailForSeller(productId))},[])
 
   useEffect(() => {
     if (redirectTo) {
@@ -92,6 +99,7 @@ const AddEditProductPage = () => {
   return (
     <Container>
       <Row>
+        {(error?.data?.error === "Unauthorized action") ? <h1>Not allowed</h1> :
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
             <div className="text-center mb-3">
@@ -131,7 +139,7 @@ const AddEditProductPage = () => {
               />
             </Form.Group>
 
-            <input placeholder="price" type="number" id="price" name="price"/>
+            <input placeholder="price" type="number" id="price" name="price" value={formData.price} onChange={handleChange}/>
 
             <Form.Group>
               <Form.Control
@@ -143,7 +151,7 @@ const AddEditProductPage = () => {
               />
             </Form.Group>
 
-            <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"/>
+            <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"  value={formData.inStockNum} onChange={handleChange}/>
 
             <ButtonGroup className="d-flex mb-3">
               {loading ? (
@@ -181,7 +189,7 @@ const AddEditProductPage = () => {
               </ButtonGroup>
             )}
           </Form>
-        </Col>
+        </Col>}
       </Row>
     </Container>
   );

@@ -28,6 +28,30 @@ const getProductDetail = (id) => async (dispatch) => {
   }
 };
 
+const getProductDetailForSeller = (id) => async (dispatch) => {
+  dispatch({ type: types.GET_PRODUCTDETAILFORSELLER_REQUEST, payload: null });
+
+  try {
+    const res = await api.get(`/products/edit/${id}`);
+    dispatch({ type: types.GET_PRODUCTDETAILFORSELLER_SUCCESS, payload: res.data.data });
+    console.log("singledata ne", res.data.data);
+  } catch (err) {
+    dispatch({ type: types.GET_PRODUCTDETAILFORSELLER_FAILURE, payload: err });
+  }
+};
+
+const getAllProductsForSeller = () => async (dispatch) => {
+  dispatch({ type: types.GET_ALLPRODUCTSFORSELLER_REQUEST, payload: null });
+
+  try {
+    const res = await api.get(`/seller/products`);
+    dispatch({ type: types.GET_ALLPRODUCTSFORSELLER_SUCCESS, payload: res.data.data });
+    // console.log("singledata ne", res.data.data);
+  } catch (err) {
+    dispatch({ type: types.GET_ALLPRODUCTSFORSELLER_FAILURE, payload: err });
+  }
+}
+
 const createReview = (productId, reviewText) => async (dispatch) => {
   dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
   try {
@@ -44,12 +68,20 @@ const createReview = (productId, reviewText) => async (dispatch) => {
   }
 };
 
+/* 
+name: selectedProduct.name,
+        description: selectedProduct.description,
+        image: selectedProduct.image,
+        brand: selectedProduct.brand, 
+        price: selectedProduct.price, 
+        category: selectedProduct.category, 
+        inStockNum: selectedProduct.inStockNum
+*/
 
-
-const createNewProduct = (title, content, images, redirectTo="__GO_BACK__") => async (dispatch) => {
+const createNewProduct = (name, description, image, brand, price, category, inStockNum, redirectTo="__GO_BACK__") => async (dispatch) => {
   dispatch({ type: types.CREATE_PRODUCT_REQUEST, payload: null });
   try {
-    const res = await api.post("/products", { title, content, images });
+    const res = await api.post("/products/add", { name, description, image, brand, price, category, inStockNum });
     dispatch({
       type: types.CREATE_PRODUCT_SUCCESS,
       payload: res.data.data,
@@ -62,14 +94,16 @@ const createNewProduct = (title, content, images, redirectTo="__GO_BACK__") => a
   }
 };
 
-const updateProduct = (productId, title, content, images, redirectTo="__GO_BACK__") => async (dispatch) => {
+const updateProduct = (productId, name, description, image, brand, price, category, inStockNum, redirectTo="__GO_BACK__") => async (dispatch) => {
   dispatch({ type: types.UPDATE_PRODUCT_REQUEST, payload: null });
   try {
-    const res = await api.put(`/products/${productId}`, { title, content, images });
+    const res = await api.put(`/products/edit/${productId}`, { name, description, image, brand, price, category, inStockNum });
+    console.log("res edit ne: ", res);
     dispatch({
       type: types.UPDATE_PRODUCT_SUCCESS,
       payload: res.data.data,
     });
+    
     // dispatch(routeActions.redirect(redirectTo));
     toast.success("The PRODUCT has been updated!");
   } catch (error) {
@@ -82,6 +116,7 @@ const deleteProduct = (productId, redirectTo="__GO_BACK__") => async (dispatch) 
   dispatch({ type: types.DELETE_PRODUCT_REQUEST, payload: null });
   try {
     const res = await api.delete(`/products/${productId}`);
+    console.log("delete res: ", res);
     dispatch({
       type: types.DELETE_PRODUCT_SUCCESS,
       payload: res.data,
@@ -99,7 +134,8 @@ const searchProductsByKeyword = (keyword, pageNum = 1, limit = 10) => async (dis
   dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_REQUEST, payload: null });
 
   try {
-    const res = await api.get(`/products/keyword?page=${pageNum}&limit=${limit}`, { keyword });
+    console.log("kw ne nha: ", keyword);
+    const res = await api.post(`/products/?page=${pageNum}&limit=${limit}`, { keyword });
     dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_SUCCESS, payload: res.data.data });
     console.log("res kw ne", res);
   } catch (err) {
@@ -111,6 +147,8 @@ const searchProductsByKeyword = (keyword, pageNum = 1, limit = 10) => async (dis
 export const productActions = {
   getProductList,
   getProductDetail,
+  getProductDetailForSeller,
+  getAllProductsForSeller,
   createReview,
   createNewProduct,
   updateProduct,

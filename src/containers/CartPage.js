@@ -28,7 +28,7 @@ const CartScreen = () => {
   }, []);
 
   const checkoutHandler = () => {
-    history.push("/signin?redirect=shipping");
+    dispatch(cartActions.checkOutCart());
   }
 //   let totalCost = cart.length && cart.reduce(function(item1, item2){
 //     return (item1.quantity * item1.product.price) + (item2.quantity * item2.product.price);
@@ -117,6 +117,7 @@ const CartScreen = () => {
               </div>
             )
         }
+        <Button variant="info" onClick={checkoutHandler}>Checkout</Button>
       </div>
 
     </div>

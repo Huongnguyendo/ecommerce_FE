@@ -1,4 +1,5 @@
 import * as types from "redux/constants/product.constants";
+import * as categoryTypes from "../constants/category.constants";
 const initialState = {
   products: [],
   totalPageNum: 1,
@@ -11,11 +12,29 @@ const productReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case categoryTypes.CATEGORY_CHOOSE_REQUEST:
+      return { ...state, loading: true };
+
+    case categoryTypes.CATEGORY_CHOOSE_SUCCESS:
+        console.log("products của category ne: ", payload);
+      return {
+        ...state,
+        loading: false,
+        products: payload,
+        
+      };
+
+    case categoryTypes.CATEGORY_CHOOSE_FAILURE:
+      return { ...state, loading: false, error: payload };
+
     case types.GET_PRODUCTS_REQUEST || types.GET_PRODUCTDETAIL_REQUEST:
+    case types.GET_PRODUCTDETAILFORSELLER_REQUEST:
     case types.GET_PRODUCTS_BYKEYWORD_REQUEST:
+    case types.GET_ALLPRODUCTSFORSELLER_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_PRODUCTS_SUCCESS:
+    case types.GET_ALLPRODUCTSFORSELLER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -31,13 +50,16 @@ const productReducer = (state = initialState, action) => {
       };
 
     case types.GET_PRODUCTS_BYKEYWORD_FAILURE:
+    case types.GET_ALLPRODUCTSFORSELLER_FAILURE:
     case types.GET_PRODUCTS_FAILURE:
       return { ...state, loading: false, error: payload };
 
     case types.GET_PRODUCTDETAIL_SUCCESS:
-      return { ...state, selectedProduct: payload };
+    case types.GET_PRODUCTDETAILFORSELLER_SUCCESS:
+      return { ...state, selectedProduct: payload, loading: false };
 
-    case types.GET_PRODUCTDETAIL_REQUEST:
+    case types.GET_PRODUCTDETAIL_FAILURE:
+    case types.GET_PRODUCTDETAILFORSELLER_FAILURE:
       return { ...state, loading: false, error: payload };
 
     case types.CREATE_REVIEW_REQUEST:

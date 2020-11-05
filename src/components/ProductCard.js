@@ -6,7 +6,7 @@ import "App.css";
 const ProductCard = ({ product, gotoProductDetail }) => {
   return (
     product && (
-      <Col sm={6} style={{ marginBottom: "20px", maxWidth: "320px" }}>
+      <div className="productCard" sm={3} >
         {/* {console.log("product._id", product._id)}
         {console.log("product.seller", product.seller.name)} */}
         <Card>
@@ -14,31 +14,31 @@ const ProductCard = ({ product, gotoProductDetail }) => {
             
             <div
               style={{
-                height: "200px",
+                // height: "200px",
                 overflow: "scroll",
                 textAlign: "left",
               }}
             >
               {/* Description: <Card.Text>{product.description}</Card.Text>{" "} */}
               {product.image && (
-                <Image src={product.image} style={{ width: "80%" }} />
+                <Image src={product.image} style={{ width: "200px" }} />
               )}
               <Card.Title
               style={{
-                height: "50px",
+                height: "40px",
                 overflow: "hidden",
               }}
               onClick={() => {
                 gotoProductDetail(product._id);
               }}
             >
-              <Badge variant="warning">{product.category}</Badge>
-              {product.name}
+              <Badge variant="warning" style={{fontSize: "10px"}}>{product.category}</Badge>
+              <p className="productCardName">{product.name}</p>
             </Card.Title>
-            ${product.price}
+            <p className="productCardPrice">${product.price}</p>
             </div>
           </Card.Body>
-          <Card.Footer>
+          <div style={{ height: "30px"}}>
             <small
               className="text-muted"
               style={{
@@ -47,23 +47,21 @@ const ProductCard = ({ product, gotoProductDetail }) => {
               }}
             >
               <Image
-                src={ 
-                  product.seller.avatarUrl === ""
-                    ? "../images/defaultavapic.png"
-                    : `${product.seller.avatarUrl}`
-                }
+                src={ product && product.seller &&
+                  product.seller.avatarUrl ? `${product.seller.avatarUrl}`
+                  : "../images/defaultavapic.png"}
                 style={{ width: "30px", height: "25px", marginRight: "10px" }}
                 roundedCircle
               />{" "}
               
               <div style={{ width: "fit-content", display: "flex" }}>
                 
-                Merchant: {product.seller.name} 
+                Merchant: {product.seller?.name} 
               </div>
             </small>
-          </Card.Footer>
+          </div>
         </Card>
-      </Col>
+      </div>
     )
   );
 };

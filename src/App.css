@@ -171,3 +171,50 @@ a {
   width:120px;
   margin-right: 20px;
 }
+
+.signinBtn {
+    display: block;
+    margin-top: 45px;
+    width: 100%;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+    border-radius: 15px;
+    background-color: #81C91D;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 20px -5px rgba(#81C91D, 0.9);
+    outline: none;
+  
+}
+
+.ggLoginBtn {
+  border-radius: 16px;
+		background-color: #4C6EF4;
+		text-decoration: none;
+		padding: 8px;
+		margin-bottom: 45px;
+		box-shadow: 0 10px 20px -5px rgba(#4C6EF4, 0.9);
+}
+
+/* PRODUCT CARD */
+.productCard {
+  margin-right: 10px!important;
+  margin-bottom: 10px!important;
+}
+
+.card-body {
+  padding: 0!important;
+}
+
+.productCardName {
+  font-size:15px;
+}
+
+.productCardPrice {
+  font-size:15px;
+  color: rgb(242, 82, 32);
+}

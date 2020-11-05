@@ -11,7 +11,7 @@ import PublicNavbar from "containers/PublicNavbar";
 import RegisterPage from "containers/RegisterPage";
 import LoginPage from "containers/LoginPage";
 import PrivateRoute from "containers/Routes/PrivateRoute";
-import SellerLayout from "containers/Routes/layouts/SellerLayout";
+import SellerLayout from "containers/Routes/layouts/Seller/SellerLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "redux/actions";
 

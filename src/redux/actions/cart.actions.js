@@ -54,8 +54,27 @@ const removeFromCart = (product) => async (dispatch) => {
   }
 }
 
+const checkOutCart = () => async (dispatch) => {
+  try {
+    // console.log("haha ", productId, quantity);
+    dispatch({ type: types.CART_CHECKOUT_REQUEST, payload: null });
+    try {
+        const res = await api.post("/cart/checkout");
+        console.log(res);
+        dispatch({ type: types.CART_CHECKOUT_SUCCESS, payload: res.data.data });
+        // dispatch(routeActions.redirect("/login"));
+        toast.success(`Cart checkout successfull`);
+      } catch (error) {
+        dispatch({ type: types.CART_CHECKOUT_FAILURE, payload: error });
+      }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const cartActions = {
     addToCart, 
     getCartItems,
     removeFromCart,
+    checkOutCart
   };

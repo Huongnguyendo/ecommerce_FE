@@ -8,6 +8,7 @@ import { REACT_APP_FB, REACT_APP_GG } from "../config/constants";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from 'react-google-login';
 import PublicNavbar from "../containers/PublicNavbar"
+import "../App.css";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -63,9 +64,9 @@ const LoginPage = () => {
           <Form onSubmit={handleSubmit}>
             <div className="text-center mb-3">
               <h1 className="text-primary">Sign In</h1>
-              <p className="lead">
+              {/* <p className="lead">
                 <FontAwesomeIcon icon="user" size="1x" /> Sign Into Your Account
-              </p>
+              </p> */}
             </div>
             <Form.Group>
               <Form.Control
@@ -111,9 +112,9 @@ const LoginPage = () => {
                 Loading...
               </Button>
             ) : (
-              <Button className="btn-block" type="submit" variant="primary">
+              <button className="signinBtn" type="submit" >
                 Login
-              </Button>
+              </button>
             )}
 
             <div className="d-flex flex-column text-center">
@@ -166,6 +167,12 @@ const LoginPage = () => {
                 padding: "12px",
                 background: "none",
                 border: "none",
+                // borderRadius: "16px",
+                // backgroundColor: "#4C6EF4",
+                // textDecoration: "none",
+                // padding: "8px",
+                // marginBottom: "45px",
+                // boxShadow: "0 10px 20px -5px rgba(#4C6EF4, 0.9)",
               }}
             />
 

@@ -12,7 +12,7 @@ const HomePage = () => {
   const [pageNum, setPageNum] = useState(1); 
 
   const [category, setCategory] = useState("All");
-  const filterProducts = useSelector((state) => state.category.products)
+  const filterProducts = useSelector((state) => state.product.products)
   console.log("filterProducts: ", filterProducts );
 
   const totalPageNum = useSelector((state) => state.product.totalPageNum);

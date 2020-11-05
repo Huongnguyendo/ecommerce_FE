@@ -44,7 +44,7 @@ const ProfilePage = () => {
       {
         cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
         upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
-        tags: ["socialBlog", "userAvatar"],
+        tags: ["userAvatar"],
       },
       function (error, result) {
         if (error) console.log(error);
@@ -72,7 +72,6 @@ const ProfilePage = () => {
       <br /> */}
 
       <Row>
-          <h1>Seller Profile Page ne</h1>
         <Col md={{ span: 8, offset: 2 }}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
@@ -94,12 +93,16 @@ const ProfilePage = () => {
                   )}
 
                 <Link to="/seller/products/add">
-                    <Button variant="primary">Add more product</Button>
+                    <Button variant="primary" className="mr-2">Add more product</Button>
+                </Link>
+
+                <Link to="/seller/dashboard">
+                    <Button variant="primary">Dashboard</Button>
                 </Link>
 
                   <Button
                     variant="success"
-                    className="btn-block w-100 mb-5"
+                    className="btn-block w-100 mb-3 mt-3"
                     onClick={() => setEditable(true)}
                   >
                     Edit info
