@@ -63,6 +63,8 @@ const ProductDetailPage = () => {
           {/* <Button onClick={handleGoBackClick}>
             <FontAwesomeIcon icon="chevron-left" size="1x" /> Back
           </Button> */}
+          {console.log("current user ne: ", currentUser)}
+          {console.log("productDetail?.seller?._id: ", productDetail?.seller?._id)}
           {currentUser?._id === productDetail?.seller?._id ? (
             <Link to={`/seller/products/edit/${productDetail?._id}`}>
               <Button variant="primary">

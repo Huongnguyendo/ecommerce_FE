@@ -30,10 +30,14 @@ const CartScreen = () => {
   const checkoutHandler = () => {
     dispatch(cartActions.checkOutCart());
   }
-//   let totalCost = cart.length && cart.reduce(function(item1, item2){
-//     return (item1.quantity * item1.product.price) + (item2.quantity * item2.product.price);
-// }, 0);
-// console.log("total: ", totalCost);
+  
+  let totalCartRevenue = 0;
+  for(let i=0; i<cart.length; i++) {
+    let item = cart[i];
+    totalCartRevenue += parseInt(item?.quantity) * parseInt(item?.product?.price);
+  }
+
+  console.log("totalCartRevenue ", totalCartRevenue);
 
   return <div className="cart">
 {/* <Table striped bordered hover>
@@ -112,11 +116,13 @@ const CartScreen = () => {
                   <Button variant="danger" type="button" className="button" onClick={() => removeFromCartHandler(item.product)} >
                       Delete
                   </Button>
+                  
                 </div>
                 
               </div>
             )
         }
+        <p>Total: ${totalCartRevenue.toLocaleString()}</p>
         <Button variant="info" onClick={checkoutHandler}>Checkout</Button>
       </div>
 

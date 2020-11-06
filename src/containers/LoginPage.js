@@ -12,8 +12,8 @@ import "../App.css";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    email: "user.b@gmail.com",
-    password: "123456",
+    email: "",
+    password: "",
   });
   const [errors, setErrors] = useState({
     email: "",

@@ -1,11 +1,23 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch} from "react-redux";
+import {userActions} from "../../../../redux/actions/user.actions";
 // import { useSelector, useDispatch } from "react-redux";
 
-const SideMenu = () => {
+const AdminSideMenu = () => {
+  let dispatch = useDispatch();
+  // let seller = useSelector((state) => state.auth.isAuthenticated);
+
+  const getAllUsers = () => {
+    dispatch(userActions.getAllUsersForAdmin());
+  }
+
+
   return (
-    <Nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+    <div>
+      <h1>Admin dashboard ne</h1>
+      <Nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div className="sidebar-sticky pt-3">
         <Nav.Item>
           <Nav.Link
@@ -20,11 +32,12 @@ const SideMenu = () => {
         <Nav.Item>
           <Nav.Link
             as={NavLink}
-            to="/admin/sellers"
+            to="/admin/users"
             activeClassName="active"
             strict={true}
+            onClick={getAllUsers}
           >
-            Sellers
+            Users
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
@@ -40,7 +53,8 @@ const SideMenu = () => {
         
       </div>
     </Nav>
+    </div>
   );
 };
 
-export default SideMenu;
+export default AdminSideMenu;

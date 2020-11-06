@@ -15,7 +15,7 @@ import SellerProducts from "../Seller/SellerProducts";
 
 const SellerLayout = () => {
   let currentUser = useSelector((state) => state.auth.user);
-  console.log("currentUser ne: ", currentUser);
+  // console.log("currentUser ne: ", currentUser);
 
   return (
     <>

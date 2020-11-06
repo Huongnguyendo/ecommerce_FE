@@ -19,6 +19,8 @@ const PublicNavbar = () => {
 
   const currentUser = useSelector((state) => state.auth.user);
   const isSeller = (currentUser && currentUser.role === "Seller");
+  const isAdmin = (currentUser && currentUser.role === "Admin");
+
 
   const authLinks = (
     <Nav>
@@ -41,14 +43,19 @@ const PublicNavbar = () => {
         <FontAwesomeIcon icon="user" size="sm" /> Seller Profile
       </Nav.Link>
       
-      {/* <Nav.Link as={Link} to="/cart">
-            <a className="cart-drawer">
-              <i class="fa fa-shopping-cart"></i>
-            </a>
-      </Nav.Link> */}
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
     </Nav>
   );
+
+  const adminLinks = (
+    <Nav>
+        <Nav.Link as={Link} to="/admin/profile">
+        <FontAwesomeIcon icon="user" size="sm" /> Admin Profile
+      </Nav.Link>
+      
+      <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+    </Nav>
+  )
 
   const publicLinks = (
     <Nav>
@@ -96,7 +103,7 @@ const PublicNavbar = () => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto"></Nav>
         {!loading && 
-        <>{isSeller ? sellerLinks : isAuthenticated ? 
+        <>{isAdmin? adminLinks : isSeller ? sellerLinks : isAuthenticated ? 
         authLinks : publicLinks}</>}
       </Navbar.Collapse>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
