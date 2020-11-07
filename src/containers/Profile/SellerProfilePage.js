@@ -59,7 +59,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <Container fluid>
+    <div fluid>
       {/* <br />
       <Row>
         
@@ -71,7 +71,7 @@ const ProfilePage = () => {
       </Row>
       <br /> */}
 
-      <Row>
+      <Row className="d-flex justify-content-center align-items-center">
         <Col md={{ span: 8, offset: 2 }}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
@@ -92,13 +92,13 @@ const ProfilePage = () => {
                     </div>
                   )}
 
-                <Link to="/seller/products/add">
+                {/* <Link to="/seller/products/add">
                     <Button variant="primary" className="mr-2">Add more product</Button>
-                </Link>
+                </Link> */}
 
-                <Link to="/seller/dashboard">
+                {/* <Link to="/seller/dashboard">
                     <Button variant="primary">Dashboard</Button>
-                </Link>
+                </Link> */}
 
                   <Button
                     variant="success"
@@ -184,7 +184,7 @@ const ProfilePage = () => {
           )}
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

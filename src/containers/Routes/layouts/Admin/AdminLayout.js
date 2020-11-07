@@ -20,25 +20,19 @@ const AdminLayout = () => {
   return (
     <>
       <PublicNavbar />
-      <>Admin route here</>
-      <Container fluid>
+      {/* <>Admin route here</> */}
+      <div fluid>
         <Row>
           {/* <SideMenu /> */}
           <Col md={9} lg={10}>
             {/* <AlertMsg /> */}
             <Switch>
-              <PrivateAdminRoute  path="/admin/profile" component={AdminProfilePage} />
-              {/* <PrivateAdminRoute exact path="/admin/products/add" component={AddEditProductPage} /> */}
-              {/* <PrivateAdminRoute
-                exact
-                path="/seller/products/edit/:id"
-                component={AddEditProductPage}
-              /> */}
               <PrivateAdminRoute
                 exact
                 path="/admin/dashboard"
                 component={AdminSideMenu}
               />
+              <PrivateAdminRoute  path="/admin/profile" component={AdminProfilePage} />
               <PrivateAdminRoute
                 exact
                 path="/admin/users"
@@ -48,7 +42,7 @@ const AdminLayout = () => {
             </Switch>
           </Col>
         </Row>
-      </Container>
+      </div>
     </>
   );
 };

@@ -55,7 +55,7 @@ const RegisterPage = () => {
 
   
   return (
-    <Container>
+    <div>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <div className="text-center mb-3">
@@ -148,7 +148,7 @@ const RegisterPage = () => {
           </Form>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

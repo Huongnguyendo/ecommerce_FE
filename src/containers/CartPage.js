@@ -80,65 +80,84 @@ const CartScreen = () => {
         
         {
           cart.length === 0 ?
-            <div>
-              Cart is empty
-          </div>
-            :
+            <div>Cart is empty</div>
             
+            :
+          
             cart.map(item =>
               <div className="cart-item-row">
-                <div className="cart-image">
-                  <img src={item.product.image} alt="product" />
+                
+                {/* <div className="cart-image">
+                  <img src={item.product?.image} alt="product" />
                 </div>
 
                 <div className="cart-name">
                   <div>
-                    <Link to={"/products/" + item.product._id}>
-                      {item.product.name}
+                    <Link to={"/products/" + item.product?._id}>
+                      {item.product?.name}
                     </Link>
                 </div>
 
                   <div>
                     Quantity: {item.quantity}
-                  {/* <select value={item.quantity} onChange={(e) => dispatch(cartActions.addToCart(item.product, e.target.value))}>
-                      {[...Array(item.countInStock).keys()].map(x =>
-                        <option key={x + 1} value={x + 1}>{x + 1}</option>
-                      )}
-                    </select> */}
-                    
                   </div>
+
                   <div className="cart-price">
-                  Price: ${item.product.price}
+                    Price: ${item.product?.price}
                   </div>
                   <div className="cart-subtotal">
-                    Sub total: ${(item.product.price * item.quantity).toLocaleString()}
+                    Sub total: ${(item.product?.price * item.quantity).toLocaleString()}
                   </div>
                   <Button variant="danger" type="button" className="button" onClick={() => removeFromCartHandler(item.product)} >
                       Delete
                   </Button>
-                  
-                </div>
-                
+                </div> */}
+
+              <div className="table-responsive">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th />
+                      <th />
+                      <th>Product</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>SubTotal</th>
+                      <th/>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><a className="remove" href="#"><fa className="fa fa-close" /></a></td>
+                      <td><a className="cart-image" href="#"><img src={item.product?.image} alt="img" /></a></td>
+                      <td><a className="cart-name" href="#">
+                          <Link to={"/products/" + item.product?._id}>
+                            {item.product?.name}
+                          </Link></a>
+                      </td>
+                      <td className="cart-price">${item.product?.price}</td>
+                      <td>{item.quantity}</td>
+                      <td className="cart-subtotal">${(item.product?.price * item.quantity).toLocaleString()}</td>
+                      <Button variant="danger" type="button" className="button mt-1" onClick={() => removeFromCartHandler(item.product)} >
+                        Delete
+                      </Button>
+                    </tr>
+                     
+                  </tbody>
+                </table>
+              </div>
+ 
               </div>
             )
         }
-        <p>Total: ${totalCartRevenue.toLocaleString()}</p>
-        <Button variant="info" onClick={checkoutHandler}>Checkout</Button>
+        <div className="cartTotal">
+          <p>Total: ${totalCartRevenue.toLocaleString()}</p>
+          <Button variant="info" onClick={checkoutHandler}>Checkout</Button>
+        </div>
       </div>
 
     </div>
-    {/* <div className="cart-action">
-      <h3>
-        Subtotal ( {cartItems.reduce((a, c) => a + c.quantity, 0)} items)
-        :
-         $ {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
-      </h3>
-      <button onClick={checkoutHandler} className="button primary full-width" disabled={cartItems.length === 0}>
-        Proceed to Checkout
-      </button>
-
-    </div> */}
-
+    
   </div>
 }
 

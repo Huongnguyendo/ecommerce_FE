@@ -8,6 +8,7 @@ import ProductDetailPage from "containers/ProductDetailPage";
 import HomePage from "containers/HomePage";
 import CartPage from "containers/CartPage";
 import PublicNavbar from "containers/PublicNavbar";
+import ProfilePage from "containers/Profile/ProfilePage";
 import RegisterPage from "containers/RegisterPage";
 import LoginPage from "containers/LoginPage";
 import PrivateRoute from "containers/Routes/PrivateRoute";
@@ -32,22 +33,17 @@ const PublicLayout = () => {
   return (
     <>
       <PublicNavbar />
-      <Container>
+      <div>
         {/* <AlertMsg /> */}
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/products/:id" component={ProductDetailPage} />
           <Route path="/cart" component={CartPage} />
-          {/* <PrivaPriteRoute exact path="/seller/profile" component={SellerLayout} /> */}
-          {/* <PrivateRoute exact path="/products/add" component={AddEditProductPage} />
-          <PrivateRoute
-            exact
-            path="/products/edit/:id"
-            component={AddEditProductPage}
-          /> */}
+          <Route  path="/user/profile" component={ProfilePage} />
+          
           <Route component={NotFoundPage} />
         </Switch>
-      </Container>
+      </div>
     </>
   );
 };

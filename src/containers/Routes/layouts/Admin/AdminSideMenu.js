@@ -16,7 +16,7 @@ const AdminSideMenu = () => {
 
   return (
     <div>
-      <h1>Admin dashboard ne</h1>
+      <h1>Admin dashboard</h1>
       <Nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div className="sidebar-sticky pt-3">
         <Nav.Item>
@@ -53,6 +53,7 @@ const AdminSideMenu = () => {
         
       </div>
     </Nav>
+    
     </div>
   );
 };

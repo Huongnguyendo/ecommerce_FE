@@ -1,9 +1,10 @@
+import { faDiceFive } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
 const NotFoundPage = () => {
   return (
-    <Container>
+    <div>
       <Row style={{ marginTop: "50px" }}>
         <Col md={{ span: 6, offset: 3 }} style={{ textAlign: "center" }}>
           <h1>404</h1>
@@ -15,7 +16,7 @@ const NotFoundPage = () => {
           />
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 export default NotFoundPage;

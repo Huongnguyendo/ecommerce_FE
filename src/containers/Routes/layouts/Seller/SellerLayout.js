@@ -12,6 +12,7 @@ import AlertMsg from "components/AlertMsg";
 import PrivateSellerRoute from "../../PrivateSellerRoute";
 import SellerSideMenu from "../../layouts/Seller/SellerSideMenu";
 import SellerProducts from "../Seller/SellerProducts";
+import SellerHistory from "../Seller/SellerHistory";
 
 const SellerLayout = () => {
   let currentUser = useSelector((state) => state.auth.user);
@@ -20,7 +21,7 @@ const SellerLayout = () => {
   return (
     <>
       <PublicNavbar />
-      <Container fluid>
+      <div fluid>
         <Row>
           {/* <SideMenu /> */}
           <Col md={9} lg={10}>
@@ -39,11 +40,16 @@ const SellerLayout = () => {
                 path="/seller/dashboard"
                 component={SellerSideMenu}
               />
+              <PrivateSellerRoute
+                exact
+                path="/seller/history"
+                component={SellerHistory}
+              />
               <Route component={NotFoundPage} />
             </Switch>
           </Col>
         </Row>
-      </Container>
+      </div>
     </>
   );
 };

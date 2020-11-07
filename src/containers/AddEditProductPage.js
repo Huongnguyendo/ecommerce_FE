@@ -39,6 +39,7 @@ const AddEditProductPage = () => {
   console.log("selectedProduct ne: ", selectedProduct)
 
   useEffect(() => {
+    console.log("o day ne");
     if (productId) {
       if (!selectedProduct) {
         // dispatch(productActions.getSingleProduct(productId));
@@ -97,16 +98,14 @@ const AddEditProductPage = () => {
   }, [redirectTo, dispatch, history]);
 
   return (
-    <Container>
-      <Row>
+    <div>
+      <Row className="d-flex justify-content-center align-items-center">
         {(error?.data?.error === "Unauthorized action") ? <h1>Not allowed</h1> :
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
             <div className="text-center mb-3">
               <h1 className="text-primary">{addOrEdit} product</h1>
-              <p className="lead">
-                <i className="fas fa-user" />
-              </p>
+              
             </div>
             <Form.Group>
               <Form.Control
@@ -139,8 +138,6 @@ const AddEditProductPage = () => {
               />
             </Form.Group>
 
-            <input placeholder="price" type="number" id="price" name="price" value={formData.price} onChange={handleChange}/>
-
             <Form.Group>
               <Form.Control
                 as="textarea"
@@ -151,7 +148,12 @@ const AddEditProductPage = () => {
               />
             </Form.Group>
 
-            <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"  value={formData.inStockNum} onChange={handleChange}/>
+              <input placeholder="price" type="number" id="price" name="price" value={formData.price} onChange={handleChange}
+              style={{height:"40px", width:"100%", marginBottom: "20px"}}
+              />
+              <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"  value={formData.inStockNum} onChange={handleChange}
+              style={{height:"40px", width:"100%", marginBottom: "20px"}}
+              />
 
             <ButtonGroup className="d-flex mb-3">
               {loading ? (
@@ -191,7 +193,7 @@ const AddEditProductPage = () => {
           </Form>
         </Col>}
       </Row>
-    </Container>
+    </div>
   );
 };
 

@@ -58,7 +58,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <Container fluid>
+    <div fluid>
       {/* <br />
       <Row>
         
@@ -70,7 +70,7 @@ const ProfilePage = () => {
       </Row>
       <br /> */}
 
-      <Row>
+      <Row className="d-flex justify-content-center align-items-center">
         <Col md={{ span: 8, offset: 2 }}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
@@ -174,7 +174,7 @@ const ProfilePage = () => {
           )}
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

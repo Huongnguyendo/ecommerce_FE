@@ -13,39 +13,27 @@ const ProductCard = ({ product, gotoProductDetail }) => {
           <Card.Body>
             
             <div
-              style={{
-                // height: "200px",
-                overflow: "scroll",
-                textAlign: "left",
-              }}
-            >
-              {/* Description: <Card.Text>{product.description}</Card.Text>{" "} */}
-              {product.image && (
-                <Image src={product.image} style={{ width: "200px" }} />
-              )}
-              <Card.Title
-              style={{
-                height: "40px",
-                overflow: "hidden",
-              }}
-              onClick={() => {
-                gotoProductDetail(product._id);
-              }}
-            >
-              <Badge variant="warning" style={{fontSize: "10px"}}>{product.category}</Badge>
-              <p className="productCardName">{product.name}</p>
-            </Card.Title>
-            <p className="productCardPrice">${product.price}</p>
+                style={{overflow: "scroll",textAlign: "left"}}>
+                {product.image && (
+                  <Image src={product.image} style={{ width: "200px" }} />
+                )}
+                <Card.Title
+                style={{paddingLeft: "10px"}}
+                onClick={() => {
+                  gotoProductDetail(product._id);}}>
+
+                <Badge variant="warning" style={{fontSize: "10px"}}>{product.category}</Badge>
+                <p className="productCardName">{product.name}</p>
+              </Card.Title>
+              <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
             </div>
+          
           </Card.Body>
-          <div style={{ height: "30px"}}>
+          
+          {/* <div style={{ height: "30px"}}>
             <small
               className="text-muted"
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
+              style={{display: "flex",alignItems: "center",}}>
               <Image
                 src={ product && product.seller &&
                   product.seller.avatarUrl ? `${product.seller.avatarUrl}`
@@ -60,6 +48,8 @@ const ProductCard = ({ product, gotoProductDetail }) => {
               </div>
             </small>
           </div>
+
+         */}
         </Card>
       </div>
     )

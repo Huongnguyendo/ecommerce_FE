@@ -6,6 +6,10 @@ import { productActions, categoryActions } from "redux/actions";
 import { useHistory, Link } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 import Select from 'react-select';
+import shoeimg from "../images/shoe.png";
+import watchimg from "../images/apple-watch.png";
+import slide1 from "../images/iphone-lineup.jpg"
+import slide2 from "../images/ckeditor_2775444.jpg";
 
 const HomePage = () => {
   const history = useHistory();
@@ -40,7 +44,7 @@ const HomePage = () => {
     history.push(`/products/${index}`);
   };
 
-  let keyword = "";
+  // let keyword = "";
 
   useEffect(() => {
     dispatch(productActions.getProductList(pageNum));
@@ -50,51 +54,98 @@ const HomePage = () => {
     dispatch(categoryActions.getProductsWithCategory(category))
   }, [category]);
 
-  return (
-    <Container>
-      {/* {isAuthenticated && (
-        <Link to="/products/add">
-          <Button variant="primary">Add now</Button>
-        </Link>
-      )} */}
+  // JS 
+  let slideIndex = 0;
+  let slider = document.getElementById('slider')
+  let slides = slider?.getElementsByClassName('slide')
+  let slideControl = document.getElementById('slide-control')
+  let slideControlItems = slideControl?.getElementsByClassName('slide-control-item')
 
-          <Form
-            inline
-            onSubmit={(event) => {
-              event.preventDefault();
-              // console.log("keyword", keyword);
-              dispatch(productActions.searchProductsByKeyword(keyword));
-            }}
-          >
-            <FormControl
-              type="text"
-              placeholder="Search a product"
-              className="mr-sm-2"
-              onChange={(event) => {
-                keyword = event.target.value;
-              }}
-            />
-            <Button variant="dark" type="submit">
-              Search
-            </Button>
-          </Form>
-        
+
+  // slider?.style.marginTop = '-' + slideIndex + '00vh'
+
+  setTimeout(() => {
+    slideControlItems && slideControlItems[slideIndex].classList.add('active')
+    slides && slides[slideIndex].classList.add('active')
+  }, 500)
+  
+
+  return (
+    <div>
+
+      <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} />
 
       
-      <Row style={{ margin: "20px 0" }}></Row>
+      <div id="slider" className="slider">
+        <div className="row fullheight slide">
+          <div className="col-6 fullheight">
+            <div className="product-info">
+              <div className="info-wrapper">
+                <div className="homepageDeal left-to-right">
+                  <h2>
+                    HOTDEAL THIS WEEK
+                  </h2>
+                </div>
+                <div className="ctaBtn left-to-right">
+                  <Button className="CTA" variant="info">SHOP NOW</Button>
+                </div>
+                
+              </div>
+            </div>
 
-      <Select options = {categories} onChange={(e) => setCategory(e.value)} />
-      {/* dispatch(categoryActions.getCategory(e.value)) */}
+          </div>
+          <div className="col-6 fullheight img-col" style={{backgroundImage: 'linear-gradient(to top right, #e19e95, #fd835c)'}}>
+            <div className="product-img">
+              <div className="img-wrapper right-to-left">
+                <div className="bounce">
+                  <img src={shoeimg} alt="placeholder+image" />
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>        
+      </div>
 
-      <Row style={{ margin: "20px 0" }}></Row>
 
-      <Row
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      {/* <section className="carousel d-flex mb-5">
+        <div className="swiper-container">
+          <div className="swiper-wrapper">
+            <div className="swiper-slide">
+              <a className="swiper-slide-link" href="https://tix.vn/phim/2442-lich-chieu-diep-vien-sieu-lay">
+                <img src={slide1} />
+              </a>
+            </div>
+            <div className="swiper-slide">
+              <a className="swiper-slide-link" href="hhttps://tix.vn/phim/2444-lich-chieu-ca-sau-tu-than">
+                <img src={slide2} />
+              </a>
+            </div>
+            <div className="swiper-slide">
+              <a className="swiper-slide-link" href="https://tix.vn/phim/837-captain-america-civil-war">
+                <img src="img/cover_4.jpg" />
+                <i className="fa fa-play" />
+              </a>
+            </div>
+            <div className="swiper-slide">
+              <a className="swiper-slide-link" href="https://tix.vn/phim/2446-lich-chieu-mai-ben-em">
+                <img src="img/cover_5.png" />
+                <i className="fa fa-play" />
+              </a>
+            </div>
+          </div>
+          <div className="swiper-button-next" />
+          <div className="swiper-button-prev" />
+          <div className="swiper-pagination" />
+        </div>
+      </section>
+
+       */}
+
+      <h1 className="homepageTitle">PRODUCTS</h1>
+
+      <Row id="mainRow"
+        style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
         {loading ? (
           <h4 style={{ textAlign: "center" }}>loading</h4>
         ) : filterProducts ? (
@@ -122,7 +173,7 @@ const HomePage = () => {
         totalPageNum={totalPageNum}
         loading={loading}
       />
-    </Container>
+    </div>
   );
 };
 

@@ -8,7 +8,7 @@ import { productActions, cartActions } from "redux/actions";
 import ReviewList from "components/ReviewList";
 import ReviewForm from "components/ReviewForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Container, Row, Col, Card, Image, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, Button, Badge } from "react-bootstrap";
 import moment from "moment";
 
 const ProductDetailPage = () => {
@@ -65,7 +65,7 @@ const ProductDetailPage = () => {
           </Button> */}
           {console.log("current user ne: ", currentUser)}
           {console.log("productDetail?.seller?._id: ", productDetail?.seller?._id)}
-          {currentUser?._id === productDetail?.seller?._id ? (
+          {currentUser && currentUser?._id === productDetail?.seller?._id ? (
             <Link to={`/seller/products/edit/${productDetail?._id}`}>
               <Button variant="primary">
                 <FontAwesomeIcon icon="edit" size="1x" /> Edit
@@ -82,121 +82,104 @@ const ProductDetailPage = () => {
       ) : (
       <>
         {productDetail && (
-          <Container
-            style={{
-              // minHeight: "80vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {/* <Col sm={12}> */}
-              <Card className="product-card">
-                <Card.Body>
-                  
+          <div
+            style={{display: "flex",justifyContent: "center",alignItems: "center",}}>
+            <Row> 
+              <Col md="6">
+                <Card className="product-card">
+                  <Card.Body>
                   <div>
-                    {/* <Card.Text>Description: {productDetail.description}</Card.Text>{" "} */}
                     {productDetail.image && (
-                      <Image src={productDetail.image} style={{ width: "100%" }} />
-                    )}
+                      <Image src={productDetail.image} style={{ width: "100%" }} />)}
                   </div>
+                         
                 </Card.Body>
-                <div>
-                  <small
-                    className="text-muted"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  > Seller: 
-                    <Image
-                      src={ productDetail && productDetail.seller &&
-                        productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}`
-                        : "../images/defaultavapic.png"}
-                      style={{
-                        width: "30px",
-                        height: "30px",
-                        marginRight: "10px",
+                </Card>
+              </Col>
+              <Col md="6">
+                  <div>
+                    <Badge variant="warning">{productDetail.category}</Badge>
+                    <Card.Title>{productDetail.name}</Card.Title>
+                    <div>
+                      <p>Price: <span className="productDetailPrice">${productDetail?.price}</span ></p>
+                      Status:{' '}<Badge variant="primary">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}</Badge>
+                      <p className="mt-3">
+                        Quantity:{' '}
+                        <select value={quantity} onChange={(e) => {setQuantity(e.target.value);}}>
+                          {[...Array(productDetail?.inStockNum).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>))}
+                        </select>
+                      </p>
 
-                      }}
-                      roundedCircle
-                    />{" "}
-                    <div style={{ width: "fit-content", display: "flex" }}>
-                      {productDetail?.seller?.name} 
-                      {/* <br /> wrote{" "}
-                      {moment(productDetail.updatedAt).fromNow()} */}
+                      <div>
+                          <p style={{display: "flex",alignItems: "center",}}> 
+                          Seller:
+                            <Image
+                              src={ productDetail && productDetail.seller &&
+                                productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}`
+                                : "../images/defaultavapic.png"}
+                              style={{width: "30px",height: "30px",marginLeft: "10px", marginRight: "10px", marginTop: "5px", marginBottom: "5px" }} roundedCircle/>{" "}
+                            <div style={{ width: "fit-content", display: "flex" }}>
+                              {productDetail?.seller?.name} 
+                              
+                            </div>
+                          </p>
+                      </div>
+                      {/* <Markdown source={productDetail.description} /> */}
+
+                      {productDetail?.inStockNum > 0 && (
+                          <Button variant="success" onClick={handleAddToCart}
+                            className="button primary">
+                            Add to Cart
+                      </Button>)}
                     </div>
-                  </small>
-                </div>
-                {/* <Card>
-                  <Card.Body style={{ width: "80%" }}> */}
-                       <Markdown source={productDetail.description} />
-                  {/* </Card.Body>
-                </Card> */}
-              </Card>
-            {/* </Col> */}
-            
-            <div>
-              <Card.Title>{productDetail.name}</Card.Title>
-              <ReviewList
-                reviews={productDetail.reviews}
-                loading={submitLoading}
-              />
-            </div>
-
-
-                
-            
-          </Container>
-          
-        
-          
+                  </div>
+              </Col>
+            </Row>       
+          </div>        
         )}
 
-        <div>
-                <p>Price: ${productDetail?.price}</p>
-                <p>
-                  Status:{' '}
-                  {productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}
-                </p>
-                <p>
-                  Quantity:{' '}
-                  <select
-                    value={quantity}
-                    onChange={(e) => {
-                      setQuantity(e.target.value);
-                    }}
-                  >
-                    {[...Array(productDetail?.inStockNum).keys()].map((x) => (
-                      <option key={x + 1} value={x + 1}>
-                        {x + 1}
-                      </option>
-                    ))}
-                  </select>
-                </p>
-                {productDetail?.inStockNum > 0 && (
-                    <Button
-                      variant="success"
-                      onClick={handleAddToCart}
-                      className="button primary"
-                    >
-                      Add to Cart
-                    </Button>
-                  )}
+<div>
+  <ul className="nav nav-tabs" id="myTab" role="tablist">
+    <li className="nav-item">
+      <a className="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Description</a>
+    </li>
+    <li className="nav-item">
+      <a className="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="profile" aria-selected="false">Reviews</a>
+    </li>
+  </ul>
+  <div className="tab-content" id="myTabContent">
+    <div className="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="home-tab">
+      <div className="description">
+        <div className="row">
+          <div className="col-xs-12 col-sm-12 col-md-12">
+            <p>
+              {productDetail?.description}            
+            </p>
+          </div>
+        </div>
       </div>
-                
+    </div>
+    <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="profile-tab">
+      <ReviewList reviews={productDetail?.reviews} loading={submitLoading}/>
+    </div>
+  </div>
+</div>
 
+
+            
           {isAuthenticated && (
               <ReviewForm
-              style={{marginTop: "20px" }}
+              style={{marginLeft: "50px", marginTop: "20px" }}
                 reviewText={reviewText}
                 handleInputChange={handleInputChange}
                 handleSubmitReview={handleSubmitReview}
                 loading={submitLoading}
               />
-            )}
-
-            
+          )}
+      
       </>
       )}
     </>
