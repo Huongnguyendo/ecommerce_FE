@@ -9,7 +9,7 @@ import {
   ButtonGroup,
 } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
-import { productActions } from "../redux/actions";
+import { productActions, routeActions } from "../redux/actions";
 // import { routeActions } from "redux/actions/route.actions";
 
 
@@ -83,16 +83,16 @@ const AddEditProductPage = () => {
     dispatch(productActions.deleteProduct(selectedProduct._id, '/'));
   };
 
-  // useEffect(() => {dispatch(productActions.getProductDetailForSeller(productId))},[])
+  useEffect(() => {dispatch(productActions.getProductDetailForSeller(productId))},[])
 
   useEffect(() => {
     if (redirectTo) {
       if (redirectTo === "__GO_BACK__") {
         history.goBack();
-        // dispatch(routeActions.removeRedirectTo());
+        dispatch(routeActions.removeRedirectTo());
       } else {
         history.push(redirectTo);
-        // dispatch(routeActions.removeRedirectTo());
+        dispatch(routeActions.removeRedirectTo());
       }
     }
   }, [redirectTo, dispatch, history]);

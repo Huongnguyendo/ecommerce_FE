@@ -2,6 +2,7 @@ import * as types from "redux/constants/product.constants";
 // import routeActions from "./route.actions";
 import api from "redux/api";
 import { ToastContainer, toast } from 'react-toastify';
+import { routeActions } from "../actions";
 import 'react-toastify/dist/ReactToastify.css';
 
 const getProductList = (pageNum = 1, limit = 10) => async (dispatch) => {
@@ -99,7 +100,7 @@ const createNewProduct = (name, description, image, brand, price, category, inSt
       type: types.CREATE_PRODUCT_SUCCESS,
       payload: res.data.data,
     });
-    // dispatch(routeActions.redirect(redirectTo));
+    dispatch(routeActions.redirect(redirectTo));
     toast.success("New PRODUCT has been created!");
   } catch (error) {
     console.log(error);
@@ -117,7 +118,7 @@ const updateProduct = (productId, name, description, image, brand, price, catego
       payload: res.data.data,
     });
     
-    // dispatch(routeActions.redirect(redirectTo));
+    dispatch(routeActions.redirect(redirectTo));
     toast.success("The PRODUCT has been updated!");
   } catch (error) {
     console.log(error);
@@ -134,7 +135,7 @@ const deleteProduct = (productId, redirectTo="__GO_BACK__") => async (dispatch) 
       type: types.DELETE_PRODUCT_SUCCESS,
       payload: res.data,
     });
-    // dispatch(routeActions.redirect(redirectTo));
+    dispatch(routeActions.redirect(redirectTo));
     toast.success("The PRODUCT has been deleted!");
   } catch (error) {
     console.log(error);
@@ -155,6 +156,7 @@ const searchProductsByKeyword = (keyword, pageNum = 1, limit = 10) => async (dis
     dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_FAILURE, payload: err });
   }
 };
+
 
 
 export const productActions = {

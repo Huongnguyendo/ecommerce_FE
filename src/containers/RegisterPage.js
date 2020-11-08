@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { authActions } from "../redux/actions";
+import { authActions, routeActions } from "../redux/actions";
 // import { routeActions } from "redux/actions/route.actions";
 
 
@@ -45,10 +45,10 @@ const RegisterPage = () => {
     if (redirectTo) {
       if (redirectTo === "__GO_BACK__") {
         history.goBack();
-        // dispatch(routeActions.removeRedirectTo());
+        dispatch(routeActions.removeRedirectTo());
       } else {
         history.push(redirectTo);
-        // dispatch(routeActions.removeRedirectTo());
+        dispatch(routeActions.removeRedirectTo());
       }
     }
   }, [dispatch, history, redirectTo]);
@@ -59,7 +59,7 @@ const RegisterPage = () => {
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <div className="text-center mb-3">
-            <h1 className="text-primary">Sign Up</h1>
+            <h1 className="text-primary">Register</h1>
             <p className="lead">
               <FontAwesomeIcon icon="user" size="1x" /> Create Your Account
             </p>
@@ -143,7 +143,7 @@ const RegisterPage = () => {
             )}
 
             <p>
-              Already have an account? <Link to="/login">Sign In</Link>
+              Already have an account? <Link to="/login">Log In</Link>
             </p>
           </Form>
         </Col>

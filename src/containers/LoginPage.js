@@ -49,9 +49,9 @@ const LoginPage = () => {
     dispatch(authActions.loginGoogleRequest(response.accessToken));
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated) return <Redirect to="/" />;
-  // }, [isAuthenticated]);
+  useEffect(() => {
+    if (isAuthenticated) return <Redirect to="/" />;
+  }, [isAuthenticated]);
 
   
   return (
@@ -63,7 +63,7 @@ const LoginPage = () => {
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
             <div className="text-center mb-3">
-              <h1 className="text-primary">Sign In</h1>
+              <h1 className="text-primary">Log In</h1>
               {/* <p className="lead">
                 <FontAwesomeIcon icon="user" size="1x" /> Sign Into Your Account
               </p> */}
@@ -177,7 +177,7 @@ const LoginPage = () => {
             />
 
             <p>
-              Don't have an account? <Link to="/register">Sign Up</Link>
+              Don't have an account? <Link to="/register">Register</Link>
             </p>
           </Form>
         </Col>

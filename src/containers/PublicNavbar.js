@@ -84,12 +84,14 @@ const PublicNavbar = () => {
                 <div className="aa-header-top-area">
 
                   <div className="aa-header-top-left">
-                    <div className="aa-language">
-                        <a className="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                          ENGLISH
-                        </a>
-                    </div>                    
+                      <div className="aa-logo">
+                        <Link to="/" style={{textDecoration:"none"}}>
+                          <span className="fa fa-shopping-cart" /><span className="ml-2 shopName">eShop</span>
+                          <p>Your Everything Store</p>
+                        </Link>
+                      </div>
                   </div>
+                  
                 
                   <div className="aa-header-top-right">
                     <div className="aa-head-top-nav-right">
@@ -102,6 +104,18 @@ const PublicNavbar = () => {
                       </Navbar>
                       <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     </div>
+
+                    <Form inline 
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        // console.log("keyword", keyword);
+                        dispatch(productActions.searchProductsByKeyword(keyword));}}>
+                        <FormControl
+                          type="text" placeholder="Search a product" 
+                          onChange={(event) => {keyword = event.target.value;}}/>
+                        <Button variant="dark" type="submit">Search</Button>
+                    </Form>
+
                   </div>
                 </div>  
           </div>
@@ -112,15 +126,15 @@ const PublicNavbar = () => {
           <div className="container">
             
                 <div className="aa-header-bottom-area">
-                  <div className="aa-logo">
+                  {/* <div className="aa-logo">
                     <Link to="/" style={{textDecoration:"none"}}>
                       <span className="fa fa-shopping-cart" /><span className="ml-2 shopName">eShop</span>
                       <p>Your Everything Store</p>
                     </Link>
-                  </div>
+                  </div> */}
                   
                   
-                  <Form inline 
+                  {/* <Form inline 
                     onSubmit={(event) => {
                       event.preventDefault();
                       // console.log("keyword", keyword);
@@ -129,7 +143,7 @@ const PublicNavbar = () => {
                         type="text" placeholder="Search a product" 
                         onChange={(event) => {keyword = event.target.value;}}/>
                       <Button variant="dark" type="submit">Search</Button>
-                  </Form>
+                  </Form> */}
         
                 </div>
               
@@ -137,13 +151,7 @@ const PublicNavbar = () => {
         </div>
       </header>
       
-    {/* <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto"></Nav>
-        {!loading && 
-        <>{isAdmin? adminLinks : isSeller ? sellerLinks : isAuthenticated ? 
-        authLinks : publicLinks}</>}
-    </Navbar.Collapse> */}
-      {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+    
       
     </div>
   );

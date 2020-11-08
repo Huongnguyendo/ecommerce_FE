@@ -406,7 +406,7 @@ a {
 .aa-header-top-area {
 	display: flex;
 	justify-content: space-between;
-	height: 50px;
+	/* height: 70px; */
 }
 
 .aa-header-bottom-area {
@@ -414,10 +414,30 @@ a {
 	justify-content: space-between;
 }
 
-
-.categorySelect {
-	margin-top:-30px;
+.aa-header-top-left {
+	display: flex;
+	align-items: center;
 }
+
+.aa-header-top-left span {
+	font-size:40px;
+}
+
+.aa-header-top-left .shopName {
+	color: pink;
+}
+
+.fa-shopping-cart {
+	color: pink;
+}
+
+#basic-navbar-nav {
+	margin-bottom: -15px;
+}
+
+/* .categorySelect {
+	margin-top:-30px;
+} */
 
 .homepageTitle {
 	text-align: center;

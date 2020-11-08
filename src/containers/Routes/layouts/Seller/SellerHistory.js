@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
 import {productActions} from "../../../../redux/actions/product.actions";
 import {Card, Badge, Row, Col, Image} from "react-bootstrap";
+import Moment from "react-moment";
 // import { useSelector, useDispatch } from "react-redux";
 
 const SellerProductPage = () => {
@@ -23,8 +24,7 @@ const SellerProductPage = () => {
 
   return (
       <div>
-          
-          {sellingHistory.length <= 0 ? <h1>No Selling History</h1>
+          {sellingHistory?.length <= 0 ? <h1>No Selling History</h1>
           :
           <div>
             {sellingHistory.map((item) => (
@@ -41,7 +41,7 @@ const SellerProductPage = () => {
                     <div>
                       <Image src={buyer.avatarUrl} style={{width: "40px"}}/>
                       <p>Name: {buyer.name}</p>
-                      <p>Time bought: {buyer.createdAt}</p>
+                      <p>Time bought: <Moment>{buyer.createdAt}</Moment></p>
                     </div>
                   ))}
                   

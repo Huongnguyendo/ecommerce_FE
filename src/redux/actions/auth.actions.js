@@ -3,14 +3,14 @@ import api from "redux/api";
 import { toast } from "react-toastify";
 
 // export const authActions = {};
-// import { routeActions } from "../actions";
+import { routeActions } from "../actions";
 
 const register = (name, email, password, avatarUrl) => async (dispatch) => {
   dispatch({ type: types.REGISTER_REQUEST, payload: null });
   try {
     const res = await api.post("/users", { name, email, password, avatarUrl });
     dispatch({ type: types.REGISTER_SUCCESS, payload: res.data.data });
-    // dispatch(routeActions.redirect("/login"));
+    dispatch(routeActions.redirect("/login"));
     toast.success(`Thank you for your registration, ${name}!`);
   } catch (error) {
     dispatch({ type: types.REGISTER_FAILURE, payload: error });

@@ -1,6 +1,7 @@
 import Axios from "axios";
 import api from "../api";
 import { ToastContainer, toast } from 'react-toastify';
+import { routeActions } from "../actions";
 import * as types from "../constants/cart.constants";
 
 
@@ -12,7 +13,7 @@ const addToCart = (product, quantity) => async (dispatch) => {
         const res = await api.post("/cart/add/", { product, quantity });
         console.log(res);
         dispatch({ type: types.CART_ADD_ITEM_SUCCESS, payload: res.data.data });
-        // dispatch(routeActions.redirect("/login"));
+        dispatch(routeActions.redirect("/login"));
         toast.success(`Add to cart successfull`);
       } catch (error) {
         dispatch({ type: types.CART_ADD_ITEM_FAILURE, payload: error });
@@ -44,7 +45,7 @@ const removeFromCart = (product) => async (dispatch) => {
         const res = await api.post("/cart/remove/", { product });
         // console.log(res);
         dispatch({ type: types.CART_REMOVE_ITEM_SUCCESS, payload: res.data.data });
-        // dispatch(routeActions.redirect("/login"));
+        dispatch(routeActions.redirect("/login"));
         toast.success(`Remove from cart successfull`);
       } catch (error) {
         dispatch({ type: types.CART_REMOVE_ITEM_FAILURE, payload: error });
@@ -62,7 +63,7 @@ const checkOutCart = () => async (dispatch) => {
         const res = await api.post("/cart/checkout");
         console.log(res);
         dispatch({ type: types.CART_CHECKOUT_SUCCESS, payload: res.data.data });
-        // dispatch(routeActions.redirect("/"));
+        dispatch(routeActions.redirect("/"));
         toast.success(`Cart checkout successfull`);
       } catch (error) {
         dispatch({ type: types.CART_CHECKOUT_FAILURE, payload: error });

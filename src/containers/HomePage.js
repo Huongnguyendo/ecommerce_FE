@@ -52,7 +52,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(categoryActions.getProductsWithCategory(category))
-  }, [category]);
+  }, [category, pageNum]);
 
   // JS 
   let slideIndex = 0;
@@ -158,7 +158,7 @@ const HomePage = () => {
           ))
         )
         : (
-          productList.map((product) => (
+          productList?.map((product) => (
             <ProductCard
               product={product}
               key={product._id}
