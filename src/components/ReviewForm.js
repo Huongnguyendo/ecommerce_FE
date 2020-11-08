@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 
 const ReviewForm = ({
   reviewText,
@@ -8,7 +8,7 @@ const ReviewForm = ({
   loading,
 }) => {
   return (
-    <Form onSubmit={handleSubmitReview}>
+      <Form onSubmit={handleSubmitReview}>
       <Form.Group as={Row}>
         <Form.Label htmlFor="review" column sm="2">
           Review:

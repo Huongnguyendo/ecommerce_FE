@@ -52,6 +52,19 @@ const getAllProductsForSeller = () => async (dispatch) => {
   }
 }
 
+const getHistoryForSeller = () => async (dispatch) => {
+  dispatch({ type: types.GET_HISTORYFORSELLER_REQUEST, payload: null });
+
+  try {
+    console.log("o day ne");
+    const res = await api.get(`/seller/products/history`);
+    dispatch({ type: types.GET_HISTORYFORSELLER_SUCCESS, payload: res.data.data });
+    // console.log("singledata ne", res.data.data);
+  } catch (err) {
+    dispatch({ type: types.GET_HISTORYFORSELLER_FAILURE, payload: err });
+  }
+}
+
 const createReview = (productId, reviewText) => async (dispatch) => {
   dispatch({ type: types.CREATE_REVIEW_REQUEST, payload: null });
   try {
@@ -149,6 +162,7 @@ export const productActions = {
   getProductDetail,
   getProductDetailForSeller,
   getAllProductsForSeller,
+  getHistoryForSeller,
   createReview,
   createNewProduct,
   updateProduct,

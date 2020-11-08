@@ -15,10 +15,9 @@ const AdminSideMenu = () => {
 
 
   return (
-    <div>
-      <h1>Admin dashboard</h1>
-      <Nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div className="sidebar-sticky pt-3">
+    <div style={{textAlign: "center" }}>
+      <h1>Admin Dashboard</h1>
+      <div className="d-flex justify-content-center">
         <Nav.Item>
           <Nav.Link
             as={NavLink}
@@ -40,21 +39,9 @@ const AdminSideMenu = () => {
             Users
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            as={NavLink}
-            to="/admin/categories"
-            activeClassName="active"
-            strict={true}
-          >
-            Categories
-          </Nav.Link>
-        </Nav.Item>
-        
-      </div>
-    </Nav>
-    
+        </div>
     </div>
+    
   );
 };
 

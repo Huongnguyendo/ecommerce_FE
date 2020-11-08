@@ -87,7 +87,7 @@ const HomePage = () => {
                   </h2>
                 </div>
                 <div className="ctaBtn left-to-right">
-                  <Button className="CTA" variant="info">SHOP NOW</Button>
+                  <Button className="CTA" variant="danger">SHOP NOW</Button>
                 </div>
                 
               </div>
@@ -149,7 +149,7 @@ const HomePage = () => {
         {loading ? (
           <h4 style={{ textAlign: "center" }}>loading</h4>
         ) : filterProducts ? (
-          filterProducts.map((product) => (
+          filterProducts?.map((product) => (
             <ProductCard
               product={product}
               key={product._id}

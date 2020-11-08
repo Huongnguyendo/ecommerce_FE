@@ -1,6 +1,7 @@
 import * as types from "redux/constants/product.constants";
 import * as categoryTypes from "../constants/category.constants";
 const initialState = {
+  historyToRender: [],
   products: [],
   totalPageNum: 1,
   selectedProduct: null,
@@ -31,14 +32,17 @@ const productReducer = (state = initialState, action) => {
     case types.GET_PRODUCTDETAILFORSELLER_REQUEST:
     case types.GET_PRODUCTS_BYKEYWORD_REQUEST:
     case types.GET_ALLPRODUCTSFORSELLER_REQUEST:
+    case types.GET_HISTORYFORSELLER_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_PRODUCTS_SUCCESS:
     case types.GET_ALLPRODUCTSFORSELLER_SUCCESS:
+    case types.GET_HISTORYFORSELLER_SUCCESS:
       return {
         ...state,
         loading: false,
         products: payload.products,
+        historyToRender: payload.historyToRender,
         totalPageNum: payload.totalPages,
       };
     case types.GET_PRODUCTS_BYKEYWORD_SUCCESS:
@@ -52,6 +56,7 @@ const productReducer = (state = initialState, action) => {
     case types.GET_PRODUCTS_BYKEYWORD_FAILURE:
     case types.GET_ALLPRODUCTSFORSELLER_FAILURE:
     case types.GET_PRODUCTS_FAILURE:
+    case types.GET_HISTORYFORSELLER_FAILURE:
       return { ...state, loading: false, error: payload };
 
     case types.GET_PRODUCTDETAIL_SUCCESS:

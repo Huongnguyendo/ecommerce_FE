@@ -29,12 +29,12 @@ const SellerLayout = () => {
             <Switch>
               <PrivateSellerRoute  path="/seller/profile" component={SellerProfilePage} />
               <PrivateSellerRoute exact path="/seller/products/add" component={AddEditProductPage} />
-              <PrivateSellerRoute exact path="/seller/products" component={SellerProducts} />
               <PrivateSellerRoute
                 exact
                 path="/seller/products/edit/:id"
                 component={AddEditProductPage}
               />
+              <PrivateSellerRoute exact path="/seller/products" component={SellerProducts} />
               <PrivateSellerRoute
                 exact
                 path="/seller/dashboard"

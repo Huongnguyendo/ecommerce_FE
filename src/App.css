@@ -437,3 +437,13 @@ a {
 .cartTotal p {
 	font-size: 30px;
 }
+
+/* SELLER */
+.reviewFormInPD {
+	margin-left: 50px!important;
+	margin-right: 50px!important;
+}
+
+.myTab {
+	border: none!important;
+}

@@ -65,15 +65,9 @@ const ProductDetailPage = () => {
           </Button> */}
           {console.log("current user ne: ", currentUser)}
           {console.log("productDetail?.seller?._id: ", productDetail?.seller?._id)}
-          {currentUser && currentUser?._id === productDetail?.seller?._id ? (
-            <Link to={`/seller/products/edit/${productDetail?._id}`}>
-              <Button variant="primary">
-                <FontAwesomeIcon icon="edit" size="1x" /> Edit
-              </Button>
-            </Link>
-          ) : (
-            <></>
-          )}
+
+          
+
         </div>
         {loading ? (
         <div className="text-center">
@@ -91,6 +85,15 @@ const ProductDetailPage = () => {
                   <div>
                     {productDetail.image && (
                       <Image src={productDetail.image} style={{ width: "100%" }} />)}
+                      {currentUser && currentUser?._id === productDetail?.seller?._id ? (
+                        <Link to={`/seller/products/edit/${productDetail?._id}`}>
+                          <Button variant="primary sellerEditBtn" className="mt-3">
+                            Edit product
+                          </Button>
+                        </Link>
+                      ) : (
+                        <></>
+                      )}
                   </div>
                          
                 </Card.Body>
@@ -127,7 +130,7 @@ const ProductDetailPage = () => {
                             </div>
                           </p>
                       </div>
-                      {/* <Markdown source={productDetail.description} /> */}
+
 
                       {productDetail?.inStockNum > 0 && (
                           <Button variant="success" onClick={handleAddToCart}
@@ -141,35 +144,35 @@ const ProductDetailPage = () => {
           </div>        
         )}
 
-<div>
-  <ul className="nav nav-tabs" id="myTab" role="tablist">
-    <li className="nav-item">
-      <a className="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Description</a>
-    </li>
-    <li className="nav-item">
-      <a className="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="profile" aria-selected="false">Reviews</a>
-    </li>
-  </ul>
-  <div className="tab-content" id="myTabContent">
-    <div className="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="home-tab">
-      <div className="description">
-        <div className="row">
-          <div className="col-xs-12 col-sm-12 col-md-12">
-            <p>
-              {productDetail?.description}            
-            </p>
+    <div style={{marginTop: "50px", marginLeft: "50px", marginTop: "20px"}}>
+      <ul className="nav nav-tabs" id="myTab" role="tablist">
+        <li className="nav-item">
+          <a className="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Description</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="profile" aria-selected="false">Reviews</a>
+        </li>
+      </ul>
+      <div className="tab-content" id="myTabContent">
+        <div className="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="home-tab">
+          <div className="description">
+            <div className="row">
+              <div className="col-xs-12 col-sm-12 col-md-12">
+                <p style={{marginTop: "30px"}}>
+                  {productDetail?.description}            
+                </p>
+              </div>
+            </div>
           </div>
+        </div>
+        <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="profile-tab">
+          <ReviewList reviews={productDetail?.reviews} loading={submitLoading}/>
         </div>
       </div>
     </div>
-    <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="profile-tab">
-      <ReviewList reviews={productDetail?.reviews} loading={submitLoading}/>
-    </div>
-  </div>
-</div>
 
 
-            
+    <div className="reviewFormInPD">
           {isAuthenticated && (
               <ReviewForm
               style={{marginLeft: "50px", marginTop: "20px" }}
@@ -179,6 +182,7 @@ const ProductDetailPage = () => {
                 loading={submitLoading}
               />
           )}
+    </div>
       
       </>
       )}

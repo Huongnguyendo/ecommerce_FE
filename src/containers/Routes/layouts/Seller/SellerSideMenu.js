@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
+import { Nav, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
 import {productActions} from "../../../../redux/actions/product.actions";
@@ -13,10 +13,12 @@ const SideMenu = () => {
     dispatch(productActions.getAllProductsForSeller());
   }
 
+
+
   return (
-    <Nav className="col-md-3 col-lg-2 d-md-block sidebar collapse">
-      <h1>Seller Side menu ne</h1>
-      <div className="sidebar-sticky pt-3">
+    <div style={{textAlign: "center" }}>
+      <h1>Seller Dashboard</h1>
+      <div className="d-flex justify-content-center">
         <Nav.Item>
           <Nav.Link
             as={NavLink}
@@ -49,7 +51,7 @@ const SideMenu = () => {
           </Nav.Link>
         </Nav.Item>
       </div>
-    </Nav>
+    </div>
   );
 };
 

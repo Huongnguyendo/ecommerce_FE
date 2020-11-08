@@ -16,7 +16,7 @@ const SellerProductPage = () => {
   return (
       <div>
         <Link to="/seller/products/add" className="d-flex justify-content-center">
-            <Button variant="primary" className="mr-2">Add more product</Button>
+            <Button variant="primary" className="mr-2">Add product</Button>
         </Link>
 
         {selectedProducts.map((product) => (
