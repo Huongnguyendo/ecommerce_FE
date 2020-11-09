@@ -49,16 +49,16 @@ const LoginPage = () => {
     dispatch(authActions.loginGoogleRequest(response.accessToken));
   };
 
-  useEffect(() => {
-    if (isAuthenticated) return <Redirect to="/" />;
-  }, [isAuthenticated]);
+  
+
+    if (isAuthenticated) return  <Redirect to="/" />
 
   
   return (
     <>
     <PublicNavbar />
     <Container>
-      {isAuthenticated}
+      {isAuthenticated ? "haha" : "hoho"}
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>

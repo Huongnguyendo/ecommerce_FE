@@ -38,6 +38,7 @@ const productReducer = (state = initialState, action) => {
     case types.GET_PRODUCTS_SUCCESS:
     case types.GET_ALLPRODUCTSFORSELLER_SUCCESS:
     case types.GET_HISTORYFORSELLER_SUCCESS:
+      console.log("payyyy", payload.products)
       return {
         ...state,
         loading: false,

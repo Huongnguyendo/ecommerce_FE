@@ -31,7 +31,7 @@ const PaginationBar = ({ pageNum, setPageNum, totalPageNum, loading }) => {
   };
 
   return (
-    <Pagination className="justify-content-center" disabled={loading}>
+    <Pagination className="justify-content-center mt-5" disabled={loading}>
       <Pagination.First disabled={pageNum === 1} onClick={handleClickOnFirst} />
       <Pagination.Prev disabled={pageNum === 1} onClick={handleClickOnPrev} />
       <Pagination.Item active={pageNum === 1} onClick={() => handleClick(1)}>

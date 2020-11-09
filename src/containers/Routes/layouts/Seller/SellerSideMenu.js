@@ -16,7 +16,7 @@ const SideMenu = () => {
 
 
   return (
-    <div style={{textAlign: "center" }}>
+    <div className="sellerDashboard" style={{textAlign: "center" }}>
       <h1>Seller Dashboard</h1>
       <div className="d-flex justify-content-center">
         <Nav.Item>

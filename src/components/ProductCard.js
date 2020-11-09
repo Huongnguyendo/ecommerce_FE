@@ -1,34 +1,38 @@
-import React from "react";
+import React, {useState} from "react";
 import { Col, Card, Image, Badge } from "react-bootstrap";
 import moment from "moment";
 import "App.css";
 
 const ProductCard = ({ product, gotoProductDetail }) => {
+
   return (
     product && (
-      <div className="productCard" sm={3} >
+      <div className="productCard" style={{borderRadius: "15px"}}>
         {/* {console.log("product._id", product._id)}
         {console.log("product.seller", product.seller.name)} */}
-        <Card>
-          <Card.Body>
-            
-            <div
-                style={{overflow: "scroll",textAlign: "left"}}>
-                {product.image && (
-                  <Image src={product.image} style={{ width: "200px" }} />
-                )}
-                <Card.Title
-                style={{paddingLeft: "10px"}}
-                onClick={() => {
-                  gotoProductDetail(product._id);}}>
+        <div>
+                <div className="productCardImg">
+                    {product.image && (
+                      <img src={product.image}  />
+                    )}
+                </div>
+                <div className="productCardBody"
+                
+                  onClick={() => {
+                    gotoProductDetail(product._id);}}>
 
-                <Badge variant="warning" style={{fontSize: "10px"}}>{product.category}</Badge>
-                <p className="productCardName">{product.name}</p>
-              </Card.Title>
-              <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
-            </div>
+                  <Badge variant="warning" style={{fontSize: "12px"}}>{product.category}</Badge>
+                  <h3 className="productCardName">{product.name}</h3>
+                  <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
+                  <div className="productCardDes-Btn">
+                    <p className="productCardDescription">{product.description.length < 80 ? product.description : product.description.slice(0, 800) + "..."}</p>
+                    <button 
+                      className="productCardBtn" 
+                      onClick={() => {
+                      gotoProductDetail(product._id);}}>DETAILS</button>
+                  </div>
+                </div>
           
-          </Card.Body>
           
           {/* <div style={{ height: "30px"}}>
             <small
@@ -50,7 +54,7 @@ const ProductCard = ({ product, gotoProductDetail }) => {
           </div>
 
          */}
-        </Card>
+        </div>
       </div>
     )
   );

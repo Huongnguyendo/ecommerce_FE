@@ -6,23 +6,27 @@ import { productActions, categoryActions } from "redux/actions";
 import { useHistory, Link } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 import Select from 'react-select';
+import logo from "../images/shopping-logo.jpg"
 import shoeimg from "../images/shoe.png";
 import watchimg from "../images/apple-watch.png";
+import iphoneimg from "../images/iphone-12-pro.png";
 import slide1 from "../images/iphone-lineup.jpg"
 import slide2 from "../images/ckeditor_2775444.jpg";
+import cover from "../images/cover.jpg";
+import bgi from "../images/download.jpeg"
 
 const HomePage = () => {
   const history = useHistory();
   const [pageNum, setPageNum] = useState(1); 
 
   const [category, setCategory] = useState("All");
-  const filterProducts = useSelector((state) => state.product.products)
+  const filterProducts = useSelector((state) => state.category.products)
   console.log("filterProducts: ", filterProducts );
 
   const totalPageNum = useSelector((state) => state.product.totalPageNum);
   let productList = useSelector((state) => state.product.products);
   let loading = useSelector((state) => state.product.loading);
-
+  console.log(productList, "List ststst")
   const categories = [
     { value: 'All', label: 'All Categories'},
     { value: 'Fashion', label: 'Fashion' },
@@ -46,12 +50,15 @@ const HomePage = () => {
 
   // let keyword = "";
 
-  useEffect(() => {
-    dispatch(productActions.getProductList(pageNum));
-  }, [dispatch, pageNum]);
+  // useEffect(() => {console.log("1111ssss")
+  //   if (!category || category === "All") dispatch(productActions.getProductList(pageNum));
+  // }, [dispatch, pageNum]);
 
   useEffect(() => {
-    dispatch(categoryActions.getProductsWithCategory(category))
+    
+    if (category && category !== "All") {
+      dispatch(categoryActions.getProductsWithCategory(category))
+      console.log("eafsa")}
   }, [category, pageNum]);
 
   // JS 
@@ -62,23 +69,23 @@ const HomePage = () => {
   let slideControlItems = slideControl?.getElementsByClassName('slide-control-item')
 
 
-  // slider?.style.marginTop = '-' + slideIndex + '00vh'
-
   setTimeout(() => {
     slideControlItems && slideControlItems[slideIndex].classList.add('active')
     slides && slides[slideIndex].classList.add('active')
   }, 500)
+
   
 
   return (
     <div>
 
-      <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} />
+      {/* <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} /> */}
 
-      
+      {/* <img src={cover} style={{width: "100%"}}/> */}
+
       <div id="slider" className="slider">
         <div className="row fullheight slide">
-          <div className="col-6 fullheight">
+          <div className="col-6">
             <div className="product-info">
               <div className="info-wrapper">
                 <div className="homepageDeal left-to-right">
@@ -94,11 +101,11 @@ const HomePage = () => {
             </div>
 
           </div>
-          <div className="col-6 fullheight img-col" style={{backgroundImage: 'linear-gradient(to top right, #e19e95, #fd835c)'}}>
+          <div className="col-6" >
             <div className="product-img">
               <div className="img-wrapper right-to-left">
-                <div className="bounce">
-                  <img src={shoeimg} alt="placeholder+image" />
+                <div >
+                  <img src={iphoneimg} alt="placeholder+image" />
                 </div>
               </div>
             </div>
@@ -106,6 +113,7 @@ const HomePage = () => {
           </div>
         </div>        
       </div>
+
 
 
       {/* <section className="carousel d-flex mb-5">
@@ -141,38 +149,123 @@ const HomePage = () => {
       </section>
 
        */}
+      <div className="homePageProduct">
+        <div className="innerHomePageProduct">
+          <h2 className="homepageTitle">PRODUCTS</h2>
 
-      <h1 className="homepageTitle">PRODUCTS</h1>
+          <div id="mainRow"
+            style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
+            {loading ? (
+              <h4 style={{ textAlign: "center", marginTop: "100px" }}>loading</h4>
+            ) 
+            : filterProducts ? (
+              filterProducts?.map((product) => (
+                <ProductCard
+                  product={product}
+                  key={product._id}
+                  gotoProductDetail={gotoProductDetail}
+                />
+              ))
+            )
+            : 
+            (
+              productList.products && productList?.products.map((product) => (
+                <ProductCard
+                  product={product}
+                  key={product._id}
+                  gotoProductDetail={gotoProductDetail}
+                />
+              ))
+            )
+            }
+          </div>
+          <PaginationBar
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+            totalPageNum={totalPageNum}
+            loading={loading}
+          />
+        </div>
+      </div>
 
-      <Row id="mainRow"
-        style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
-        {loading ? (
-          <h4 style={{ textAlign: "center" }}>loading</h4>
-        ) : filterProducts ? (
-          filterProducts?.map((product) => (
-            <ProductCard
-              product={product}
-              key={product._id}
-              gotoProductDetail={gotoProductDetail}
-            />
-          ))
-        )
-        : (
-          productList?.map((product) => (
-            <ProductCard
-              product={product}
-              key={product._id}
-              gotoProductDetail={gotoProductDetail}
-            />
-          ))
-        )}
-      </Row>
-      <PaginationBar
-        pageNum={pageNum}
-        setPageNum={setPageNum}
-        totalPageNum={totalPageNum}
-        loading={loading}
-      />
+      <section id="support">
+        <div className="container">
+              <div className="support-area row">
+                <div className="col-md-4 col-sm-4 col-xs-12">
+                  <div className="support-single">
+                    <span className="fa fa-truck" />
+                    <h4>FREE SHIPPING</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</p>
+                  </div>
+                </div>
+                <div className="col-md-4 col-sm-4 col-xs-12">
+                  <div className="support-single">
+                    <span className="fa fa-clock" />
+                    <h4>30 DAYS MONEY BACK</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</p>
+                  </div>
+                </div>
+                <div className="col-md-4 col-sm-4 col-xs-12">
+                  <div className="support-single">
+                    <span className="fa fa-phone" />
+                    <h4>SUPPORT 24/7</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</p>
+                  </div>
+                </div>
+              </div>
+            
+        </div>
+      </section>
+
+      <section className="footer_info">
+        <div className="footer_info__items">
+          <div className="footer_info__item about_us">
+            <p>About Us</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam eligendi cum nobis optio dolorum necessitatibus repudiandae veritatis sapiente quibusdam tenetur?</p>
+          </div>
+          <div className="footer_info__item my_account">
+            <p>My Account</p>
+            <a href="#">Check out</a>
+            <a href="#">Login</a>
+            <a href="#">Create Account</a>
+          </div>
+          <div className="footer_info__item info">
+            <p>Information</p>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">Short Codes</a>
+            <a href="#">Mail us</a>
+          </div>
+          <div className="footer_info__item contact">
+            <p>Contact</p>
+            <p>
+              <span />
+            </p>
+            <p>
+              <i className="fa fa-phone" />
+              <span />
+            </p>
+            <p>
+              <i className="fa fa-envelope" />
+              <span />
+            </p>
+          </div>
+        </div>
+      </section>
+
+    <footer className="footer">
+      <div className="footer__left">
+        <p>Copyright.</p>
+      </div>
+      <div className="footer__right">
+        <i className="fab fa-cc-visa" />
+        <i className="fab fa-cc-paypal" />
+        <i className="fab fa-cc-mastercard" />
+        <i className="fab fa-cc-amex" />
+      </div>
+    </footer>
+
+
     </div>
   );
 };

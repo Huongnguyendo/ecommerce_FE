@@ -58,17 +58,12 @@ const ProductDetailPage = () => {
   if (loading) return <></>
 
   return (
-    <>
-      <div className="d-flex justify-content-between">
-          {/* <Button onClick={handleGoBackClick}>
-            <FontAwesomeIcon icon="chevron-left" size="1x" /> Back
-          </Button> */}
+    <div className="productDetailCom">
+        {/* <div className="d-flex justify-content-between">
           {console.log("current user ne: ", currentUser)}
           {console.log("productDetail?.seller?._id: ", productDetail?.seller?._id)}
+        </div> */}
 
-          
-
-        </div>
         {loading ? (
         <div className="text-center">
           <ClipLoader color="#f86c6b" size={150} loading={loading} />
@@ -77,14 +72,11 @@ const ProductDetailPage = () => {
       <>
         {productDetail && (
           <div
-            style={{display: "flex",justifyContent: "center",alignItems: "center",}}>
-            <Row> 
-              <Col md="6">
-                <Card className="product-card">
-                  <Card.Body>
-                  <div>
+            style={{display: "flex",justifyContent: "center",alignItems: "center",width: "100%"}}>
+            <div style={{display: "flex",}}> 
+                <div className="product-card">
                     {productDetail.image && (
-                      <Image src={productDetail.image} style={{ width: "100%" }} />)}
+                      <Image src={productDetail.image} className="productDetailImg" style={{ width: "100%" }} />)}
                       {currentUser && currentUser?._id === productDetail?.seller?._id ? (
                         <Link to={`/seller/products/edit/${productDetail?._id}`}>
                           <Button variant="primary sellerEditBtn" className="mt-3">
@@ -94,18 +86,16 @@ const ProductDetailPage = () => {
                       ) : (
                         <></>
                       )}
-                  </div>
                          
-                </Card.Body>
-                </Card>
-              </Col>
-              <Col md="6">
-                  <div>
+                </div>
+              <div>
+                  <div style={{width: "70%"}}>
                     <Badge variant="warning">{productDetail.category}</Badge>
-                    <Card.Title>{productDetail.name}</Card.Title>
+                    <h3 className="productDetailName">{productDetail.name}</h3>
                     <div>
-                      <p>Price: <span className="productDetailPrice">${productDetail?.price}</span ></p>
-                      Status:{' '}<Badge variant="primary">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}</Badge>
+                      <div class="is-divider"></div>
+                      <p><span className="productDetailPrice">${productDetail?.price}</span ></p>
+                      <Badge variant="primary">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}</Badge>
                       <p className="mt-3">
                         Quantity:{' '}
                         <select value={quantity} onChange={(e) => {setQuantity(e.target.value);}}>
@@ -116,7 +106,7 @@ const ProductDetailPage = () => {
                         </select>
                       </p>
 
-                      <div>
+                      {/* <div>
                           <p style={{display: "flex",alignItems: "center",}}> 
                           Seller:
                             <Image
@@ -129,22 +119,26 @@ const ProductDetailPage = () => {
                               
                             </div>
                           </p>
-                      </div>
+                      </div> */}
+
+                      <p style={{marginTop: "30px"}}>
+                        {productDetail?.description}            
+                      </p>
 
 
                       {productDetail?.inStockNum > 0 && (
                           <Button variant="success" onClick={handleAddToCart}
                             className="button primary">
                             Add to Cart
-                      </Button>)}
+                          </Button>)}
                     </div>
                   </div>
-              </Col>
-            </Row>       
+              </div>
+            </div>       
           </div>        
         )}
 
-    <div style={{marginTop: "50px", marginLeft: "50px", marginTop: "20px"}}>
+    {/* <div style={{marginTop: "50px", marginLeft: "50px", marginTop: "20px"}}>
       <ul className="nav nav-tabs" id="myTab" role="tablist">
         <li className="nav-item">
           <a className="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Description</a>
@@ -171,6 +165,10 @@ const ProductDetailPage = () => {
       </div>
     </div>
 
+     */}
+    <div className="productDetailRVlist">
+        <ReviewList reviews={productDetail?.reviews} loading={submitLoading}/>
+    </div>
 
     <div className="reviewFormInPD">
           {isAuthenticated && (
@@ -186,7 +184,7 @@ const ProductDetailPage = () => {
       
       </>
       )}
-    </>
+    </div>
   );
 };
 

@@ -9,7 +9,9 @@ import {Card, Badge, Row, Col, Image, Button} from "react-bootstrap";
 const SellerProductPage = () => {
   let dispatch = useDispatch();
   
-  const selectedProducts = useSelector((state) => state.product.products);
+  const selectedProducts = useSelector((state) => state.product?.products);
+  const loading = useSelector((state) => state.product?.loading);
+  // console.log("selectedProducts", selectedProducts);
   
   useEffect(() => {dispatch(productActions.getAllProductsForSeller())},[])
 
@@ -19,36 +21,39 @@ const SellerProductPage = () => {
             <Button variant="primary" className="mr-2">Add product</Button>
         </Link>
 
-        {selectedProducts.map((product) => (
-            <Row className="d-flex justify-content-center align-items-center">
-              <Col sm={6} >
-                {/* {console.log("product._id", product._id)}
-                {console.log("product.seller", product.seller.name)} */}
-                <Link to={"/products/edit/" + product._id} style={{textDecoration: "none"}}>
-                  <Card>
-                    <Card.Body>
-                    <div
-                      style={{overflow: "scroll",textAlign: "left"}}>
-                      {product?.image && (
-                        <Image src={product?.image} />
-                      )}
-                       <Card.Title>
-                        <Badge variant="warning" style={{fontSize: "10px"}}>{product.category}</Badge>
-                        
-                            <p>{product?.name}</p>
-                        
-                      </Card.Title>
-                    <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
-                  </div>
-                
-                    </Card.Body>
-                  </Card>
-                </Link>
-              </Col>
-            </Row>
-          ))}
+        {loading ? <h3>Loading...</h3> : 
+        selectedProducts?.products?.map((product) => (
+          <Row className="d-flex justify-content-center align-items-center">
+            <Col sm={6} >
+              
+              <Link to={"/seller/products/edit/" + product._id} style={{textDecoration: "none"}}>
+                <Card>
+                  <Card.Body>
+                  <div
+                    style={{overflow: "scroll",textAlign: "left"}}>
+                    {product?.image && (
+                      <Image src={product?.image} />
+                    )}
+                     <Card.Title>
+                      <Badge variant="warning" style={{fontSize: "10px"}}>{product.category}</Badge>
+                      
+                          <p>{product?.name}</p>
+                      
+                    </Card.Title>
+                  <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
+                </div>
+              
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+          </Row>
+        ))
+      }
 
-      </div>
+    
+
+        </div>
     );
 };
 

@@ -27,7 +27,7 @@ const SellerProductPage = () => {
           {sellingHistory?.length <= 0 ? <h1>No Selling History</h1>
           :
           <div>
-            {sellingHistory.map((item) => (
+            {sellingHistory?.map((item) => (
               <div className="d-flex justify-content-center">
                 <div className="historyProduct">
                   <Image src={item.product.image} />

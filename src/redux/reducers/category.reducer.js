@@ -3,6 +3,7 @@ import * as types from "redux/constants/category.constants";
 const initialState = {
     products: [],
     loading: false,
+    totalPages: 1,
     error: "",
   };
 
@@ -15,10 +16,12 @@ const categoryReducer = (state = initialState, action) => {
 
     case types.CATEGORY_CHOOSE_SUCCESS:
         console.log("products của category ne: ", payload);
+        console.log("products của category ne: ", payload.totalPages);
       return {
         ...state,
         loading: false,
-        products: payload,
+        products: payload.products,
+        totalPages: payload.totalPages
         
       };
       

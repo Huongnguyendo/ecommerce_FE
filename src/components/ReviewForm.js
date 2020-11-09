@@ -11,11 +11,12 @@ const ReviewForm = ({
       <Form onSubmit={handleSubmitReview}>
       <Form.Group as={Row}>
         <Form.Label htmlFor="review" column sm="2">
-          Review:
+          {/* Review: */}
         </Form.Label>
         <Col sm="8">
           <Form.Control
             id="review"
+            className="mt-5"
             type="text"
             value={reviewText}
             onChange={handleInputChange}
@@ -31,7 +32,7 @@ const ReviewForm = ({
             Submitting...
           </Button>
         ) : (
-          <Button type="submit" disabled={!reviewText}>
+          <Button className="mt-5" type="submit" disabled={!reviewText}>
             Submit
           </Button>
         )}
