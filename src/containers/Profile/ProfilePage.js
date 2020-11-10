@@ -23,6 +23,8 @@ const ProfilePage = () => {
   });
   const dispatch = useDispatch();
 
+  let [avatarUrl, setAvatarUrl] = useState("");
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -30,6 +32,7 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, avatarUrl } = formData;
+    console.log("avatarUrl: ", avatarUrl);
     dispatch(authActions.updateProfile(name, avatarUrl));
     setEditable(false);
   };
@@ -39,6 +42,7 @@ const ProfilePage = () => {
   };
 
   const uploadWidget = () => {
+    console.log("hehehehheheheh")
     window.cloudinary.openUploadWidget(
       {
         cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
@@ -46,19 +50,37 @@ const ProfilePage = () => {
         tags: ["userAvatar"],
       },
       function (error, result) {
-        if (error) console.log(error);
-        if (result && result.length && !error) {
+        console.log("hihihihihihihih")
+        if (error) console.log("abcd ", error);
+        if (result.event === "success") {
+          console.log(result.info.secure_url)
+          // console.log("heheheh: ", result[0].secure_url)
           setFormData({
             ...formData,
-            avatarUrl: result[0].secure_url,
+            avatarUrl: result.info.secure_url,
           });
         }
       }
     );
   };
 
+  // const openWidget = () => {
+  //   const widget = window.cloudinary.createUploadWidget(
+  //     {
+  //       cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+  //       upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
+  //     },
+  //     (error, result) => {
+  //       if (result.event === "success") {
+  //         setAvatarUrl(result.info.secure_url);
+  //       }
+  //     }
+  //   );
+  //   widget.open(); // open up the widget after creation
+  // };
+
   return (
-    <div fluid>
+    <div fluid className="userProfilePage">
       {/* <br />
       <Row>
         
@@ -71,7 +93,7 @@ const ProfilePage = () => {
       <br /> */}
 
       <Row className="d-flex justify-content-center align-items-center">
-        <Col md={{ span: 8, offset: 2 }}>
+        <Col md={{ span: 8}}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
               Loading...

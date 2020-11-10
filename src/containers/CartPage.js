@@ -4,12 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import {Table, Button} from "react-bootstrap";
+// import moment from "react-moment";
+import Moment from "react-moment";
 
 const CartScreen = () => {
   const params = useParams();
   const history = useHistory();
   const cart = useSelector(state => state.cart.cartItems);
+  const isCheckedout = useSelector((state) => state.cart.isCheckedout);
+  const loading = useSelector((state) => state.cart.loading);
 
+  console.log("checkout roi ne", isCheckedout);
 
   console.log("cart ", cart);
   const dispatch = useDispatch();
@@ -24,10 +29,13 @@ const CartScreen = () => {
   // }, []);
 
   useEffect(() => {
-    dispatch(cartActions.getCartItems());
-  }, []);
+    if(!isCheckedout) {
+      dispatch(cartActions.getCartItems());
+    }
+  }, [isCheckedout]);
 
   const checkoutHandler = () => {
+    // window.location.reload(false);
     dispatch(cartActions.checkOutCart());
   }
   
@@ -40,80 +48,23 @@ const CartScreen = () => {
   console.log("totalCartRevenue ", totalCartRevenue);
 
   return <div className="cart">
-{/* <Table striped bordered hover>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Product</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Larry the Bird</td>
-      <td>@twitter</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
-  </tbody>
-</Table> */}
+
 
     <div className="cart-list">
       <div className="cart-list-container">
         
-        {
-          cart.length === 0 ?
+        { loading ? (
+          <h3>Loading...</h3>
+        ) :
+          (cart.length === 0 || isCheckedout) ?
             <div>Cart is empty</div>
             
             :
           
             cart.map(item =>
               <div className="cart-item-row">
-                
-                {/* <div className="cart-image">
-                  <img src={item.product?.image} alt="product" />
-                </div>
 
-                <div className="cart-name">
-                  <div>
-                    <Link to={"/products/" + item.product?._id}>
-                      {item.product?.name}
-                    </Link>
-                </div>
-
-                  <div>
-                    Quantity: {item.quantity}
-                  </div>
-
-                  <div className="cart-price">
-                    Price: ${item.product?.price}
-                  </div>
-                  <div className="cart-subtotal">
-                    Sub total: ${(item.product?.price * item.quantity).toLocaleString()}
-                  </div>
-                  <Button variant="danger" type="button" className="button" onClick={() => removeFromCartHandler(item.product)} >
-                      Delete
-                  </Button>
-                </div> */}
-
-              <div className="table-responsive">
+              {/* <div className="table-responsive">
                 <table className="table">
                   <thead>
                     <tr>
@@ -146,11 +97,120 @@ const CartScreen = () => {
                   </tbody>
                 </table>
               </div>
- 
+  */}
+
+            <section>
+              <div className="row">
+                <div className="col-lg-8">
+                  <div className="mb-3">
+                    <div className="pt-4 wish-list">
+                      <h5 className="mb-4">Cart (<span>{cart?.length}</span> items)</h5>
+                      <div className="row mb-4">
+                        <div className="col-md-5 col-lg-3 col-xl-3">
+                          <div className="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                            <img className="img-fluid w-100" src={item.product?.image} alt="Sample" />
+                          </div>
+                        </div>
+                        <div className="col-md-7 col-lg-9 col-xl-9">
+                          <div>
+                            <div className="d-flex justify-content-between">
+                              <div>
+                                <h5>{item.product?.name}</h5>
+                                
+                              </div>
+                              <div>
+                                <div className="def-number-input number-input safari_only mb-0 w-100">
+                                  <input className="quantity" min={0} name="quantity" value={item.quantity} type="number" />
+                                </div>
+                                
+                              </div>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div>
+                                <a href="#!" type="button" className="card-link-secondary small text-uppercase mr-3"><i className="fas fa-trash-alt mr-1" /> Remove item </a>
+                              </div>
+                              <p className="mb-0">
+                                <span><strong id="summary">${(item.product?.price * item.quantity).toLocaleString()}</strong></span>
+                                </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr className="mb-4" />
+                      
+                      <p className="text-primary mb-0"><i className="fas fa-info-circle mr-1" /> Do not delay the purchase, adding
+                        items to your cart does not mean booking them.</p>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <div className="pt-4">
+                      <h5 className="mb-4">Expected shipping delivery</h5>
+                      <p className="mb-0"> 
+                        {<Moment fromNow></Moment>};
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <div className="pt-4">
+                      <h5 className="mb-4">We accept</h5>
+                      <img className="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg" alt="Visa" />
+                      <img className="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg" alt="American Express" />
+                      <img className="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg" alt="Mastercard" />
+                      <img className="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.png" alt="PayPal acceptance mark" />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4">
+                  <div className="mb-3">
+                    <div className="pt-4">
+                      <h5 className="mb-3">The total amount of</h5>
+                      <ul className="list-group list-group-flush">
+                        <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                          Temporary amount
+                          <span>${totalCartRevenue.toLocaleString()}</span>
+                        </li>
+                        <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                          VAT
+                          <span>${(totalCartRevenue * 0.1).toLocaleString()}</span>
+                        </li>
+                        <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                          <div>
+                            <strong>The total amount of</strong>
+                            <strong>
+                              <p className="mb-0">(including VAT)</p>
+                            </strong>
+                          </div>
+                          <span><strong>${(totalCartRevenue * 1.1).toLocaleString()}</strong></span>
+                        </li>
+                      </ul>
+                      <button type="button" className="btn btn-primary btn-block">Go to Checkout</button>
+                    </div>
+                  </div>
+                  <div className="mb-3">
+                    <div className="pt-4">
+                      <a className="dark-grey-text d-flex justify-content-between" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Add a discount code (optional)
+                        <span><i className="fas fa-chevron-down pt-1" /></span>
+                      </a>
+                      <div className="collapse" id="collapseExample">
+                        <div className="mt-3">
+                          <div className="md-form md-outline mb-0">
+                            <input type="text" id="discount-code" className="form-control font-weight-light" placeholder="You have no discount code" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            )
+            </section>
+
+          {/* day ne */}
+          </div>
+          )
         }
         <div className="cartTotal">
+          
           <p>Total: ${totalCartRevenue.toLocaleString()}</p>
           <Button variant="info" onClick={checkoutHandler}>Checkout</Button>
         </div>

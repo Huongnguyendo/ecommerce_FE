@@ -155,6 +155,7 @@ a {
   padding: 15px 15px 10px;
   border-radius:15px !important;
   overflow: hidden;
+  text-align: center;
   transition: 0.5s;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -184,9 +185,9 @@ a {
 	overflow: hidden;
 }
 
-/* .productCard img {
-	height: 200px;
-} */
+.productCard img {
+	height: 300px;
+}
 
 .productCardBody {
 	margin: 0;
@@ -205,7 +206,7 @@ a {
 
 .productCardName {
 	font-size: 1rem;
-	line-height: 3.3rem;
+	line-height: 1.5rem;
 	font-weight: 700;
 	margin-bottom: 0;
 }
@@ -325,7 +326,7 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 70%;
 }
 
 
@@ -572,7 +573,7 @@ a {
 
 .support-single span {
 	font-size: 30px;
-	color: red;
+	color: #cd1817;
 	margin-bottom: 15px;
 }
 
@@ -580,7 +581,7 @@ a {
 
 /* FOOTER INFO */
 .footer_info {
-    background-color: #1764c0;
+    background-color: black;
     color: #ffffff;
     font-size: 12px;
 }
@@ -605,9 +606,13 @@ a {
     flex-direction: column;
     justify-content: center;
     text-align: left;
-    text-decoration: none;
+    text-decoration: none !important;
     color: #ffffff;
     padding-bottom: 10px;
+}
+
+.footer_info__item a:hover {
+  color: gray;
 }
 
 .contact p:nth-child(2),
@@ -641,3 +646,24 @@ a {
     padding-left: 5px;
 }
 
+/* HISTORY */
+.historyProductRow {
+  border: 1px solid gray;
+}
+
+.historyProductRow p {
+  padding:0;
+  margin: 0;
+}
+
+.sellingHistoryPage {
+  background-color:#f8f9fa;
+}
+
+/* PROFILE PAGE */
+.adminProfilePage, 
+.sellerProfilePage,
+.userProfilePage {
+    background-color: #f8f9fa;
+    padding-top: 50px;
+}

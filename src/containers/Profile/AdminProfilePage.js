@@ -40,6 +40,7 @@ const ProfilePage = () => {
   };
 
   const uploadWidget = () => {
+    console.log("hehehehheheheh")
     window.cloudinary.openUploadWidget(
       {
         cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
@@ -47,11 +48,14 @@ const ProfilePage = () => {
         tags: ["userAvatar"],
       },
       function (error, result) {
-        if (error) console.log(error);
-        if (result && result.length && !error) {
+        console.log("hihihihihihihih")
+        if (error) console.log("abcd ", error);
+        if (result.event === "success") {
+          console.log(result.info.secure_url)
+          // console.log("heheheh: ", result[0].secure_url)
           setFormData({
             ...formData,
-            avatarUrl: result[0].secure_url,
+            avatarUrl: result.info.secure_url,
           });
         }
       }
@@ -59,7 +63,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div fluid>
+    <div fluid className="adminProfilePage">
       {/* <br />
       <Row>
         
@@ -72,7 +76,7 @@ const ProfilePage = () => {
       <br /> */}
 
       <Row className="d-flex justify-content-center align-items-center">
-        <Col md={{ span: 8, offset: 2 }}>
+        <Col md={{ span: 8}}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
               Loading...

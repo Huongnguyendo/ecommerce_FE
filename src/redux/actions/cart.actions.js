@@ -29,6 +29,7 @@ const getCartItems = () => async (dispatch) => {
     try {
         const res = await api.get("/cart");
         dispatch({ type: types.GET_CART_ITEMS_SUCCESS, payload: res.data.data });
+        console.log("res cua cart ne: ", res.data.data);
       } catch (error) {
         dispatch({ type: types.GET_CART_ITEMS_FAILURE, payload: error });
       }
@@ -64,7 +65,7 @@ const checkOutCart = () => async (dispatch) => {
         console.log(res);
         dispatch({ type: types.CART_CHECKOUT_SUCCESS, payload: res.data.data });
         dispatch(routeActions.redirect("/"));
-        toast.success(`Cart checkout successfull`);
+        toast.success(`Cart checkout successful`);
       } catch (error) {
         dispatch({ type: types.CART_CHECKOUT_FAILURE, payload: error });
       }

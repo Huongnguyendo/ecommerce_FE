@@ -25,7 +25,7 @@ const ProductCard = ({ product, gotoProductDetail }) => {
                   <h3 className="productCardName">{product.name}</h3>
                   <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
                   <div className="productCardDes-Btn">
-                    <p className="productCardDescription">{product.description.length < 80 ? product.description : product.description.slice(0, 800) + "..."}</p>
+                    <p className="productCardDescription">{product.description.length < 80 ? product.description : product.description.slice(0, 80) + "..."}</p>
                     <button 
                       className="productCardBtn" 
                       onClick={() => {
@@ -56,6 +56,7 @@ const ProductCard = ({ product, gotoProductDetail }) => {
          */}
         </div>
       </div>
+    
     )
   );
 };

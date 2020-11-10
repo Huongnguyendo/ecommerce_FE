@@ -62,6 +62,17 @@ const logout = () => (dispatch) => {
     dispatch({ type: types.LOGOUT, payload: null });
   };
 
+const updateProfile = (name, avatarUrl) => async (dispatch) => {
+  dispatch({ type: types.UPDATE_PROFILE_REQUEST, payload: null });
+  try {
+    const res = await api.put("/users", { name, avatarUrl });
+    dispatch({ type: types.UPDATE_PROFILE_SUCCESS, payload: res.data.data });
+    toast.success(`Your profile has been updated.`);
+  } catch (error) {
+    dispatch({ type: types.UPDATE_PROFILE_FAILURE, payload: error });
+  }
+};
+
 const getCurrentUser = (accessToken) => async (dispatch) => {
   dispatch({ type: types.GET_CURRENT_USER_REQUEST, payload: null });
   if (accessToken) {
@@ -96,6 +107,7 @@ export const authActions = {
   register,
   loginRequest,
   logout,
+  updateProfile,
   getCurrentUser,
   loginFacebookRequest,
   loginGoogleRequest,

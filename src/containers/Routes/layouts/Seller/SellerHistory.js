@@ -12,6 +12,7 @@ const SellerProductPage = () => {
   
   const seller = useSelector((state) => state.auth.user);
   const sellingHistory = useSelector((state) => state.product.historyToRender)
+  let loading = useSelector((state) => state.product.loading);
 
   console.log("sellingHistory ", sellingHistory);
 
@@ -23,13 +24,13 @@ const SellerProductPage = () => {
   }, [dispatch]);
 
   return (
-      <div>
-          {sellingHistory?.length <= 0 ? <h1>No Selling History</h1>
+      <div className="sellingHistoryPage">
+          {loading ? <h3>Loading ... </h3> : sellingHistory?.length <= 0 ? <h1>No Selling History</h1>
           :
           <div>
             {sellingHistory?.map((item) => (
-              <div className="d-flex justify-content-center">
-                <div className="historyProduct">
+              <div className="historyProductRow d-flex justify-content-center">
+                <div className="historyProduct" style={{textAlign: "center"}}>
                   <Image src={item.product.image} />
                   <p>Category: {item.product.category}</p>
                   <p>Brand: {item.product.brand}</p>
@@ -37,11 +38,16 @@ const SellerProductPage = () => {
                   <p>Price: ${item.product.price}</p>
                 </div>
                 <div className="historyBuyers">
-                  {item.buyers.map(buyer => (
-                    <div>
-                      <Image src={buyer.avatarUrl} style={{width: "40px"}}/>
-                      <p>Name: {buyer.name}</p>
-                      <p>Time bought: <Moment>{buyer.createdAt}</Moment></p>
+                  {console.log("hihoeh")}
+                  {item.history?.map(innerItem => (
+                    <div className="d-flex mb-2 ml-5" style={{justifyContent: "center", alignItems: "center",}}>
+                      
+                      <Image src={innerItem.buyer?.avatarUrl} style={{width: "30px", height: "30px", marginRight: "10px"}}/>
+                      <div>
+                        <p>{innerItem.buyer?.name}</p>
+                        <p>Time bought: {innerItem.createdAt}</p>
+                        <p>Quantity: {innerItem.quantity}</p>
+                      </div>
                     </div>
                   ))}
                   

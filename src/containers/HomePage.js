@@ -6,7 +6,7 @@ import { productActions, categoryActions } from "redux/actions";
 import { useHistory, Link } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
 import Select from 'react-select';
-import logo from "../images/shopping-logo.jpg"
+import logo from "../images/shopping-cart.png"
 import shoeimg from "../images/shoe.png";
 import watchimg from "../images/apple-watch.png";
 import iphoneimg from "../images/iphone-12-pro.png";
@@ -20,6 +20,7 @@ const HomePage = () => {
   const [pageNum, setPageNum] = useState(1); 
 
   const [category, setCategory] = useState("All");
+  
   const filterProducts = useSelector((state) => state.category.products)
   console.log("filterProducts: ", filterProducts );
 
@@ -27,6 +28,8 @@ const HomePage = () => {
   let productList = useSelector((state) => state.product.products);
   let loading = useSelector((state) => state.product.loading);
   console.log(productList, "List ststst")
+  console.log(loading, "hehhhh")
+  
   const categories = [
     { value: 'All', label: 'All Categories'},
     { value: 'Fashion', label: 'Fashion' },
@@ -50,16 +53,16 @@ const HomePage = () => {
 
   // let keyword = "";
 
-  // useEffect(() => {console.log("1111ssss")
-  //   if (!category || category === "All") dispatch(productActions.getProductList(pageNum));
-  // }, [dispatch, pageNum]);
-
   useEffect(() => {
-    
-    if (category && category !== "All") {
-      dispatch(categoryActions.getProductsWithCategory(category))
-      console.log("eafsa")}
-  }, [category, pageNum]);
+    dispatch(productActions.getProductList(pageNum));
+  }, [dispatch, pageNum]);
+
+  // useEffect(() => {
+  //   if (category) {
+  //     console.log("Category ne: ", category);
+  //     dispatch(categoryActions.getProductsWithCategory(category))
+  //     console.log("eafsa")}
+  // }, [category, pageNum]);
 
   // JS 
   let slideIndex = 0;
@@ -82,6 +85,13 @@ const HomePage = () => {
       {/* <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} /> */}
 
       {/* <img src={cover} style={{width: "100%"}}/> */}
+      {/* <div className="col-lg-3 col-12 mt-2">
+          <Select placeholder="Category" 
+                  className="categorySelect" 
+                  options = {categories} 
+                  onChange={(e) => setCategory(e.value)} 
+                  />
+      </div> */}
 
       <div id="slider" className="slider">
         <div className="row fullheight slide">
@@ -158,18 +168,18 @@ const HomePage = () => {
             {loading ? (
               <h4 style={{ textAlign: "center", marginTop: "100px" }}>loading</h4>
             ) 
-            : filterProducts ? (
-              filterProducts?.map((product) => (
-                <ProductCard
-                  product={product}
-                  key={product._id}
-                  gotoProductDetail={gotoProductDetail}
-                />
-              ))
-            )
+            // : filterProducts ? (
+            //   filterProducts?.map((product) => (
+            //     <ProductCard
+            //       product={product}
+            //       key={product._id}
+            //       gotoProductDetail={gotoProductDetail}
+            //     />
+            //   ))
+            // )
             : 
             (
-              productList.products && productList?.products.map((product) => (
+              productList && productList.map((product) => (
                 <ProductCard
                   product={product}
                   key={product._id}
@@ -195,21 +205,18 @@ const HomePage = () => {
                   <div className="support-single">
                     <span className="fa fa-truck" />
                     <h4>FREE SHIPPING</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</p>
                   </div>
                 </div>
                 <div className="col-md-4 col-sm-4 col-xs-12">
                   <div className="support-single">
                     <span className="fa fa-clock" />
                     <h4>30 DAYS MONEY BACK</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</p>
                   </div>
                 </div>
                 <div className="col-md-4 col-sm-4 col-xs-12">
                   <div className="support-single">
                     <span className="fa fa-phone" />
                     <h4>SUPPORT 24/7</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam, nobis.</p>
                   </div>
                 </div>
               </div>
@@ -255,7 +262,7 @@ const HomePage = () => {
 
     <footer className="footer">
       <div className="footer__left">
-        <p>Copyright.</p>
+        <p>Copyright</p>
       </div>
       <div className="footer__right">
         <i className="fab fa-cc-visa" />

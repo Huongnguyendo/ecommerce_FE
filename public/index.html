@@ -53,7 +53,7 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript">
+    <!-- <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript">
       const uploadWidget = () => {
           window.cloudinary.openUploadWidget(
           {
@@ -72,9 +72,16 @@
           }
           );
       }
+
+      let params = CLDUploadRequestParams().setUploadPreset("sample_preset").setPublicId("my_image").setResourceType("image");
+let request = cloudinary.createUploader().upload({file: fileUrl, params: params})
   
-  </script>
-  <!-- Optional JavaScript -->
+    </script> -->
+    <script
+      src="https://widget.cloudinary.com/v2.0/global/all.js"
+      type="text/javascript"
+    ></script>
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -11,6 +11,7 @@ const authReducer = (state = initialState, action) => {
   switch (type) {
     case types.REGISTER_REQUEST:
     case types.VERIFY_EMAIL_REQUEST:
+    case types.UPDATE_PROFILE_REQUEST:
       return { ...state, loading: true };
     case types.REGISTER_SUCCESS:
       return { ...state, loading: false };
@@ -47,6 +48,10 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         loading: false,
       };
+
+    case types.UPDATE_PROFILE_SUCCESS:
+      return { ...state, loading: false, user: { ...state.user, payload } };
+
     case types.GET_CURRENT_USER_REQUEST:
       return { ...state, loading: true };
     case types.GET_CURRENT_USER_SUCCESS:
@@ -58,6 +63,10 @@ const authReducer = (state = initialState, action) => {
       };
     case types.GET_CURRENT_USER_FAILURE:
       return { ...state, loading: false, isAuthenticated: false };
+
+    case types.UPDATE_PROFILE_FAILURE:
+      return { ...state, loading: false };
+      
     default:
       return state;
   }

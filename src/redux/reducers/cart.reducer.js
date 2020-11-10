@@ -6,16 +6,20 @@ const initialState = {
     shipping: {},
     payment: {},
     loading: false,
+    isCheckedout: false,
     error: "",
+
   };
 
 const cartReducer = (state = initialState, action) => {
     const { type, payload } = action;
+    console.log("hhehehehhehehehe: ", payload?.isCheckedout);
 
   switch (type) {
     case types.GET_CART_ITEMS_REQUEST:
     case types.CART_ADD_ITEM_REQUEST:
     case types.CART_REMOVE_ITEM_REQUEST:
+    case types.CART_CHECKOUT_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_CART_ITEMS_SUCCESS:
@@ -26,11 +30,20 @@ const cartReducer = (state = initialState, action) => {
         loading: false,
         cartItems: payload.cartItems,
       };
+
+    case types.CART_CHECKOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isCheckedout: payload.isCheckedout,
+        cartItems: payload.cartItems,
+      };
       // return { ...state, cartItems: cartItems, loading: false };
 
     case types.GET_CART_ITEMS_FAILURE:
     case types.CART_ADD_ITEM_FAILURE:
     case types.CART_REMOVE_ITEM_FAILURE:
+    case types.CART_CHECKOUT_FAILURE:
       return { ...state, loading: false, error: payload };
       
     

@@ -9,6 +9,7 @@ import HomePage from "containers/HomePage";
 import CartPage from "containers/CartPage";
 import PublicNavbar from "containers/PublicNavbar";
 import ProfilePage from "containers/Profile/ProfilePage";
+import UserHistoryPage from "containers/Profile/UserHistoryPage";
 import RegisterPage from "containers/RegisterPage";
 import LoginPage from "containers/LoginPage";
 import PrivateRoute from "containers/Routes/PrivateRoute";
@@ -40,6 +41,7 @@ const PublicLayout = () => {
           <Route exact path="/products/:id" component={ProductDetailPage} />
           <Route path="/cart" component={CartPage} />
           <Route  path="/user/profile" component={ProfilePage} />
+          <Route  path="/user/history" component={UserHistoryPage} />
           
           <Route component={NotFoundPage} />
         </Switch>

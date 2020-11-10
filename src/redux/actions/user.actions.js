@@ -33,7 +33,23 @@ const deleteForAdmin = (userID) => async (dispatch) => {
     }
 }
 
+const getHistoryForUser = () => async (dispatch) => {
+    
+    dispatch({ type: types.GET_USERHISTORY_REQUEST, payload: null });
+    
+    try {
+        const res = await api.get("/users/history");
+        console.log("res day ne ", res);
+        dispatch({ type: types.GET_USERHISTORY_SUCCESS, payload: res.data.data });
+        // dispatch(routeActions.redirect("/login"));
+        toast.success(`Get buying history succesfully`);
+    } catch (error) {
+        dispatch({ type: types.GET_USERHISTORY_FAILURE, payload: error });
+    }
+}
+
 export const userActions = {
     getAllUsersForAdmin,
     deleteForAdmin,
+    getHistoryForUser,
 };

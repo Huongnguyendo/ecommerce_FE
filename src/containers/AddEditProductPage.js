@@ -17,7 +17,7 @@ const AddEditProductPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    image: "http://placeimg.com/400/300",
+    image: "",
     brand: "",
     price: 0,
     category: "",
@@ -25,6 +25,8 @@ const AddEditProductPage = () => {
   });
   const loading = useSelector((state) => state.product.loading);
   const dispatch = useDispatch();
+  const [editable, setEditable] = useState(true);
+
   const history = useHistory();
   const params = useParams();
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
@@ -97,6 +99,29 @@ const AddEditProductPage = () => {
     }
   }, [redirectTo, dispatch, history]);
 
+  const uploadWidget = () => {
+    console.log("hehehehheheheh")
+    window.cloudinary.openUploadWidget(
+      {
+        cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+        upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
+        tags: ["productImg"],
+      },
+      function (error, result) {
+        console.log("hihihihihihihih")
+        if (error) console.log("abcd ", error);
+        if (result.event === "success") {
+          console.log(result.info.secure_url)
+          console.log("hehehehihihihi: ", result.info.secure_url)
+          setFormData({
+            ...formData,
+            image: result.info.secure_url,
+          });
+        }
+      }
+    );
+  };
+
   return (
     <div>
       <Row className="d-flex justify-content-center align-items-center">
@@ -107,6 +132,16 @@ const AddEditProductPage = () => {
               <h1 className="text-primary">{addOrEdit} product</h1>
               
             </div>
+
+            <Button
+                    variant="info"
+                    className="btn-block w-100 "
+                    onClick={uploadWidget}
+                    disabled={!editable}
+                  >
+                    Upload image
+            </Button>
+            
             <Form.Group>
               <Form.Control
                 type="text"

@@ -5,7 +5,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_API + "/api",
   headers: {
     "Content-Type": "application/json",
-    "authorization": "Bearer " + localStorage.getItem("accessToken")
+    // "authorization": "Bearer " + localStorage.getItem("accessToken")
   },
 });
 
@@ -14,6 +14,9 @@ const api = axios.create({
  */
 api.interceptors.request.use(
   (request) => {
+    if(localStorage.getItem('accessToken')) {
+      request.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`
+    }
     console.log("Starting Request", request);
     return request;
   },
@@ -27,10 +30,11 @@ api.interceptors.response.use(
     console.log("Response:", response);
     // This thing happens because axios wraps all the response from the server inside response['data']. So if you're going to use the normal rest convention on your api responses you will need to access it like response['data']['data'] or like response.data.data
 
-    if (response.data.data && response.data.data.accessToken) {
-      api.defaults.headers.common["authorization"] =
-        "Bearer " + response.data.data.accessToken;
-    }
+    // if (response.data.data && response.data.data.accessToken) {
+    //   console.log('replacing access token', response.data.data.accessToken)
+    //   api.defaults.headers.common["authorization"] =
+    //     "Bearer " + response.data.data.accessToken;
+    // }
     return response;
   },
   function (error) {

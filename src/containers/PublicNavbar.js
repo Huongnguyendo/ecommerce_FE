@@ -27,42 +27,7 @@ const PublicNavbar = () => {
   const isSeller = (currentUser && currentUser.role === "Seller");
   const isAdmin = (currentUser && currentUser.role === "Admin");
 
-  const [category, setCategory] = useState("All");
-  const categories = [
-    { value: 'All', label: 'All Categories'},
-    { value: 'Fashion', label: 'Fashion' },
-    { value: 'Phones & Accessories', label: 'Phones & Accessories' },
-    { value: 'Electronic device', label: 'Electronic device' },
-    { value: 'Household goods', label: 'Household goods' },
-    { value: 'Home & Life', label: 'Home & Life' },
-    { value: 'Health & Life', label: 'Health & Life' },
-    { value: 'Fashion Accessories', label: 'Fashion Accessories' },
-    { value: 'Books', label: 'Books' },
-  ]
-
-  const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: '1px dotted pink',
-      color: state.isSelected ? 'red' : 'blue',
-      padding: 20,
-    }),
-    control: () => ({
-      width: 200,
-      backgroundColor: "gray",
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = 'opacity 300ms';
   
-      return { ...provided, opacity, transition };
-    }
-  }
-  
-
-  useEffect(() => {
-    if (category) dispatch(categoryActions.getProductsWithCategory(category))
-  }, [category, pageNum]);
 
 
   const authLinks = (
@@ -75,9 +40,9 @@ const PublicNavbar = () => {
               Cart
       </Nav.Link>
 
-      {/* <Nav.Link as={Link} to="/cart/checkout">
-              Checkout
-      </Nav.Link> */}
+      <Nav.Link as={Link} to="/user/history">
+              History
+      </Nav.Link>
 
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
     </Nav>
@@ -143,13 +108,7 @@ const PublicNavbar = () => {
 
                       <div>
                         <div className="row search-form" >
-                          <div className="col-lg-3 col-12 mt-2">
-                              <Select placeholder="Category" 
-                              className="categorySelect" 
-                              options = {categories} 
-                              onChange={(e) => setCategory(e.value)} 
-                              />
-                          </div>
+                          
                           <div className="col-lg-8 col-12">
                             <div className="header-search" style={{display: "flex"}}>
                             
