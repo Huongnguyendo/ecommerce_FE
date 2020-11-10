@@ -99,12 +99,14 @@ const HomePage = () => {
             <div className="product-info">
               <div className="info-wrapper">
                 <div className="homepageDeal left-to-right">
-                  <h2>
+                  <h1 class="blink_me">
                     HOTDEAL THIS WEEK
-                  </h2>
+                  </h1>
                 </div>
                 <div className="ctaBtn left-to-right">
-                  <Button className="CTA" variant="danger">SHOP NOW</Button>
+                  <Button className="CTA">
+                      <a href="#homePageProduct">SHOP NOW</a>
+                    </Button>
                 </div>
                 
               </div>
@@ -159,7 +161,7 @@ const HomePage = () => {
       </section>
 
        */}
-      <div className="homePageProduct">
+      <div className="homePageProduct" id="homePageProduct">
         <div className="innerHomePageProduct">
           <h2 className="homepageTitle">PRODUCTS</h2>
 
@@ -190,6 +192,7 @@ const HomePage = () => {
             }
           </div>
           <PaginationBar
+          className="pagination"
             pageNum={pageNum}
             setPageNum={setPageNum}
             totalPageNum={totalPageNum}

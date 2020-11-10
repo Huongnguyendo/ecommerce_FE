@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 
 const ReviewForm = ({
+  reviewNumber,
   reviewText,
   handleInputChange,
   handleSubmitReview,
@@ -10,15 +11,22 @@ const ReviewForm = ({
   return (
       <Form onSubmit={handleSubmitReview}>
       <Form.Group as={Row}>
-        <Form.Label htmlFor="review" column sm="2">
-          {/* Review: */}
-        </Form.Label>
-        <Col sm="8">
+        <Col htmlFor="review" sm="2">
+          {/* <Form.Control
+              id="reviewNumber"
+              type="number"
+              value={reviewNumber}
+              placeholder="rating"
+              onChange={handleInputChange}
+            /> */}
+        </Col>
+        <Col sm="6">
           <Form.Control
             id="review"
-            className="mt-5"
+            // className="mt-5"
             type="text"
             value={reviewText}
+            placeholder="review"
             onChange={handleInputChange}
           />
         </Col>
@@ -32,7 +40,7 @@ const ReviewForm = ({
             Submitting...
           </Button>
         ) : (
-          <Button className="mt-5" type="submit" disabled={!reviewText}>
+          <Button type="submit" disabled={!reviewText}>
             Submit
           </Button>
         )}

@@ -21,17 +21,17 @@ const SellerProductPage = () => {
   return (
       <div className>
         <Link to="/seller/products/add" className="d-flex justify-content-center">
-            <Button variant="primary" className="mr-2">Add product</Button>
+            <Button variant="primary" className="my-5 w-50">Add product</Button>
         </Link>
 
         {loading ? <h3>Loading...</h3> : 
           selectedProducts?.map((product) => (
-          <div>
+          <div >
             {/* <Col sm={6} > */}
               
               <Link to={"/seller/products/edit/" + product._id} style={{textDecoration: "none"}}>
-                  <div className="productCard" style={{borderRadius: "15px"}}>
-                    <div>
+                  <div className="productCard float-left" style={{borderRadius: "15px"}}>
+                    {/* <div> */}
                         <div className="productCardImg">
                             {product.image && (
                               <img src={product.image}  />
@@ -49,7 +49,7 @@ const SellerProductPage = () => {
                               >DETAILS</button>
                           </div>
                         </div>
-                    </div>
+                    {/* </div> */}
                     </div>
               </Link>
             {/* </Col> */}

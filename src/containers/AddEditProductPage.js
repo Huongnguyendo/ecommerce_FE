@@ -135,7 +135,7 @@ const AddEditProductPage = () => {
 
             <Button
                     variant="info"
-                    className="btn-block w-100 "
+                    className="btn-block w-100 mb-3"
                     onClick={uploadWidget}
                     disabled={!editable}
                   >

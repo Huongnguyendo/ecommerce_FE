@@ -21,10 +21,10 @@ const SellerLayout = () => {
   return (
     <>
       <PublicNavbar />
-      <div fluid>
-        <Row>
+      <div>
+        {/* <Row> */}
           {/* <SideMenu /> */}
-          <Col md={9} lg={10}>
+          {/* <Col md={4} > */}
             {/* <AlertMsg /> */}
             <Switch>
               <PrivateSellerRoute  path="/seller/profile" component={SellerProfilePage} />
@@ -47,8 +47,8 @@ const SellerLayout = () => {
               />
               <Route component={NotFoundPage} />
             </Switch>
-          </Col>
-        </Row>
+          {/* </Col>
+        </Row> */}
       </div>
     </>
   );

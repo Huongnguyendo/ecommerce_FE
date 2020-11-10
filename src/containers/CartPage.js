@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { cartActions } from '../redux/actions/cart.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import {Table, Button} from "react-bootstrap";
+import {Table, Button, Modal} from "react-bootstrap";
 // import moment from "react-moment";
 import Moment from "react-moment";
 
 const CartScreen = () => {
   const params = useParams();
   const history = useHistory();
+  const user = useSelector((state) => state.auth.user);
   const cart = useSelector(state => state.cart.cartItems);
   const isCheckedout = useSelector((state) => state.cart.isCheckedout);
   const loading = useSelector((state) => state.cart.loading);
@@ -18,6 +19,12 @@ const CartScreen = () => {
 
   console.log("cart ", cart);
   const dispatch = useDispatch();
+
+  /* for modal */
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const removeFromCartHandler = (product) => {
     dispatch(cartActions.removeFromCart(product));
@@ -37,6 +44,8 @@ const CartScreen = () => {
   const checkoutHandler = () => {
     // window.location.reload(false);
     dispatch(cartActions.checkOutCart());
+    handleShow();
+    
   }
   
   let totalCartRevenue = 0;
@@ -64,40 +73,6 @@ const CartScreen = () => {
             cart.map(item =>
               <div className="cart-item-row">
 
-              {/* <div className="table-responsive">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th />
-                      <th />
-                      <th>Product</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>SubTotal</th>
-                      <th/>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><a className="remove" href="#"><fa className="fa fa-close" /></a></td>
-                      <td><a className="cart-image" href="#"><img src={item.product?.image} alt="img" /></a></td>
-                      <td><a className="cart-name" href="#">
-                          <Link to={"/products/" + item.product?._id}>
-                            {item.product?.name}
-                          </Link></a>
-                      </td>
-                      <td className="cart-price">${item.product?.price}</td>
-                      <td>{item.quantity}</td>
-                      <td className="cart-subtotal">${(item.product?.price * item.quantity).toLocaleString()}</td>
-                      <Button variant="danger" type="button" className="button mt-1" onClick={() => removeFromCartHandler(item.product)} >
-                        Delete
-                      </Button>
-                    </tr>
-                     
-                  </tbody>
-                </table>
-              </div>
-  */}
 
             <section>
               <div className="row">
@@ -127,7 +102,10 @@ const CartScreen = () => {
                             </div>
                             <div className="d-flex justify-content-between align-items-center">
                               <div>
-                                <a href="#!" type="button" className="card-link-secondary small text-uppercase mr-3"><i className="fas fa-trash-alt mr-1" /> Remove item </a>
+                                <a href="#!" type="button"
+                                onClick={() => removeFromCartHandler(item.product)} 
+                                className="card-link-secondary small text-uppercase mr-3">
+                                  <i className="fas fa-trash-alt mr-1" /> Remove item </a>
                               </div>
                               <p className="mb-0">
                                 <span><strong id="summary">${(item.product?.price * item.quantity).toLocaleString()}</strong></span>
@@ -171,7 +149,7 @@ const CartScreen = () => {
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                           VAT
-                          <span>${(totalCartRevenue * 0.1).toLocaleString()}</span>
+                          <span>$0</span>
                         </li>
                         <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                           <div>
@@ -180,10 +158,15 @@ const CartScreen = () => {
                               <p className="mb-0">(including VAT)</p>
                             </strong>
                           </div>
-                          <span><strong>${(totalCartRevenue * 1.1).toLocaleString()}</strong></span>
+                          <span><strong>${totalCartRevenue.toLocaleString()}</strong></span>
                         </li>
                       </ul>
-                      <button type="button" className="btn btn-primary btn-block">Go to Checkout</button>
+                      <button type="button" 
+                          className="btn btn-primary btn-block"
+                          // onClick={checkoutHandler}
+                          >
+                            Checkout
+                        </button>
                     </div>
                   </div>
                   <div className="mb-3">
@@ -206,14 +189,30 @@ const CartScreen = () => {
             </section>
 
           {/* day ne */}
+              
           </div>
           )
         }
-        <div className="cartTotal">
-          
-          <p>Total: ${totalCartRevenue.toLocaleString()}</p>
-          <Button variant="info" onClick={checkoutHandler}>Checkout</Button>
-        </div>
+
+          <div className="cartTotal">
+              <p>Total: ${totalCartRevenue.toLocaleString()}</p>
+              <Button variant="info" onClick={checkoutHandler}>Checkout</Button>
+          </div>
+
+        <>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Hi {user}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Thanks for buying with us!</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+
       </div>
 
     </div>

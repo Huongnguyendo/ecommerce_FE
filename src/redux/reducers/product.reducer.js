@@ -33,6 +33,7 @@ const productReducer = (state = initialState, action) => {
     case types.GET_PRODUCTS_BYKEYWORD_REQUEST:
     case types.GET_ALLPRODUCTSFORSELLER_REQUEST:
     case types.GET_HISTORYFORSELLER_REQUEST:
+    // case types.CREATE_REVIEW_REQUEST:
       return { ...state, loading: true };
 
     case types.GET_PRODUCTS_SUCCESS:
@@ -46,6 +47,7 @@ const productReducer = (state = initialState, action) => {
         historyToRender: payload.historyToRender,
         totalPageNum: payload.totalPages,
       };
+
     
     case types.GET_HISTORYFORSELLER_SUCCESS:
       console.log("payyyy", payload)
@@ -82,6 +84,7 @@ const productReducer = (state = initialState, action) => {
     case types.CREATE_REVIEW_REQUEST:
       return { ...state, submitLoading: true };
     case types.CREATE_REVIEW_SUCCESS:
+      console.log("success ne");
       return {
         ...state,
         selectedProduct: {

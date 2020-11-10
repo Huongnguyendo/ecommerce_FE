@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../images/online-shopping.png";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "redux/actions";
+import { cartActions } from '../redux/actions/cart.actions';
 import { productActions, categoryActions } from "redux/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Form, FormControl, Button} from "react-bootstrap";
@@ -16,6 +17,16 @@ const PublicNavbar = () => {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
+
+  const cart = useSelector(state => state.cart.cartItems);
+  const cartloading = useSelector((state) => state.cart.loading);
+  const isCheckedout = useSelector((state) => state.cart.isCheckedout);
+
+  useEffect(() => {
+    if(!isCheckedout) {
+      dispatch(cartActions.getCartItems());
+    }
+  }, [isCheckedout]);
 
   let keyword = "";
 
@@ -31,13 +42,15 @@ const PublicNavbar = () => {
 
 
   const authLinks = (
-    <Nav>
+    <div className="d-flex" style={{marginBottom: "-10px"}}>
         <Nav.Link as={Link} to="/user/profile">
-        <FontAwesomeIcon icon="user" size="sm" /> Profile
+          Profile
       </Nav.Link>
       
       <Nav.Link as={Link} to="/cart">
-              Cart
+        <i class="fa fa-shopping-cart"></i>
+        {cartloading ? <sup>0</sup> : <sup>{cart.length}</sup>}
+        
       </Nav.Link>
 
       <Nav.Link as={Link} to="/user/history">
@@ -45,46 +58,46 @@ const PublicNavbar = () => {
       </Nav.Link>
 
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-    </Nav>
+    </div>
   );
 
   const sellerLinks = (
-    <Nav>
+    <div className="d-flex" style={{marginBottom: "-10px"}}>
         <Nav.Link as={Link} to="/seller/dashboard">
-        <FontAwesomeIcon icon="user" size="sm" /> Seller
+           Seller
       </Nav.Link>
       
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-    </Nav>
+    </div>
   );
 
   const adminLinks = (
-    <Nav>
+    <div className="d-flex" style={{marginBottom: "-10px"}}>
         <Nav.Link as={Link} to="/admin/dashboard">
-        <FontAwesomeIcon icon="user" size="sm" /> Admin
+           Admin
       </Nav.Link>
       
       <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-    </Nav>
+    </div>
   )
 
   const publicLinks = (
-    <Nav>
+    <div className="d-flex" style={{marginBottom: "-10px"}}>
       <Nav.Link as={Link} to="/register">
         Register
       </Nav.Link>
       <Nav.Link as={Link} to="/login">
         Login
       </Nav.Link>
-    </Nav>
+    </div>
   );
 
   return (
     <div expand="sm" className=" header-with-search">
 
-      <header id="header">
+      {/* <header id="header">
         <div className="header-top">
-          <div className="container">
+          <div className="header-container">
             
                 <div className="header-top-area">
                   <div className="header-top-left">
@@ -104,7 +117,6 @@ const PublicNavbar = () => {
                           <>{isAdmin? adminLinks : isSeller ? sellerLinks : isAuthenticated ? 
                           authLinks : publicLinks}</>}
                       </Navbar>
-                      {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
 
                       <div>
                         <div className="row search-form" >
@@ -130,14 +142,70 @@ const PublicNavbar = () => {
                       </div>
                 
                     </div>
-
-                    
-                  
                 </div>  
           </div>
         </div>
+      </header>
+       */}
 
-        {/* <div className="header-lower-area">
+<header className="header">
+  <div className="upper_header content_width">
+    <div className="upper_header__left">
+      <p>
+        Hotline 
+        012345678
+      </p>
+    </div>
+    <div className="upper_header__right" >
+        {/* <div id="basic-navbar-nav"> */}
+            {!loading && 
+            <>{isAdmin? adminLinks : isSeller ? sellerLinks : isAuthenticated ? 
+               authLinks : publicLinks}</>}
+        {/* </div> */}
+    </div>
+  </div>
+  <div className="lower_header content_width">
+    <div className="logo">
+        <Link to="/">
+            <a>eShop</a>
+         </Link>
+    </div>
+
+    <div className="header-search-form">
+        <Form inline 
+            className="header-search-form-inner"
+            style={{height: "40px"}}
+            onSubmit={(event) => {
+            event.preventDefault();
+            dispatch(productActions.searchProductsByKeyword(keyword));}}>
+            <FormControl
+              type="text" placeholder="Search a product..." 
+              onChange={(event) => {keyword = event.target.value;}}/>
+            <Button type="submit" className="kwSubmit">Search</Button>
+            </Form>                                    
+    </div>
+    
+    {/* <div className="check_out">
+      <p>$0.00 (0 items)
+        <i className="fa fa-shopping-cart" />
+      </p>
+      <p>Empty Cart</p>
+    </div> */}
+  </div>
+</header>
+
+      
+    
+      
+    </div>
+  );
+};
+
+export default PublicNavbar;
+
+
+
+{/* <div className="header-lower-area">
           <div className="container">
             <div className="row">
               <div className="col-lg-3 col-12 mt-2">
@@ -166,16 +234,3 @@ const PublicNavbar = () => {
         
         </div>
  */}
-
-
-
-      
-      </header>
-      
-    
-      
-    </div>
-  );
-};
-
-export default PublicNavbar;

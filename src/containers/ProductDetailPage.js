@@ -173,11 +173,11 @@ const ProductDetailPage = () => {
     <div className="reviewFormInPD">
           {isAuthenticated && (
               <ReviewForm
-              style={{marginLeft: "50px", marginTop: "20px" }}
-                reviewText={reviewText}
-                handleInputChange={handleInputChange}
-                handleSubmitReview={handleSubmitReview}
-                loading={submitLoading}
+                style={{marginLeft: "50px", marginTop: "20px" }}
+                  reviewText={reviewText}
+                  handleInputChange={handleInputChange}
+                  handleSubmitReview={handleSubmitReview}
+                  loading={submitLoading}
               />
           )}
     </div>
