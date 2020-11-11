@@ -9,6 +9,7 @@ import ReviewList from "components/ReviewList";
 import ReviewForm from "components/ReviewForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Row, Col, Card, Image, Button, Badge } from "react-bootstrap";
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import moment from "moment";
 
 const ProductDetailPage = () => {
@@ -24,6 +25,10 @@ const ProductDetailPage = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const submitLoading = useSelector((state) => state.product.submitLoading);
   const [reviewText, setReviewText] = useState("");
+
+  let [averageRating, setAverageRating] = useState(0);
+
+  console.log("averageRating ne: ", averageRating);
 
   const getProductDetail = () => {
     dispatch(productActions.getProductDetail(id));
@@ -57,7 +62,10 @@ const ProductDetailPage = () => {
 
   if (loading) return <></>
 
+  
+
   return (
+  
     <div className="productDetailCom">
         {/* <div className="d-flex justify-content-between">
           {console.log("current user ne: ", currentUser)}
@@ -76,7 +84,10 @@ const ProductDetailPage = () => {
             <div style={{display: "flex",}}> 
                 <div className="product-card">
                     {productDetail.image && (
-                      <Image src={productDetail.image} className="productDetailImg" style={{ width: "100%" }} />)}
+                      <img src={productDetail.image} className="productDetailImg image-zoom" 
+                      style={{ width: "100%", borderRadius: "15px" }} 
+                        data-zoom={{ img_url: '1024x1024', scale: 2 }}
+                      />)}
                       {currentUser && currentUser?._id === productDetail?.seller?._id ? (
                         <Link to={`/seller/products/edit/${productDetail?._id}`}>
                           <Button variant="primary sellerEditBtn" className="mt-3">
@@ -89,13 +100,21 @@ const ProductDetailPage = () => {
                          
                 </div>
               <div>
-                  <div style={{width: "70%"}}>
-                    <Badge variant="warning">{productDetail.category}</Badge>
-                    <h3 className="productDetailName">{productDetail.name}</h3>
+                  <div >
+                    <div className="d-flex">
+                      <Badge variant="warning">{productDetail.category}</Badge>
+                      <span className="productDetailName ml-2">{productDetail.name}</span>
+                    </div>
+                    <div className="d-flex productInfoRow">
+                      <span><i class="fa fa-star" style={{color: "orange"}}></i> {averageRating}</span>
+                      <span>{productDetail?.reviews.length} reviews</span>
+                      <span>{Math.round(Math.random()*10000)} bought</span>
+                    </div>
                     <div>
-                      <div class="is-divider"></div>
+                      {/* <div class="is-divider"></div> */}
                       <p><span className="productDetailPrice">${productDetail?.price}</span ></p>
-                      <Badge variant="primary">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}</Badge>
+                      {/* <p>{LocalShippingIcon} Free shipping</p> */}
+                      <Badge variant="dark">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}</Badge>
                       <p className="mt-3">
                         Quantity:{' '}
                         <select value={quantity} onChange={(e) => {setQuantity(e.target.value);}}>
@@ -106,7 +125,7 @@ const ProductDetailPage = () => {
                         </select>
                       </p>
 
-                      {/* <div>
+                      <div>
                           <p style={{display: "flex",alignItems: "center",}}> 
                           Seller:
                             <Image
@@ -119,7 +138,7 @@ const ProductDetailPage = () => {
                               
                             </div>
                           </p>
-                      </div> */}
+                      </div>
 
                       <p style={{marginTop: "30px"}}>
                         {productDetail?.description}            
@@ -128,9 +147,20 @@ const ProductDetailPage = () => {
 
                       {productDetail?.inStockNum > 0 && (
                           <Button variant="success" onClick={handleAddToCart}
-                            className="button primary">
+                            className="button primary mr-3">
                             Add to Cart
                           </Button>)}
+                          <Link to="/">
+                            <Button>
+                              Continue Shopping
+                            </Button>
+                          </Link>
+
+                          <div className="productInfoLower d-flex justify-content-between mt-3">
+                            <span><i class="fa fa-money-bill"></i> 7 days cash back</span>
+                            <span><i class="fa fa-check-circle"></i> 100% auth</span>
+                            <span><i class="fa fa-shipping-fast"></i> Free shipping</span>
+                          </div>
                     </div>
                   </div>
               </div>
@@ -167,7 +197,7 @@ const ProductDetailPage = () => {
 
      */}
     <div className="productDetailRVlist">
-        <ReviewList reviews={productDetail?.reviews} loading={submitLoading}/>
+        <ReviewList setAverageRating={setAverageRating} reviews={productDetail?.reviews} loading={submitLoading}/>
     </div>
 
     <div className="reviewFormInPD">

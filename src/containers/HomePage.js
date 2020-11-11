@@ -21,14 +21,17 @@ const HomePage = () => {
 
   const [category, setCategory] = useState("All");
   
-  const filterProducts = useSelector((state) => state.category.products)
-  console.log("filterProducts: ", filterProducts );
+  
+  // const filterProducts = useSelector((state) => state.category.products)
+  // console.log("filterProducts: ", filterProducts );
 
   const totalPageNum = useSelector((state) => state.product.totalPageNum);
   let productList = useSelector((state) => state.product.products);
+
   let loading = useSelector((state) => state.product.loading);
   console.log(productList, "List ststst")
   console.log(loading, "hehhhh")
+
   
   const categories = [
     { value: 'All', label: 'All Categories'},
@@ -42,6 +45,7 @@ const HomePage = () => {
     { value: 'Books', label: 'Books' },
   ]
 
+  
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -75,14 +79,12 @@ const HomePage = () => {
   setTimeout(() => {
     slideControlItems && slideControlItems[slideIndex].classList.add('active')
     slides && slides[slideIndex].classList.add('active')
-  }, 500)
+  }, 500);
 
-  
-
-  return (
+    return (
     <div>
 
-      {/* <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} /> */}
+      <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} />
 
       {/* <img src={cover} style={{width: "100%"}}/> */}
       {/* <div className="col-lg-3 col-12 mt-2">

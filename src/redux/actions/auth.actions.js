@@ -60,6 +60,9 @@ const logout = () => (dispatch) => {
     delete api.defaults.headers.common["authorization"];
     localStorage.setItem("accessToken", "");
     dispatch({ type: types.LOGOUT, payload: null });
+
+    // newly added 
+    // dispatch(routeActions.redirect("/login"));
   };
 
 const updateProfile = (name, avatarUrl) => async (dispatch) => {

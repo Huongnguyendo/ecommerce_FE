@@ -3,6 +3,7 @@ import api from "../api";
 import { ToastContainer, toast } from 'react-toastify';
 import { routeActions } from "../actions";
 import * as types from "../constants/cart.constants";
+import { useHistory } from "react-router";
 
 
 const addToCart = (product, quantity) => async (dispatch) => {
@@ -64,8 +65,6 @@ const checkOutCart = () => async (dispatch) => {
         const res = await api.post("/cart/checkout");
         console.log(res);
         dispatch({ type: types.CART_CHECKOUT_SUCCESS, payload: res.data.data });
-        dispatch(routeActions.redirect("/"));
-        toast.success(`Cart checkout successful`);
       } catch (error) {
         dispatch({ type: types.CART_CHECKOUT_FAILURE, payload: error });
       }

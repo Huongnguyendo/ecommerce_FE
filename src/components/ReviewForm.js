@@ -26,7 +26,7 @@ const ReviewForm = ({
             // className="mt-5"
             type="text"
             value={reviewText}
-            placeholder="review"
+            placeholder="Leave a review"
             onChange={handleInputChange}
           />
         </Col>

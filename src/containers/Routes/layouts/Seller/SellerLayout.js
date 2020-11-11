@@ -27,24 +27,27 @@ const SellerLayout = () => {
           {/* <Col md={4} > */}
             {/* <AlertMsg /> */}
             <Switch>
-              <PrivateSellerRoute  path="/seller/profile" component={SellerProfilePage} />
+              {/* <PrivateSellerRoute  path="/seller/profile" component={SellerProfilePage} /> */}
+              {/* <PrivateSellerRoute
+                exact
+                path="/seller/dashboard"
+                component={SellerSideMenu}
+              /> */}
+              <PrivateSellerRoute exact path="/" component={SellerProducts} />
+              <PrivateSellerRoute exact path="/seller/products" component={SellerProducts} />
+              <PrivateSellerRoute
+                exact
+                path="/seller/history"
+                component={SellerHistory}
+              />
               <PrivateSellerRoute exact path="/seller/products/add" component={AddEditProductPage} />
               <PrivateSellerRoute
                 exact
                 path="/seller/products/edit/:id"
                 component={AddEditProductPage}
               />
-              <PrivateSellerRoute exact path="/seller/products" component={SellerProducts} />
-              <PrivateSellerRoute
-                exact
-                path="/seller/dashboard"
-                component={SellerSideMenu}
-              />
-              <PrivateSellerRoute
-                exact
-                path="/seller/history"
-                component={SellerHistory}
-              />
+              
+              
               <Route component={NotFoundPage} />
             </Switch>
           {/* </Col>

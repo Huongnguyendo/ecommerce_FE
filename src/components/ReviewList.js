@@ -1,37 +1,48 @@
 import React from "react";
-import Moment from "react-moment";
+import moment from "moment";
 
-const ReviewList = ({ reviews, loading }) => {
+const ReviewList = ({ reviews, loading, setAverageRating }) => {
+  let averageRating = 0;
+  for(let i = 0; i < reviews?.length; i++) {
+    averageRating += reviews[i].rating;
+  }
+  // console.log("averageRating", (averageRating/3).toFixed(2));
+
+  setAverageRating((averageRating/3).toFixed(2));
   return (
     <>
       {reviews?.length > 0 && (
-        <ul className="list-unstyled">
-          <h3>{reviews?.length} reviews for this product</h3>
-          {reviews.map((review) => (
-            <ReviewContent key={review._id} review={review} 
-            loading={loading}/>
-          ))}
-        </ul>
+        <div>
+          <h4>{reviews?.length} reviews for this product</h4>
+          <div className="list-unstyled">
+            {reviews.map((review) => (
+              <ReviewContent key={review._id} review={review} 
+              loading={loading} />
+            ))}
+          </div>
+        </div>
       )}
     </>
   );
 };
 
 const ReviewContent = ({ review, loading }) => {
+  
   return (
-    <div className="comment">
+    <div className="comment" >
         <li>
-          <div className="media">
+          <div className="media" style={{fontWeight: "400"}}>
             <div className="media-left">
-                <img className="media-object" src={review?.user?.avatarUrl} style={{width: "50px", marginRight: "30px"}}/>
+                <img className="media-object" src={review?.user?.avatarUrl} style={{width: "30px", marginRight: "20px", borderRadius: "15px"}}/>
             </div>
             <div className="media-body">
-              <div className="aa-product-rating">
-                <i class="fa fa-star"></i>{" "}{review?.rating}{"  "}
+              <span className="aa-product-rating">
+                <i class="fa fa-star" style={{color: "orange"}}></i>{" "}{review?.rating}{"  "}
                 <i>{review?.content}</i>
-              </div>
-              <h4 className="media-heading"><strong>{review?.user?.name} </strong> -  
-              <span><Moment fromNow>{review?.createdAt}</Moment></span></h4>
+              </span>
+              <span className="media-heading mx-3">{review?.user?.name} </span> - {" "}
+              {/* <span><Moment fromNow>{review?.createdAt}</Moment></span></h5> */}
+              <span>{moment(review?.createdAt).format("DD/MM/YYYY")}</span>
             </div>
           </div>
         </li>

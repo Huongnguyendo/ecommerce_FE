@@ -10,10 +10,11 @@ import PrivateRoute from "containers/Routes/PrivateRoute";
 import SellerSideMenu from "containers/Routes/layouts/Seller/SellerSideMenu";
 import RegisterPage from "containers/RegisterPage";
 import LoginPage from "containers/LoginPage";
+import SellerProducts from "containers/Routes/layouts/Seller/SellerProducts"
 
 const Routes = (props) => {
   const loading = useSelector(state => state.auth.loading);
-
+  const user = useSelector(state => state.auth.user)
   if (loading) return <></>;
 
   return (
@@ -23,7 +24,7 @@ const Routes = (props) => {
       <PrivateAdminRoute path="/admin" component={AdminLayout} />
       <PrivateSellerRoute path="/seller" component={SellerLayout} />
       <PrivateRoute path="/user" component={PublicLayout} />
-      <Route path="/" component={PublicLayout} />
+      <Route path="/" component={user && user.role === "Seller" ? SellerLayout: PublicLayout} />
     </Switch>
   );
 };

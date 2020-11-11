@@ -19,10 +19,17 @@ const SellerProductPage = () => {
   
 
   return (
-      <div className>
-        <Link to="/seller/products/add" className="d-flex justify-content-center">
-            <Button variant="primary" className="my-5 w-50">Add product</Button>
-        </Link>
+      <div>
+        <div  className="d-flex justify-content-center">
+            <Link to="/seller/products/add">
+                <Button className="my-5 mx-2 w-40 addProductBtn">Add Product</Button>
+            </Link>
+
+            <Link to="/seller/history">
+                <Button className="my-5 mx-2 w-40 addProductBtn">Selling History</Button>
+            </Link>
+        </div>
+        
 
         {loading ? <h3>Loading...</h3> : 
           selectedProducts?.map((product) => (

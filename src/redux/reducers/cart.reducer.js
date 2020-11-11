@@ -36,7 +36,8 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         isCheckedout: payload.isCheckedout,
-        cartItems: payload.cartItems,
+        cartItems: [],
+        // cartItems: payload.cartItems,
       };
       // return { ...state, cartItems: cartItems, loading: false };
 

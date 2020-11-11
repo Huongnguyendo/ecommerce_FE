@@ -9,6 +9,8 @@ import { productActions, categoryActions } from "redux/actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Form, FormControl, Button} from "react-bootstrap";
 import Select from 'react-select';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ".././App.css";
 
 const PublicNavbar = () => {
@@ -23,7 +25,7 @@ const PublicNavbar = () => {
   const isCheckedout = useSelector((state) => state.cart.isCheckedout);
 
   useEffect(() => {
-    if(!isCheckedout) {
+    if(!isCheckedout && isAuthenticated) {
       dispatch(cartActions.getCartItems());
     }
   }, [isCheckedout]);
@@ -49,7 +51,7 @@ const PublicNavbar = () => {
       
       <Nav.Link as={Link} to="/cart">
         <i class="fa fa-shopping-cart"></i>
-        {cartloading ? <sup>0</sup> : <sup>{cart.length}</sup>}
+        {cartloading ? <sup></sup> : <sup>{cart.length}</sup>}
         
       </Nav.Link>
 
@@ -63,7 +65,7 @@ const PublicNavbar = () => {
 
   const sellerLinks = (
     <div className="d-flex" style={{marginBottom: "-10px"}}>
-        <Nav.Link as={Link} to="/seller/dashboard">
+        <Nav.Link as={Link} to="/seller/products">
            Seller
       </Nav.Link>
       
@@ -147,53 +149,51 @@ const PublicNavbar = () => {
         </div>
       </header>
        */}
+    <header className="header">
+      <div className="container">
+        <div className="upper_header content_width">
+          <div className="upper_header__left">
+            <p>
+              Hotline 
+              012345678
+            </p>
+          </div>
+          <div className="upper_header__right" >
+              {/* <div id="basic-navbar-nav"> */}
+                  {!loading && 
+                  <>{isAdmin? adminLinks : isSeller ? sellerLinks : isAuthenticated ? 
+                    authLinks : publicLinks}</>}
+              {/* </div> */}
+          </div>
+        </div>
+        
+        <div className="lower_header content_width">
+        <div className="logo">
+            <Link to="/">
+                <a style={{letterSpacing: "1.5px"}}><i class="fab fa-stripe-s"></i>hopNow</a>
+            </Link>
+        </div>
 
-<header className="header">
-  <div className="upper_header content_width">
-    <div className="upper_header__left">
-      <p>
-        Hotline 
-        012345678
-      </p>
-    </div>
-    <div className="upper_header__right" >
-        {/* <div id="basic-navbar-nav"> */}
-            {!loading && 
-            <>{isAdmin? adminLinks : isSeller ? sellerLinks : isAuthenticated ? 
-               authLinks : publicLinks}</>}
-        {/* </div> */}
-    </div>
-  </div>
-  <div className="lower_header content_width">
-    <div className="logo">
-        <Link to="/">
-            <a>eShop</a>
-         </Link>
-    </div>
+            <ToastContainer />
 
-    <div className="header-search-form">
-        <Form inline 
-            className="header-search-form-inner"
-            style={{height: "40px"}}
-            onSubmit={(event) => {
-            event.preventDefault();
-            dispatch(productActions.searchProductsByKeyword(keyword));}}>
-            <FormControl
-              type="text" placeholder="Search a product..." 
-              onChange={(event) => {keyword = event.target.value;}}/>
-            <Button type="submit" className="kwSubmit">Search</Button>
-            </Form>                                    
-    </div>
-    
-    {/* <div className="check_out">
-      <p>$0.00 (0 items)
-        <i className="fa fa-shopping-cart" />
-      </p>
-      <p>Empty Cart</p>
-    </div> */}
-  </div>
-</header>
-
+            <div className="header-search-form">
+                <Form inline 
+                    className="header-search-form-inner"
+                    // style={{height: "32px"}}
+                    onSubmit={(event) => {
+                    event.preventDefault();
+                    dispatch(productActions.searchProductsByKeyword(keyword));}}>
+                    <FormControl
+                      type="text" placeholder="Search a product..." 
+                      onChange={(event) => {keyword = event.target.value;}}/>
+                      <button type="submit" className="kwSubmit">
+                          <i class="fa fa-search"></i>
+                      </button>
+                    </Form>                                    
+            </div>
+      </div>
+      </div>
+    </header>
       
     
       

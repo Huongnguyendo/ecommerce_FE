@@ -19,7 +19,7 @@ const SideMenu = () => {
     <div className="sellerDashboard" style={{textAlign: "center" }}>
       <h1>Seller Dashboard</h1>
       <div className="d-flex justify-content-center">
-        <Nav.Item>
+        {/* <Nav.Item>
           <Nav.Link
             as={NavLink}
             to="/seller/profile"
@@ -28,7 +28,7 @@ const SideMenu = () => {
           >
             Profile
           </Nav.Link>
-        </Nav.Item>
+        </Nav.Item> */}
         <Nav.Item>
           <Nav.Link
             as={NavLink}

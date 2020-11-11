@@ -58,7 +58,7 @@ const LoginPage = () => {
     <>
     <PublicNavbar />
     <Container>
-      {isAuthenticated ? "haha" : "hoho"}
+      {/* {isAuthenticated ? "haha" : "hoho"} */}
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
@@ -146,6 +146,7 @@ const LoginPage = () => {
               />
             </div>
             <GoogleLogin
+            className="ggLoginBtn"
               clientId={REACT_APP_GG}
               buttonText="Login with Google"
               onSuccess={loginWithGoogle}
@@ -167,6 +168,7 @@ const LoginPage = () => {
                 padding: "12px",
                 background: "none",
                 border: "none",
+                width: "100%",
                 // borderRadius: "16px",
                 // backgroundColor: "#4C6EF4",
                 // textDecoration: "none",
@@ -176,7 +178,7 @@ const LoginPage = () => {
               }}
             />
 
-            <p>
+            <p style={{textAlign: "center"}}>
               Don't have an account? <Link to="/register">Register</Link>
             </p>
           </Form>

@@ -10,16 +10,13 @@ const ProductCard = ({ product, gotoProductDetail }) => {
       <div className="productCard" style={{borderRadius: "15px"}}>
         {/* {console.log("product._id", product._id)}
         {console.log("product.seller", product.seller.name)} */}
-        <div>
+        <div onClick={() => {gotoProductDetail(product._id);}}>
                 <div className="productCardImg">
                     {product.image && (
                       <img src={product.image}  />
                     )}
                 </div>
-                <div className="productCardBody"
-                
-                  onClick={() => {
-                    gotoProductDetail(product._id);}}>
+                <div className="productCardBody">
 
                   <Badge variant="warning" style={{fontSize: "12px"}}>{product.category}</Badge>
                   <h3 className="productCardName">{product.name}</h3>

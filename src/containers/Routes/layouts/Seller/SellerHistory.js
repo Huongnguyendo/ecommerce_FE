@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
 import {productActions} from "../../../../redux/actions/product.actions";
 import {Card, Badge, Row, Col, Image} from "react-bootstrap";
-import Moment from "react-moment";
+import moment from "moment";
 // import { useSelector, useDispatch } from "react-redux";
 
 const SellerProductPage = () => {
@@ -27,72 +27,62 @@ const SellerProductPage = () => {
       <div className="sellingHistoryPage">
           {loading ? <h3>Loading ... </h3> : sellingHistory?.length <= 0 ? <h1>No Selling History</h1>
           :
-          <div>
-            {sellingHistory?.map((item) => (
-              <div className="historyProductRow d-flex justify-content-center">
-                {/* <div className="historyProduct d-flex" >
-                  <Image src={item.product.image} style={{width: "100px", height: "100px"}}/>
-                  <div>
-                    <p>Category: {item.product.category}</p>
-                    <p>Brand: {item.product.brand}</p>
-                    <p>Name: {item.product.name}</p>
-                    <p>Price: ${item.product.price}</p>
-                  </div>
-                </div> */}
-                <div className="historyBuyers">
-                  {console.log("hihoeh")}
-                  {item.history?.map(innerItem => (
-                    <div >
-                        {console.log("innerItem ", innerItem)}
-                        <Image src={item.product.image} style={{width: "30px", height: "30px"}}/>
-                        <span>{item.product.category}</span>
-                        <span>{item.product.brand}</span>
-                        <span>{item.product.name}</span>
-                        <span>{item.product.price}</span>
-                        <Image src={innerItem.buyer?.avatarUrl} style={{width: "20px", height: "20px", marginRight: "10px"}}/>
-                        <span>{innerItem.buyer?.name}</span>
-                        <span>Time bought: {innerItem.createdAt}</span>
-                        <span>Quantity: {innerItem.quantity}</span>
-                    </div>
-                  ))}
-                  
-                </div>
-                {/* <div className="table-responsive">
-                <table className="table">
+            <div className="table-wrapper">
+              <table className="seller-table">
                   <thead>
                     <tr>
-                      <th />
-                      <th />
-                      <th>Product</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Buyer</th>
-                      <th>Quantity</th>
-                      <th>Time bought</th>
-                      <th/>
+                      <td>Image</td>
+                      <td>Category</td>
+                      <td>Brand</td>
+                      <td>Name</td>
+                      <td>Price</td>   
+                      <td>Buyer</td>   
+                      <td>Time Bought</td> 
+                      <td>Quantity</td>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td><a href="#"><img src={item.product.image} alt="img" /></a></td>
-                      <td>
-                        {item.product.name}
-                      </td>
-                      <td className="cart-price">${item.product.price}</td>
-                      <td>{item.quantity}</td>
-                      <td className="cart-subtotal">${(item.product.price * item.quantity).toLocaleString()}</td>
-                      <Button variant="danger" type="button" className="button mt-1" onClick={() => removeFromCartHandler(item.product)} >
-                        Delete
-                      </Button>
-                    </tr>
-                     
-                  </tbody>
-                </table>
-              </div>
-  */}
-              </div>
-          ))}
-          </div>}
+                <tbody>
+                    {sellingHistory?.map((item) => (
+                        <tr >
+                  
+                        <td className="table-pic"><img src={item.product.image} /></td>
+                        <td>{item.product.category}</td>
+                        <td>{item.product.brand}</td>
+                        <td>{item.product.name}</td>
+                        <td>${item.product.price}</td>
+                            <td className="no-padding">
+                                {item.history?.map(innerItem => (
+                                      <div>
+                                      
+                                      {innerItem.buyer?.name}
+                                      </div>
+                                  ))}
+                            </td>
+                            <td className="no-padding">
+                                  {item.history?.map(innerItem => (
+                            <div>
+                              
+                              {moment(innerItem.purchaseDate).format("DD/MM/YYYY")}
+                              </div>
+                          ))}
+                            </td>
+                            <td className="no-padding text-center">
+                        {item.history?.map(innerItem => (
+                            <div>
+                              
+                              {innerItem.quantity}
+                              </div>
+                          ))}
+                            </td>
+                      
+                      </tr>
+                        ))
+                    }
+                </tbody>
+              </table>
+            </div>
+          
+          }
         
       </div>
     );

@@ -42,7 +42,7 @@ const getHistoryForUser = () => async (dispatch) => {
         console.log("res day ne ", res);
         dispatch({ type: types.GET_USERHISTORY_SUCCESS, payload: res.data.data });
         // dispatch(routeActions.redirect("/login"));
-        toast.success(`Get buying history succesfully`);
+        // toast.success(`Get buying history succesfully`);
     } catch (error) {
         dispatch({ type: types.GET_USERHISTORY_FAILURE, payload: error });
     }
