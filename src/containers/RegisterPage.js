@@ -53,19 +53,43 @@ const RegisterPage = () => {
     }
   }, [dispatch, history, redirectTo]);
 
+
+  const uploadWidget = () => {
+    console.log("hehehehheheheh")
+    window.cloudinary.openUploadWidget(
+      {
+        cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+        upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
+        tags: ["productImg"],
+      },
+      function (error, result) {
+        console.log("hihihihihihihih")
+        if (error) console.log("abcd ", error);
+        if (result.event === "success") {
+          console.log(result.info.secure_url)
+          console.log("hehehehihihihi: ", result.info.secure_url)
+          setFormData({
+            ...formData,
+            avatarUrl: result.info.secure_url,
+          });
+        }
+      }
+    );
+  };
+
   
   return (
     <div>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <div className="text-center mb-3">
+          <div className="text-center mb-3 mt-5">
             <h1 className="text-primary">Register</h1>
             <p className="lead">
               <FontAwesomeIcon icon="user" size="1x" /> Create Your Account
             </p>
           </div>
           <Form onSubmit={handleSubmit}>
-            <Form.Group>
+            {/* <Form.Group>
               <Form.Control
                 type="text"
                 placeholder="Avatar"
@@ -73,6 +97,15 @@ const RegisterPage = () => {
                 value={formData.avatarUrl}
                 onChange={handleChange}
               />
+            </Form.Group> */}
+            <Form.Group>
+              <Button
+                    variant="info"
+                    className="btn-block w-100 "
+                    onClick={uploadWidget}
+                  >
+                    Add avatar
+              </Button>
             </Form.Group>
             <Form.Group>
               <Form.Control

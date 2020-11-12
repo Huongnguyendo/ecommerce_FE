@@ -41,8 +41,9 @@ const AddEditProductPage = () => {
   console.log("selectedProduct ne: ", selectedProduct)
 
   useEffect(() => {
-    console.log("o day ne");
+    console.log("o day ne ", productId, " ", addOrEdit);
     if (productId) {
+      console.log(" in if body ")
       if (!selectedProduct) {
         // dispatch(productActions.getSingleProduct(productId));
         dispatch(productActions.getProductDetailForSeller(productId));
@@ -82,10 +83,11 @@ const AddEditProductPage = () => {
   };
 
   const handleDelete = () => {
+    console.log("id ne ne: ", selectedProduct);
     dispatch(productActions.deleteProduct(selectedProduct._id, '/'));
   };
 
-  useEffect(() => {dispatch(productActions.getProductDetailForSeller(productId))},[])
+  // useEffect(() => {dispatch(productActions.getProductDetailForSeller(productId))},[])
 
   useEffect(() => {
     if (redirectTo) {

@@ -237,7 +237,7 @@ const CartScreen = () => {
    </Modal.Header>
    <Modal.Body>Thanks for buying with us!</Modal.Body>
    <Modal.Footer>
-     <Button variant="secondary" onClick={handleClose}>
+     <Button variant="success" onClick={handleClose}>
        Close
      </Button>
    </Modal.Footer>

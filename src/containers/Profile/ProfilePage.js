@@ -101,12 +101,12 @@ const ProfilePage = () => {
             </div>
           ) : (
             <Form onSubmit={handleSubmit}>
-              <Form.Group>
+              <Form.Group>{console.log(formData.avatarUrl)}
                 <div className="text-center">
                   {formData.avatarUrl && (
                     <div className="mb-3">
                       <img
-                        src={formData.avatarUrl}
+                        src={formData.avatarUrl ? formData.avatarUrl : "https://lh3.googleusercontent.com/proxy/6XSzNgIYVLWue7bahUshLuO6MDh-7a-2iYWCmnIJnmMHcoOgj4r9Gn9pRHXotfaDyTIqid8Es0U8MHUqZpe2F4n0ImUbjlM"}
                         className="avatar-lg"
                         alt="avatar"
                       />

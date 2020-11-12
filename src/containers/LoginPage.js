@@ -62,7 +62,7 @@ const LoginPage = () => {
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
-            <div className="text-center mb-3">
+            <div className="text-center mb-3 mt-5">
               <h1 className="text-primary">Log In</h1>
               {/* <p className="lead">
                 <FontAwesomeIcon icon="user" size="1x" /> Sign Into Your Account
@@ -145,7 +145,8 @@ const LoginPage = () => {
                 }}
               />
             </div>
-            <GoogleLogin
+
+            {/* <GoogleLogin
             className="ggLoginBtn"
               clientId={REACT_APP_GG}
               buttonText="Login with Google"
@@ -169,14 +170,9 @@ const LoginPage = () => {
                 background: "none",
                 border: "none",
                 width: "100%",
-                // borderRadius: "16px",
-                // backgroundColor: "#4C6EF4",
-                // textDecoration: "none",
-                // padding: "8px",
-                // marginBottom: "45px",
-                // boxShadow: "0 10px 20px -5px rgba(#4C6EF4, 0.9)",
+                
               }}
-            />
+            /> */}
 
             <p style={{textAlign: "center"}}>
               Don't have an account? <Link to="/register">Register</Link>

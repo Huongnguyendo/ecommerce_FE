@@ -9,7 +9,8 @@ const getProductList = (pageNum = 1, limit = 10) => async (dispatch) => {
   dispatch({ type: types.GET_PRODUCTS_REQUEST, payload: null });
 
   try {
-    const res = await api.get(`/products?page=${pageNum}&limit=${limit}`);
+  //  if (category) res = await api.get(`/products?page=${pageNum}&limit=${limit}&category=${category}`)
+   const res = await api.get(`/products?page=${pageNum}&limit=${limit}`);
     dispatch({ type: types.GET_PRODUCTS_SUCCESS, payload: res.data.data });
     console.log("res.data.data ne", res.data.data);
   } catch (err) {
@@ -129,6 +130,7 @@ const updateProduct = (productId, name, description, image, brand, price, catego
 const deleteProduct = (productId, redirectTo="__GO_BACK__") => async (dispatch) => {
   dispatch({ type: types.DELETE_PRODUCT_REQUEST, payload: null });
   try {
+    console.log("id ne: ", productId);
     const res = await api.delete(`/products/${productId}`);
     console.log("delete res: ", res);
     dispatch({

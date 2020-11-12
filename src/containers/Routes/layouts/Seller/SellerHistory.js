@@ -25,7 +25,7 @@ const SellerProductPage = () => {
 
   return (
       <div className="sellingHistoryPage">
-          {loading ? <h3>Loading ... </h3> : sellingHistory?.length <= 0 ? <h1>No Selling History</h1>
+          {loading ? <h3>Loading ... </h3> : sellingHistory?.length <= 0 ? <h1 style={{textAlign: "center", marginTop: "30px"}}>No Selling History</h1>
           :
             <div className="table-wrapper">
               <table className="seller-table">

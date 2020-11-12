@@ -19,7 +19,7 @@ const HomePage = () => {
   const history = useHistory();
   const [pageNum, setPageNum] = useState(1); 
 
-  const [category, setCategory] = useState("All");
+  let [category, setCategory] = useState("All");
   
   
   // const filterProducts = useSelector((state) => state.category.products)
@@ -36,11 +36,11 @@ const HomePage = () => {
   const categories = [
     { value: 'All', label: 'All Categories'},
     { value: 'Fashion', label: 'Fashion' },
-    { value: 'Phones & Accessories', label: 'Phones & Accessories' },
+    { value: 'Phones and Accessories', label: 'Phones & Accessories' },
     { value: 'Electronic device', label: 'Electronic device' },
     { value: 'Household goods', label: 'Household goods' },
-    { value: 'Home & Life', label: 'Home & Life' },
-    { value: 'Health & Life', label: 'Health & Life' },
+    { value: 'Home and Life', label: 'Home & Life' },
+    { value: 'Health and Life', label: 'Health & Life' },
     { value: 'Fashion Accessories', label: 'Fashion Accessories' },
     { value: 'Books', label: 'Books' },
   ]
@@ -58,6 +58,7 @@ const HomePage = () => {
   // let keyword = "";
 
   useEffect(() => {
+    // console.log("cate 1");
     dispatch(productActions.getProductList(pageNum));
   }, [dispatch, pageNum]);
 
@@ -84,7 +85,6 @@ const HomePage = () => {
     return (
     <div>
 
-      <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} />
 
       {/* <img src={cover} style={{width: "100%"}}/> */}
       {/* <div className="col-lg-3 col-12 mt-2">
@@ -163,11 +163,14 @@ const HomePage = () => {
       </section>
 
        */}
+
+{/* <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} /> */}
+
       <div className="homePageProduct" id="homePageProduct">
         <div className="innerHomePageProduct">
           <h2 className="homepageTitle">PRODUCTS</h2>
-
-          <div id="mainRow"
+<div className="container">
+          <div id="mainRow "
             style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
             {loading ? (
               <h4 style={{ textAlign: "center", marginTop: "100px" }}>loading</h4>
@@ -201,7 +204,7 @@ const HomePage = () => {
             loading={loading}
           />
         </div>
-      </div>
+      </div></div>
 
       <section id="support">
         <div className="container">
@@ -255,11 +258,11 @@ const HomePage = () => {
             </p>
             <p>
               <i className="fa fa-phone" />
-              <span />
+              <span className="ml-2">0123456789</span>
             </p>
             <p>
               <i className="fa fa-envelope" />
-              <span />
+              <span className="ml-2">shopNow@gmail.com</span>
             </p>
           </div>
         </div>

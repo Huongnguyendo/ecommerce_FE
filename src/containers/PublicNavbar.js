@@ -51,7 +51,7 @@ const PublicNavbar = () => {
       
       <Nav.Link as={Link} to="/cart">
         <i class="fa fa-shopping-cart"></i>
-        {cartloading ? <sup></sup> : <sup>{cart.length}</sup>}
+        {cartloading ? <sup></sup> : <sup style={{color: "red"}}>{cart.length}</sup>}
         
       </Nav.Link>
 
@@ -169,9 +169,9 @@ const PublicNavbar = () => {
         
         <div className="lower_header content_width">
         <div className="logo">
-            <Link to="/">
-                <a style={{letterSpacing: "1.5px"}}><i class="fab fa-stripe-s"></i>hopNow</a>
-            </Link>
+            {/* <Link to="/"> */}
+                <a  href="/" style={{letterSpacing: "1.5px"}}><i class="fab fa-stripe-s"></i>hopNow</a>
+            {/* </Link> */}
         </div>
 
             <ToastContainer />

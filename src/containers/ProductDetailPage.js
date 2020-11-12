@@ -63,10 +63,9 @@ const ProductDetailPage = () => {
   if (loading) return <></>
 
   
-
   return (
   
-    <div className="productDetailCom">
+    <div className="productDetailCom container">
         {/* <div className="d-flex justify-content-between">
           {console.log("current user ne: ", currentUser)}
           {console.log("productDetail?.seller?._id: ", productDetail?.seller?._id)}
@@ -81,8 +80,8 @@ const ProductDetailPage = () => {
         {productDetail && (
           <div
             style={{display: "flex",justifyContent: "center",alignItems: "center",width: "100%"}}>
-            <div style={{display: "flex",}}> 
-                <div className="product-card">
+            <Row style={{display: "flex",}}> 
+                <Col className="product-card mb-5" md={6} sm={12}>
                     {productDetail.image && (
                       <img src={productDetail.image} className="productDetailImg image-zoom" 
                       style={{ width: "100%", borderRadius: "15px" }} 
@@ -98,17 +97,16 @@ const ProductDetailPage = () => {
                         <></>
                       )}
                          
-                </div>
-              <div>
+                </Col>
+              <Col md={6} sm={12}>
                   <div >
                     <div className="d-flex">
-                      <Badge variant="warning">{productDetail.category}</Badge>
+                      <Badge className="productDetailBadge"  variant="warning">{productDetail.category}</Badge>
                       <span className="productDetailName ml-2">{productDetail.name}</span>
                     </div>
                     <div className="d-flex productInfoRow">
                       <span><i class="fa fa-star" style={{color: "orange"}}></i> {averageRating}</span>
                       <span>{productDetail?.reviews.length} reviews</span>
-                      <span>{Math.round(Math.random()*10000)} bought</span>
                     </div>
                     <div>
                       {/* <div class="is-divider"></div> */}
@@ -163,8 +161,8 @@ const ProductDetailPage = () => {
                           </div>
                     </div>
                   </div>
-              </div>
-            </div>       
+              </Col>
+            </Row>       
           </div>        
         )}
 
@@ -200,7 +198,7 @@ const ProductDetailPage = () => {
         <ReviewList setAverageRating={setAverageRating} reviews={productDetail?.reviews} loading={submitLoading}/>
     </div>
 
-    <div className="reviewFormInPD">
+    <div className="reviewFormInPD mt-5">
           {isAuthenticated && (
               <ReviewForm
                 style={{marginLeft: "50px", marginTop: "20px" }}
