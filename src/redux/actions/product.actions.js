@@ -5,12 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import { routeActions } from "../actions";
 import 'react-toastify/dist/ReactToastify.css';
 
-const getProductList = (pageNum = 1, limit = 10) => async (dispatch) => {
+const getProductList = (category, pageNum = 1, limit = 10) => async (dispatch) => {
   dispatch({ type: types.GET_PRODUCTS_REQUEST, payload: null });
 
   try {
-  //  if (category) res = await api.get(`/products?page=${pageNum}&limit=${limit}&category=${category}`)
-   const res = await api.get(`/products?page=${pageNum}&limit=${limit}`);
+  console.log("cat ne: ", category);
+  let res;
+   if (category) res = await api.get(`/products?page=${pageNum}&limit=${limit}&category=${category}`)
+   else res = await api.get(`/products?page=${pageNum}&limit=${limit}`);
     dispatch({ type: types.GET_PRODUCTS_SUCCESS, payload: res.data.data });
     console.log("res.data.data ne", res.data.data);
   } catch (err) {
@@ -159,6 +161,9 @@ const searchProductsByKeyword = (keyword, pageNum = 1, limit = 10) => async (dis
   }
 };
 
+const updateList = (list) => (dispatch) => {
+  dispatch({type: "UPDATE_LIST", payload: list})
+}
 
 
 export const productActions = {
@@ -172,4 +177,5 @@ export const productActions = {
   updateProduct,
   deleteProduct,
   searchProductsByKeyword,
+  updateList,
 };

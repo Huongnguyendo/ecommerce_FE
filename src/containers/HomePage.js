@@ -14,12 +14,21 @@ import slide1 from "../images/iphone-lineup.jpg"
 import slide2 from "../images/ckeditor_2775444.jpg";
 import cover from "../images/cover.jpg";
 import bgi from "../images/download.jpeg"
+import fashion from "../images/dress.png";
+import phone from "../images/smartphone.png";
+import tv from "../images/smart-tv.png";
+import accessories from "../images/eyeglasses.png";
+import health from "../images/healthcare.png";
+import house from "../images/house.png"
+import household from "../images/household.png";
+import book from "../images/open-book.png";
 
 const HomePage = () => {
   const history = useHistory();
   const [pageNum, setPageNum] = useState(1); 
 
-  let [category, setCategory] = useState("All");
+  let [category, setCategory] = useState("");
+  let [originalList, setOriginalList] = useState([]);
   
   
   // const filterProducts = useSelector((state) => state.category.products)
@@ -27,6 +36,7 @@ const HomePage = () => {
 
   const totalPageNum = useSelector((state) => state.product.totalPageNum);
   let productList = useSelector((state) => state.product.products);
+
 
   let loading = useSelector((state) => state.product.loading);
   console.log(productList, "List ststst")
@@ -45,7 +55,6 @@ const HomePage = () => {
     { value: 'Books', label: 'Books' },
   ]
 
-  
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -58,16 +67,24 @@ const HomePage = () => {
   // let keyword = "";
 
   useEffect(() => {
-    // console.log("cate 1");
-    dispatch(productActions.getProductList(pageNum));
-  }, [dispatch, pageNum]);
+    console.log("cat 1", category);
+    dispatch(productActions.getProductList( category, pageNum ));
+  }, [dispatch, category, pageNum ]);
+
+
+  // useEffect( () => {
+  //   if(productList && productList.length && !category) {
+  //     setOriginalList(productList)
+  //   }
+  // }, [productList])
 
   // useEffect(() => {
-  //   if (category) {
-  //     console.log("Category ne: ", category);
-  //     dispatch(categoryActions.getProductsWithCategory(category))
-  //     console.log("eafsa")}
-  // }, [category, pageNum]);
+  //   if(category) {
+  //   }
+  //   let filteredList = originalList.filter((product) => product.category == category);
+  //   dispatch(productActions.updateList(filteredList))
+  // }, [category]);
+  
 
   // JS 
   let slideIndex = 0;
@@ -102,7 +119,7 @@ const HomePage = () => {
               <div className="info-wrapper">
                 <div className="homepageDeal left-to-right">
                   <h1 class="blink_me">
-                    HOTDEAL THIS WEEK
+                    HOT ITEM THIS WEEK
                   </h1>
                 </div>
                 <div className="ctaBtn left-to-right">
@@ -128,83 +145,94 @@ const HomePage = () => {
         </div>        
       </div>
 
-
-
-      {/* <section className="carousel d-flex mb-5">
-        <div className="swiper-container">
-          <div className="swiper-wrapper">
-            <div className="swiper-slide">
-              <a className="swiper-slide-link" href="https://tix.vn/phim/2442-lich-chieu-diep-vien-sieu-lay">
-                <img src={slide1} />
-              </a>
-            </div>
-            <div className="swiper-slide">
-              <a className="swiper-slide-link" href="hhttps://tix.vn/phim/2444-lich-chieu-ca-sau-tu-than">
-                <img src={slide2} />
-              </a>
-            </div>
-            <div className="swiper-slide">
-              <a className="swiper-slide-link" href="https://tix.vn/phim/837-captain-america-civil-war">
-                <img src="img/cover_4.jpg" />
-                <i className="fa fa-play" />
-              </a>
-            </div>
-            <div className="swiper-slide">
-              <a className="swiper-slide-link" href="https://tix.vn/phim/2446-lich-chieu-mai-ben-em">
-                <img src="img/cover_5.png" />
-                <i className="fa fa-play" />
-              </a>
-            </div>
+      <div className="container mt-3">
+        <h2 className="homepageTitle" style={{paddingTop: "15px"}}>CATEGORY</h2>
+        <div className="categorySelect">
+        <div className="categoryItem" onClick={() =>setCategory("Fashion")}>
+          <div className="innerCategoryItem">
+            <img src={fashion}/>
           </div>
-          <div className="swiper-button-next" />
-          <div className="swiper-button-prev" />
-          <div className="swiper-pagination" />
+            <p>Fashion</p>
         </div>
-      </section>
-
-       */}
-
-{/* <Select className="categorySelect" options = {categories} onChange={(e) => setCategory(e.value)} /> */}
+        <div className="categoryItem"  onClick={() =>setCategory("Phones and Accessories")}>
+          <div className="innerCategoryItem">
+            <img src={phone}/>
+          </div>
+            <p>Phones and Accessories</p>
+        </div>
+        <div className="categoryItem"  onClick={() => setCategory("Electronic device")}>
+          <div className="innerCategoryItem">
+            <img src={tv}/>
+          </div>
+            <p>Electronic device</p>
+        </div>
+        <div className="categoryItem"  onClick={() => setCategory("Household goods")}>
+          <div className="innerCategoryItem">
+            <img src={house}/>
+          </div>
+            <p>Household goods</p>
+        </div>
+        <div className="categoryItem"  onClick={() => setCategory("Health and Life")}>
+          <div className="innerCategoryItem">
+            <img src={health}/>
+          </div>
+            <p>Health and Life</p>
+        </div>
+        <div className="categoryItem"  onClick={() => setCategory("Fashion Accessories")}>
+          <div className="innerCategoryItem">
+            <img src={accessories}/>
+          </div>
+            <p>Fashion Accessories</p>
+        </div>
+        <div className="categoryItem"  onClick={ () => setCategory("Books")}>
+          <div className="innerCategoryItem">
+            <img src={book}/>
+          </div>
+            <p>Books</p>
+        </div>
+      </div>
+      </div>
 
       <div className="homePageProduct" id="homePageProduct">
         <div className="innerHomePageProduct">
-          <h2 className="homepageTitle">PRODUCTS</h2>
-<div className="container">
-          <div id="mainRow "
-            style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
-            {loading ? (
-              <h4 style={{ textAlign: "center", marginTop: "100px" }}>loading</h4>
-            ) 
-            // : filterProducts ? (
-            //   filterProducts?.map((product) => (
-            //     <ProductCard
-            //       product={product}
-            //       key={product._id}
-            //       gotoProductDetail={gotoProductDetail}
-            //     />
-            //   ))
-            // )
-            : 
-            (
-              productList && productList.map((product) => (
-                <ProductCard
-                  product={product}
-                  key={product._id}
-                  gotoProductDetail={gotoProductDetail}
-                />
-              ))
-            )
-            }
-          </div>
-          <PaginationBar
-          className="pagination"
-            pageNum={pageNum}
-            setPageNum={setPageNum}
-            totalPageNum={totalPageNum}
-            loading={loading}
-          />
+              <h2 className="homepageTitle">PRODUCTS</h2>
+              <div className="container">
+                <div id="mainRow "
+                  style={{display: "flex", flexWrap: "wrap", justifyContent: "center",}}>
+                  {loading ? (
+                    <h4 style={{ textAlign: "center", marginTop: "100px" }}>loading</h4>
+                  ) 
+                  // : filterProducts ? (
+                  //   filterProducts?.map((product) => (
+                  //     <ProductCard
+                  //       product={product}
+                  //       key={product._id}
+                  //       gotoProductDetail={gotoProductDetail}
+                  //     />
+                  //   ))
+                  // )
+                  : 
+                  (
+                    productList && productList.map((product) => (
+                      <ProductCard
+                        product={product}
+                        key={product._id}
+                        gotoProductDetail={gotoProductDetail}
+                      />
+                    ))
+                  )
+                  }
+                </div>
+                  <PaginationBar
+                  className="pagination"
+                    pageNum={pageNum}
+                    setPageNum={setPageNum}
+                    totalPageNum={totalPageNum}
+                    loading={loading}
+                  />
+              </div>
         </div>
-      </div></div>
+      </div>
 
       <section id="support">
         <div className="container">
@@ -236,20 +264,14 @@ const HomePage = () => {
         <div className="footer_info__items">
           <div className="footer_info__item about_us">
             <p>About Us</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam eligendi cum nobis optio dolorum necessitatibus repudiandae veritatis sapiente quibusdam tenetur?</p>
+            <p>Latest player in the field</p>
           </div>
-          <div className="footer_info__item my_account">
-            <p>My Account</p>
-            <a href="#">Check out</a>
-            <a href="#">Login</a>
-            <a href="#">Create Account</a>
-          </div>
+          
           <div className="footer_info__item info">
             <p>Information</p>
-            <a href="#">Home</a>
-            <a href="#">Products</a>
-            <a href="#">Short Codes</a>
-            <a href="#">Mail us</a>
+            <a href="/">Home</a>
+            <a href="/">Products</a>
+            <a href="/">Mail us</a>
           </div>
           <div className="footer_info__item contact">
             <p>Contact</p>

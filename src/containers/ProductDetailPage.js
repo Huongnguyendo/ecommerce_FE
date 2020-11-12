@@ -114,7 +114,7 @@ const ProductDetailPage = () => {
                       {/* <p>{LocalShippingIcon} Free shipping</p> */}
                       <Badge variant="dark">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}</Badge>
                       <p className="mt-3">
-                        Quantity:{' '}
+                        Quantity{' '}
                         <select value={quantity} onChange={(e) => {setQuantity(e.target.value);}}>
                           {[...Array(productDetail?.inStockNum).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
@@ -125,7 +125,7 @@ const ProductDetailPage = () => {
 
                       <div>
                           <p style={{display: "flex",alignItems: "center",}}> 
-                          Seller:
+                          Merchant
                             <Image
                               src={ productDetail && productDetail.seller &&
                                 productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}`

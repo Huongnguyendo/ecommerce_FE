@@ -18,7 +18,7 @@ const ProductCard = ({ product, gotoProductDetail }) => {
                 </div>
                 <div className="productCardBody">
 
-                  <Badge variant="warning" style={{fontSize: "12px"}}>{product.category}</Badge>
+                  <Badge className="product" variant="warning" style={{fontSize: "12px"}}>{product.category}</Badge>
                   <h3 className="productCardName">{product.name}</h3>
                   <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
                   <div className="productCardDes-Btn">

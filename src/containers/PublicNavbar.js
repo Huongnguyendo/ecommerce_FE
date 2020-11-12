@@ -11,6 +11,7 @@ import {Form, FormControl, Button} from "react-bootstrap";
 import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import shopnow from "../images/shopnow.png";
 import ".././App.css";
 
 const PublicNavbar = () => {
@@ -170,7 +171,9 @@ const PublicNavbar = () => {
         <div className="lower_header content_width">
         <div className="logo">
             {/* <Link to="/"> */}
-                <a  href="/" style={{letterSpacing: "1.5px"}}><i class="fab fa-stripe-s"></i>hopNow</a>
+                <a  href="/" style={{letterSpacing: "1.5px"}}>
+                    <img src={shopnow}/>
+                </a>
             {/* </Link> */}
         </div>
 

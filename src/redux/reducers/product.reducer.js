@@ -28,7 +28,8 @@ const productReducer = (state = initialState, action) => {
     case categoryTypes.CATEGORY_CHOOSE_FAILURE:
       return { ...state, loading: false, error: payload };
 
-    case types.GET_PRODUCTS_REQUEST || types.GET_PRODUCTDETAIL_REQUEST:
+    case types.GET_PRODUCTS_REQUEST:
+    case types.GET_PRODUCTDETAIL_REQUEST:
     case types.GET_PRODUCTDETAILFORSELLER_REQUEST:
     case types.GET_PRODUCTS_BYKEYWORD_REQUEST:
     case types.GET_ALLPRODUCTSFORSELLER_REQUEST:
@@ -48,7 +49,10 @@ const productReducer = (state = initialState, action) => {
         totalPageNum: payload.totalPages,
       };
 
-    
+    case "UPDATE_LIST":
+      return {
+        ...state, products: payload
+      }
     case types.GET_HISTORYFORSELLER_SUCCESS:
       console.log("payyyy", payload)
       return {
