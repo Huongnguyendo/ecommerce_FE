@@ -117,7 +117,7 @@ const LoginPage = () => {
               </button>
             )}
 
-            <div className="d-flex flex-column text-center">
+            {/* <div className="d-flex flex-column text-center">
               <FacebookLogin
                 appId={REACT_APP_FB}
                 fields="name,email,picture"
@@ -145,6 +145,7 @@ const LoginPage = () => {
                 }}
               />
             </div>
+ */}
 
             {/* <GoogleLogin
             className="ggLoginBtn"
