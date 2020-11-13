@@ -45,12 +45,15 @@ const CartScreen = () => {
 
   const checkoutHandler = () => {
     try {
-      handleShow();
-      dispatch(cartActions.checkOutCart());
-      toast.success(`Cart checkout successful`, {
-        onClose: () =>  history.push('/'),
-      });
       
+      dispatch(cartActions.checkOutCart());
+
+      if(isCheckedout) {
+        handleShow();
+      }
+      // {
+      //   onClose: () =>  history.push('/'),
+      // }
     } catch (error) {
 
     }
@@ -182,7 +185,7 @@ const CartScreen = () => {
                           </ul>
                           <button type="button" 
                               className="btn btn-primary btn-block"
-                              onClick={checkoutHandler}
+                              onClick={()=>checkoutHandler()}
                               >
                                 Checkout
                             </button>

@@ -8,7 +8,7 @@ const ReviewList = ({ reviews, loading, setAverageRating }) => {
   }
   // console.log("averageRating", (averageRating/3).toFixed(2));
 
-  setAverageRating((averageRating/3).toFixed(2));
+  setAverageRating((averageRating/(reviews?.length)).toFixed(2));
   return (
     <>
       {reviews?.length > 0 && (

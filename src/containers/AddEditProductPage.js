@@ -48,8 +48,10 @@ const AddEditProductPage = () => {
         // dispatch(productActions.getSingleProduct(productId));
         dispatch(productActions.getProductDetailForSeller(productId));
       } else {
+        console.log("selectedProduct ", selectedProduct);
         setFormData((formData) => ({
           ...formData,
+        
           name: selectedProduct?.name,
           description: selectedProduct?.description,
           image: selectedProduct?.image,
@@ -184,10 +186,11 @@ const AddEditProductPage = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-
+              Price:
               <input placeholder="price" type="number" id="price" name="price" value={formData.price} onChange={handleChange}
               style={{height:"40px", width:"100%", marginBottom: "20px"}}
               />
+              Stock:
               <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"  value={formData.inStockNum} onChange={handleChange}
               style={{height:"40px", width:"100%", marginBottom: "20px"}}
               />

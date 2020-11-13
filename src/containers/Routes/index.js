@@ -10,6 +10,7 @@ import PrivateRoute from "containers/Routes/PrivateRoute";
 import SellerSideMenu from "containers/Routes/layouts/Seller/SellerSideMenu";
 import RegisterPage from "containers/RegisterPage";
 import LoginPage from "containers/LoginPage";
+import Privacy from "containers/Privacy"
 import SellerProducts from "containers/Routes/layouts/Seller/SellerProducts"
 
 const Routes = (props) => {
@@ -19,6 +20,7 @@ const Routes = (props) => {
 
   return (
     <Switch>
+      <Route exact path="/privacy" component={Privacy} />
       <Route exact path="/login" component={LoginPage} />
       <Route exact path="/register" component={RegisterPage} />
       <PrivateAdminRoute path="/admin" component={AdminLayout} />

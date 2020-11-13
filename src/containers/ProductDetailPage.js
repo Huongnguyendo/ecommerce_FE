@@ -9,7 +9,7 @@ import ReviewList from "components/ReviewList";
 import ReviewForm from "components/ReviewForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Row, Col, Card, Image, Button, Badge } from "react-bootstrap";
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+// import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import moment from "moment";
 
 const ProductDetailPage = () => {
@@ -51,6 +51,7 @@ const ProductDetailPage = () => {
 
   const handleAddToCart = () => {
     // history.push('/cart/add/' + id + '?quantity=' + quantity);
+    window.location.reload(false);
     dispatch(cartActions.addToCart(id, quantity));
   };
 
@@ -112,11 +113,11 @@ const ProductDetailPage = () => {
                       {/* <div class="is-divider"></div> */}
                       <p><span className="productDetailPrice">${productDetail?.price}</span ></p>
                       {/* <p>{LocalShippingIcon} Free shipping</p> */}
-                      <Badge variant="dark">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable.'}</Badge>
+                      <Badge variant="dark">{productDetail?.inStockNum > 0 ? 'In Stock' : 'Unavailable'}</Badge>
                       <p className="mt-3">
                         Quantity{' '}
                         <select value={quantity} onChange={(e) => {setQuantity(e.target.value);}}>
-                          {[...Array(productDetail?.inStockNum).keys()].map((x) => (
+                          {productDetail?.inStockNum > 0 && [...Array(productDetail?.inStockNum).keys()].map((x) => (
                             <option key={x + 1} value={x + 1}>
                               {x + 1}
                             </option>))}

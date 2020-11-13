@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { routeActions } from "../actions";
 import * as types from "../constants/cart.constants";
 import { useHistory } from "react-router";
+// import { CodeSharp } from "@material-ui/icons";
 
 
 const addToCart = (product, quantity) => async (dispatch) => {
@@ -15,12 +16,14 @@ const addToCart = (product, quantity) => async (dispatch) => {
         console.log(res);
         dispatch({ type: types.CART_ADD_ITEM_SUCCESS, payload: res.data.data });
         dispatch(routeActions.redirect("/login"));
-        toast.success(`Add to cart successfull`);
+        toast.success(`Add to cart successful`);
       } catch (error) {
+        console.log(error);
+        toast.error(error.message);
         dispatch({ type: types.CART_ADD_ITEM_FAILURE, payload: error });
       }
   } catch (error) {
-    console.log(error);
+    toast.error(error.message);
   }
 }
 
@@ -35,7 +38,7 @@ const getCartItems = () => async (dispatch) => {
         dispatch({ type: types.GET_CART_ITEMS_FAILURE, payload: error });
       }
   } catch (error) {
-    console.log(error);
+    toast.error(error.message);
   }
 }
 
@@ -53,7 +56,7 @@ const removeFromCart = (product) => async (dispatch) => {
         dispatch({ type: types.CART_REMOVE_ITEM_FAILURE, payload: error });
       }
   } catch (error) {
-    console.log(error);
+    toast.error(error.message);
   }
 }
 
@@ -69,7 +72,7 @@ const checkOutCart = () => async (dispatch) => {
         dispatch({ type: types.CART_CHECKOUT_FAILURE, payload: error });
       }
   } catch (error) {
-    console.log(error);
+    toast.error(error.message);
   }
 }
 

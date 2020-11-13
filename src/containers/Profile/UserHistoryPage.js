@@ -25,7 +25,7 @@ const UserHistory = () => {
 
   return (
       <div className="buyingHistoryPage">
-          {loading ? <h3>Loading ... </h3> : buyingHistory?.length <= 0 ? <h1>No Buying History</h1>
+          {loading ? <h3 style={{textAlign: "center"}}>Loading ... </h3> : buyingHistory?.length <= 0 ? <h1 style={{textAlign: "center"}}>No Buying History</h1>
           :
     //         <div>
                 

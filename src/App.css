@@ -8,7 +8,7 @@ a {
 }
 
 .nav-link {
-  font-weight: 400;
+  font-weight: 300 !important;
   color: white;
   font-size: 18px;
   letter-spacing: 1.5px;
@@ -124,7 +124,7 @@ a {
 
 /* PRODUCT CARD */
 .productCard {
-  flex-basis: calc(100% / 4);
+  flex-basis: 200px;
   padding: 15px 15px 10px;
   border-radius:15px !important;
   overflow: hidden;
@@ -701,7 +701,7 @@ button:active {
 
 .support-single span {
 	font-size: 30px;
-	color: #f3872a;
+	color: #f7cc03;
 	margin-bottom: 15px;
 }
 
@@ -1002,12 +1002,12 @@ background: linear-gradient(90deg, rgba(87,158,222,1) 0%, rgba(0,212,255,1) 100%
 
 
  .page-item .page-link { 
-   color: #f3872a!important;
+   color: #f7cc03!important;
     -webkit-border-radius: 5px; -moz-border-radius:5px; -ms-border-radius:5px; -o-border-radius:5px;
 }
 
-.active .page-link { background-color:#f3872a!important; 
-  color:white!important;
+.active .page-link { background-color:#f7cc03!important; 
+  color:black!important;
   border: brown; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px;
 }
 
@@ -1039,3 +1039,5 @@ background: linear-gradient(90deg, rgba(87,158,222,1) 0%, rgba(0,212,255,1) 100%
   -o-border-radius: 50%;
 
 }
+
+/* #ab9f23 */
