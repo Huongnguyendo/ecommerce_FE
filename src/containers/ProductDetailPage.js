@@ -17,7 +17,6 @@ const ProductDetailPage = () => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   let productDetail = useSelector((state) => state.product.selectedProduct);
-  // console.log("state.product.selectedProduct", productDetail);
   const loading = useSelector((state) => state.product.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const history = useHistory();
@@ -28,7 +27,6 @@ const ProductDetailPage = () => {
 
   let [averageRating, setAverageRating] = useState(0);
 
-  console.log("averageRating ne: ", averageRating);
 
   const getProductDetail = () => {
     dispatch(productActions.getProductDetail(id));
@@ -67,10 +65,7 @@ const ProductDetailPage = () => {
   return (
   
     <div className="productDetailCom container">
-        {/* <div className="d-flex justify-content-between">
-          {console.log("current user ne: ", currentUser)}
-          {console.log("productDetail?.seller?._id: ", productDetail?.seller?._id)}
-        </div> */}
+      
 
         {loading ? (
         <div className="text-center">

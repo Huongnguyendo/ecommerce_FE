@@ -15,8 +15,7 @@ const categoryReducer = (state = initialState, action) => {
       return { ...state, loading: true };
 
     case types.CATEGORY_CHOOSE_SUCCESS:
-        console.log("products của category ne: ", payload);
-        console.log("products của category ne: ", payload.totalPages);
+        
       return {
         ...state,
         loading: false,

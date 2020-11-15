@@ -8,8 +8,7 @@ const ProductCard = ({ product, gotoProductDetail }) => {
   return (
     product && (
       <div className="productCard" style={{borderRadius: "15px"}}>
-        {/* {console.log("product._id", product._id)}
-        {console.log("product.seller", product.seller.name)} */}
+        
         <div onClick={() => {gotoProductDetail(product._id);}}>
                 <div className="productCardImg">
                     {product.image && (

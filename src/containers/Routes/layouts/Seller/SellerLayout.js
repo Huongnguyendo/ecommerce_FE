@@ -16,16 +16,12 @@ import SellerHistory from "../Seller/SellerHistory";
 
 const SellerLayout = () => {
   let currentUser = useSelector((state) => state.auth.user);
-  // console.log("currentUser ne: ", currentUser);
 
   return (
     <>
       <PublicNavbar />
       <div>
-        {/* <Row> */}
-          {/* <SideMenu /> */}
-          {/* <Col md={4} > */}
-            {/* <AlertMsg /> */}
+        
             <Switch>
               {/* <PrivateSellerRoute  path="/seller/profile" component={SellerProfilePage} /> */}
               {/* <PrivateSellerRoute
@@ -50,8 +46,7 @@ const SellerLayout = () => {
               
               <Route component={NotFoundPage} />
             </Switch>
-          {/* </Col>
-        </Row> */}
+          
       </div>
     </>
   );

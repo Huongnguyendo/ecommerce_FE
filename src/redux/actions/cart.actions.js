@@ -4,21 +4,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import { routeActions } from "../actions";
 import * as types from "../constants/cart.constants";
 import { useHistory } from "react-router";
-// import { CodeSharp } from "@material-ui/icons";
 
 
 const addToCart = (product, quantity) => async (dispatch) => {
   try {
-    // console.log("haha ", productId, quantity);
     dispatch({ type: types.CART_ADD_ITEM_REQUEST, payload: null });
     try {
         const res = await api.post("/cart/add/", { product, quantity });
-        console.log(res);
         dispatch({ type: types.CART_ADD_ITEM_SUCCESS, payload: res.data.data });
         dispatch(routeActions.redirect("/login"));
         toast.success(`Add to cart successful`);
       } catch (error) {
-        console.log(error);
         toast.error(error.message);
         dispatch({ type: types.CART_ADD_ITEM_FAILURE, payload: error });
       }
@@ -33,7 +29,7 @@ const getCartItems = () => async (dispatch) => {
     try {
         const res = await api.get("/cart");
         dispatch({ type: types.GET_CART_ITEMS_SUCCESS, payload: res.data.data });
-        console.log("res cua cart ne: ", res.data.data);
+        // console.log("res cua cart ne: ", res.data.data);
       } catch (error) {
         dispatch({ type: types.GET_CART_ITEMS_FAILURE, payload: error });
       }
@@ -44,7 +40,6 @@ const getCartItems = () => async (dispatch) => {
 
 const removeFromCart = (product) => async (dispatch) => {
   try {
-    // console.log("haha ", productId, quantity);
     dispatch({ type: types.CART_REMOVE_ITEM_REQUEST, payload: null });
     try {
         const res = await api.post("/cart/remove/", { product });
@@ -62,11 +57,10 @@ const removeFromCart = (product) => async (dispatch) => {
 
 const checkOutCart = () => async (dispatch) => {
   try {
-    // console.log("haha ", productId, quantity);
     dispatch({ type: types.CART_CHECKOUT_REQUEST, payload: null });
     try {
         const res = await api.post("/cart/checkout");
-        console.log(res);
+        // console.log(res);
         dispatch({ type: types.CART_CHECKOUT_SUCCESS, payload: res.data.data });
       } catch (error) {
         dispatch({ type: types.CART_CHECKOUT_FAILURE, payload: error });

@@ -40,7 +40,6 @@ const ProfilePage = () => {
   };
 
   const uploadWidget = () => {
-    console.log("hehehehheheheh")
     window.cloudinary.openUploadWidget(
       {
         cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
@@ -48,11 +47,8 @@ const ProfilePage = () => {
         tags: ["userAvatar"],
       },
       function (error, result) {
-        console.log("hihihihihihihih")
-        if (error) console.log("abcd ", error);
+        if (error) console.log(error);
         if (result.event === "success") {
-          console.log(result.info.secure_url)
-          // console.log("heheheh: ", result[0].secure_url)
           setFormData({
             ...formData,
             avatarUrl: result.info.secure_url,

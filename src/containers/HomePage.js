@@ -29,18 +29,13 @@ const HomePage = () => {
 
   let [category, setCategory] = useState("");
   let [originalList, setOriginalList] = useState([]);
-  
-  
-  // const filterProducts = useSelector((state) => state.category.products)
-  // console.log("filterProducts: ", filterProducts );
+
 
   const totalPageNum = useSelector((state) => state.product.totalPageNum);
   let productList = useSelector((state) => state.product.products);
 
 
   let loading = useSelector((state) => state.product.loading);
-  console.log(productList, "List ststst")
-  console.log(loading, "hehhhh")
 
   
   const categories = [
@@ -64,28 +59,13 @@ const HomePage = () => {
     history.push(`/products/${index}`);
   };
 
-  // let keyword = "";
 
   useEffect(() => {
-    console.log("cat 1", category);
     dispatch(productActions.getProductList( category, pageNum ));
   }, [dispatch, category, pageNum ]);
 
 
-  // useEffect( () => {
-  //   if(productList && productList.length && !category) {
-  //     setOriginalList(productList)
-  //   }
-  // }, [productList])
-
-  // useEffect(() => {
-  //   if(category) {
-  //   }
-  //   let filteredList = originalList.filter((product) => product.category == category);
-  //   dispatch(productActions.updateList(filteredList))
-  // }, [category]);
   
-
   // JS 
   let slideIndex = 0;
   let slider = document.getElementById('slider')
@@ -102,15 +82,6 @@ const HomePage = () => {
     return (
     <div>
 
-
-      {/* <img src={cover} style={{width: "100%"}}/> */}
-      {/* <div className="col-lg-3 col-12 mt-2">
-          <Select placeholder="Category" 
-                  className="categorySelect" 
-                  options = {categories} 
-                  onChange={(e) => setCategory(e.value)} 
-                  />
-      </div> */}
 
       <div id="slider" className="slider">
         <div className="row fullheight slide">
@@ -202,15 +173,7 @@ const HomePage = () => {
                   {loading ? (
                     <h4 style={{ textAlign: "center", marginTop: "100px" }}>loading</h4>
                   ) 
-                  // : filterProducts ? (
-                  //   filterProducts?.map((product) => (
-                  //     <ProductCard
-                  //       product={product}
-                  //       key={product._id}
-                  //       gotoProductDetail={gotoProductDetail}
-                  //     />
-                  //   ))
-                  // )
+                  
                   : 
                   (
                     productList && productList.map((product) => (

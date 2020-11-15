@@ -6,7 +6,6 @@ const ReviewList = ({ reviews, loading, setAverageRating }) => {
   for(let i = 0; i < reviews?.length; i++) {
     averageRating += reviews[i].rating;
   }
-  // console.log("averageRating", (averageRating/3).toFixed(2));
 
   setAverageRating((averageRating/(reviews?.length)).toFixed(2));
   return (

@@ -39,22 +39,6 @@ a {
   background-color: #131e26;
 }
 
-/* 
-.header-container {
-  margin-right: 5%;
-  margin-left: 5%;
-} */
-
-/* .header-with-search {
-  width: inherit;
-    max-width: 1200px;
-    box-sizing: border-box;
-    display: flex;
-    height: 5.3125rem;
-    justify-content: space-between;
-    padding: 1rem 0 .625rem;
-} */
-
 /* PRODUCT DETAILS */
 .productDetailCom {
 	/* background-color:#f8f9fa !important; */
@@ -172,23 +156,10 @@ a {
 }
 
 .productCard:hover img {
- 
-  /*transform: scale(1.5);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
-  */filter: brightness(100%);
+  filter: brightness(100%);
   transform: scale(1.2);
 }
 
-/* .productCard:hover {
-  transform: scale(1.05);
-	-webkit-transform: scale(1.05);
-	-moz-transform: scale(1.05);
-	-ms-transform: scale(1.05);
-	-o-transform: scale(1.05);
-} */
 
 .productCardBody {
 	margin: 0;
@@ -326,11 +297,6 @@ a {
 }
 
 
-
-
-
-
-
 /* HOMEPAGE */
 .homePageProduct {
   background-color: #dee2e6;
@@ -346,14 +312,7 @@ a {
   margin: 5px;
   padding: 15px;
 }
-/* #mainRow {
-	background-color: white !important;
-	box-shadow: 0 0 3px 0 #dee2e6;
-	border-radius: 6px;
-	margin: 5px;
-} */
 
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
 
 * {
   margin: 0;
@@ -517,19 +476,15 @@ button:active {
   right: 0;
 }
 
-/* #basic-navbar-nav {
-  margin-bottom: -15px;
-} */
+
 
 .categorySelect {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: space-between;
   margin-top: 15px;
   margin-bottom: 15px;
-
-
 }
 
 
@@ -583,21 +538,7 @@ button:active {
   margin-left: auto;
 }
 
-/* .search-form {
-  position: relative;
-  margin-top: 10px;
-  padding-left: 200px !important;
-  margin-right: -60px !important;
-} */
 
-/* .header-search {
-  background-color: #eef1fa;
-  border-radius: 25px;
-  margin-top: 7px;
-  max-width: 100%;
-  padding-left: 10px;
-  right: 0 !important;
-} */
 
 .header-search-form {
   position: relative;
@@ -676,12 +617,6 @@ button:active {
   text-decoration: none;
 }
 
-
-/* #header {
-	background-color: transparent !important;
-	position: fixed;
-	z-index: 100;
-} */
 
 .logo img {
   width: 180px;
@@ -827,10 +762,6 @@ button:active {
   z-index: 1000;
 }
 
-/* .upper_header__right {
-  position: absolute;
-  right: 0;
-} */
 
 .upper_header__right div a:hover {
   margin-top: -5px!important;
@@ -1040,4 +971,3 @@ background: linear-gradient(90deg, rgba(87,158,222,1) 0%, rgba(0,212,255,1) 100%
 
 }
 
-/* #ab9f23 */

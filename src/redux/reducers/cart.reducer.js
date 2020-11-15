@@ -13,7 +13,6 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
     const { type, payload } = action;
-    console.log("hhehehehhehehehe: ", payload?.isCheckedout);
 
   switch (type) {
     case types.GET_CART_ITEMS_REQUEST:

@@ -16,7 +16,6 @@ const VerifyEmailPage = () => {
 
   useEffect(() => {
     if (params?.code && params.code !== "_" && !isAuthenticated && !loading) {
-      console.log(params.code);
       dispatch(authActions.verifyEmail(params.code));
     }
   }, [dispatch, params, loading, isAuthenticated]);

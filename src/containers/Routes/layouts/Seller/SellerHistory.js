@@ -14,7 +14,6 @@ const SellerProductPage = () => {
   const sellingHistory = useSelector((state) => state.product.historyToRender)
   let loading = useSelector((state) => state.product.loading);
 
-  console.log("sellingHistory ", sellingHistory);
 
   // new useEffect and action to get selling history
   useEffect(() => {

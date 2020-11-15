@@ -25,7 +25,7 @@ const loginRequest = (email, password) => async (dispatch) => {
       const name = res.data.data.user.name;
       toast.success(`Welcome ${name}`);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       dispatch({ type: types.LOGIN_FAILURE, payload: error });
     }
   };
@@ -38,7 +38,7 @@ const loginFacebookRequest = (access_token) => async (dispatch) => {
       const name = res.data.data.user.name;
       toast.success(`Welcome ${name}`);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       dispatch({ type: types.LOGIN_FACEBOOK_FAILURE, payload: error });
     }
   };
@@ -51,7 +51,7 @@ const loginGoogleRequest = (access_token) => async (dispatch) => {
     const name = res.data.data.user.name;
     toast.success(`Welcome ${name}`);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     dispatch({ type: types.LOGIN_GOOGLE_FAILURE, payload: error });
   }
 };
@@ -61,8 +61,7 @@ const logout = () => (dispatch) => {
     localStorage.setItem("accessToken", "");
     dispatch({ type: types.LOGOUT, payload: null });
 
-    // newly added 
-    // dispatch(routeActions.redirect("/login"));
+  
   };
 
 const updateProfile = (name, avatarUrl) => async (dispatch) => {

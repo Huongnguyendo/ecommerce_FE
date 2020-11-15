@@ -23,7 +23,6 @@ const AllUsersPage = () => {
 //   const selectedProducts = useSelector((state) => state.product.products);
   let users = useSelector((state) => state.user.users)
 
-  console.log("thu 2: ", totalPageNum);
 
   const deleteUser = (id) => {
     dispatch(userActions.deleteForAdmin(id));

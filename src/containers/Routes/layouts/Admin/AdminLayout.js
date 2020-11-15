@@ -15,7 +15,6 @@ import AdminAllUsersPage from "../../layouts/Admin/AdminAllUsersPage";
 
 const AdminLayout = () => {
   let currentUser = useSelector((state) => state.auth.user);
-  console.log("currentUser ne: ", currentUser);
 
   return (
     <>

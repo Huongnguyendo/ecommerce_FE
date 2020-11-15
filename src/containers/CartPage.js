@@ -17,7 +17,6 @@ const CartScreen = () => {
   const isCheckedout = useSelector((state) => state.cart.isCheckedout);
   const loading = useSelector((state) => state.cart.loading);
 
-  console.log("checkout roi ne", isCheckedout);
 
   console.log("cart ", cart);
   const dispatch = useDispatch();
@@ -65,7 +64,6 @@ const CartScreen = () => {
     totalCartRevenue += parseInt(item?.quantity) * parseInt(item?.product?.price);
   }
 
-  console.log("totalCartRevenue ", totalCartRevenue);
 
   return <>
   <div className="cart">

@@ -40,12 +40,10 @@ const LoginPage = () => {
   // log in with facebook
   // send the token to backend via redux
   const loginWithFacebook = (response) => {
-    console.log("fb login: ", response);
     dispatch(authActions.loginFacebookRequest(response.accessToken));
   };
 
   const loginWithGoogle = (response) => {
-    console.log("gg login: ", response);
     dispatch(authActions.loginGoogleRequest(response.accessToken));
   };
 

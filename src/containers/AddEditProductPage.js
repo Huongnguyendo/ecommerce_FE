@@ -36,19 +36,12 @@ const AddEditProductPage = () => {
 
   const error = useSelector((state) => state.product.error);
 
-  console.log("hihahohe: ", error);
-  console.log("add or edit ne: ", addOrEdit);
-  console.log("selectedProduct ne: ", selectedProduct)
-
   useEffect(() => {
-    console.log("o day ne ", productId, " ", addOrEdit);
     if (productId) {
-      console.log(" in if body ")
       if (!selectedProduct) {
         // dispatch(productActions.getSingleProduct(productId));
         dispatch(productActions.getProductDetailForSeller(productId));
       } else {
-        console.log("selectedProduct ", selectedProduct);
         setFormData((formData) => ({
           ...formData,
         
@@ -85,7 +78,6 @@ const AddEditProductPage = () => {
   };
 
   const handleDelete = () => {
-    console.log("id ne ne: ", selectedProduct);
     dispatch(productActions.deleteProduct(selectedProduct._id, '/'));
   };
 
@@ -104,7 +96,6 @@ const AddEditProductPage = () => {
   }, [redirectTo, dispatch, history]);
 
   const uploadWidget = () => {
-    console.log("hehehehheheheh")
     window.cloudinary.openUploadWidget(
       {
         cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
@@ -112,11 +103,9 @@ const AddEditProductPage = () => {
         tags: ["productImg"],
       },
       function (error, result) {
-        console.log("hihihihihihihih")
-        if (error) console.log("abcd ", error);
+        if (error) console.log(error);
         if (result.event === "success") {
-          console.log(result.info.secure_url)
-          console.log("hehehehihihihi: ", result.info.secure_url)
+          
           setFormData({
             ...formData,
             image: result.info.secure_url,

@@ -11,10 +11,8 @@ const SellerProductPage = () => {
   
   const selectedProducts = useSelector((state) => state.product?.products);
   const loading = useSelector((state) => state.product?.loading);
-  // console.log("selectedProducts", selectedProducts.products);
   
   useEffect(() => {dispatch(productActions.getAllProductsForSeller())},[])
-  console.log("Seller page ", selectedProducts);
 
   
 

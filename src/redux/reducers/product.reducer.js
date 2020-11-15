@@ -17,7 +17,6 @@ const productReducer = (state = initialState, action) => {
       return { ...state, loading: true };
 
     case categoryTypes.CATEGORY_CHOOSE_SUCCESS:
-        console.log("products của category ne: ", payload);
       return {
         ...state,
         loading: false,
@@ -40,7 +39,6 @@ const productReducer = (state = initialState, action) => {
     case types.GET_PRODUCTS_SUCCESS:
     case types.GET_ALLPRODUCTSFORSELLER_SUCCESS:
     // case types.GET_HISTORYFORSELLER_SUCCESS:
-      console.log("payyyy", payload.products)
       return {
         ...state,
         loading: false,
@@ -54,7 +52,6 @@ const productReducer = (state = initialState, action) => {
         ...state, products: payload
       }
     case types.GET_HISTORYFORSELLER_SUCCESS:
-      console.log("payyyy", payload)
       return {
         ...state,
         loading: false,
@@ -88,7 +85,6 @@ const productReducer = (state = initialState, action) => {
     case types.CREATE_REVIEW_REQUEST:
       return { ...state, submitLoading: true };
     case types.CREATE_REVIEW_SUCCESS:
-      console.log("success ne");
       return {
         ...state,
         selectedProduct: {
