@@ -164,7 +164,7 @@ const UserHistory = () => {
                 <tr>
                    <td>{item._id}</td>
                    <td> {item.cartItems.map(innerItem =>  <div style={{border: "none"}}>{innerItem.product.brand} - {innerItem.product.name}</div>)}</td>
-                   <td> {item.cartItems.map(innerItem =>  <div style={{border: "none"}}>${innerItem.product.price}</div>)}</td>
+                   <td> {item.cartItems.map(innerItem =>  <div style={{border: "none"}}>${innerItem.currentPrice}</div>)}</td>
                    <td> {item.cartItems.map(innerItem =>  <div style={{border: "none"}}>{innerItem.quantity}</div>)}</td>
                    <td> {item.cartItems.map(innerItem =>  <div style={{border: "none"}}>${innerItem.product.price * innerItem.quantity}</div>)}</td>
                    <td className="no-padding"> {item.cartItems.map(innerItem =>  <div style={{border: "none"}}> {moment(item.createdAt).format("DD/MM/YYYY")}</div>)}</td>

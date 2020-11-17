@@ -5,10 +5,11 @@ import { toast } from "react-toastify";
 // export const authActions = {};
 import { routeActions } from "../actions";
 
-const register = (name, email, password, avatarUrl) => async (dispatch) => {
+const register = (name, email, password, avatarUrl, role) => async (dispatch) => {
   dispatch({ type: types.REGISTER_REQUEST, payload: null });
   try {
-    const res = await api.post("/users", { name, email, password, avatarUrl });
+    console.log("role: ", role);
+    const res = await api.post("/users", { name, email, password, avatarUrl, role });
     dispatch({ type: types.REGISTER_SUCCESS, payload: res.data.data });
     dispatch(routeActions.redirect("/login"));
     toast.success(`Thank you for your registration, ${name}!`);

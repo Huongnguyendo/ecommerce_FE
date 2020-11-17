@@ -41,8 +41,8 @@ const PublicNavbar = () => {
   const isSeller = (currentUser && currentUser.role === "Seller");
   const isAdmin = (currentUser && currentUser.role === "Admin");
 
-  
-
+  console.log("current: ", currentUser);
+  console.log("isSeller?? ", isSeller);
 
   const authLinks = (
     <div className="d-flex" style={{marginBottom: "-10px"}}>

@@ -29,7 +29,7 @@ const SellerProductPage = () => {
         </div>
         
 
-        {loading ? <h3>Loading...</h3> : 
+        {loading ? <h3>Loading...</h3> : selectedProducts?.length == 0 ? <h3 style={{textAlign: "center", backgroundColor: "rgb(243, 243, 243)"}}>Begin selling by adding products</h3> :
           selectedProducts?.map((product) => (
           <div >
             {/* <Col sm={6} > */}

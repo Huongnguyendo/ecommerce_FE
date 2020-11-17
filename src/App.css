@@ -16,7 +16,7 @@ a {
 }
 
 .nav-link:hover {
-  padding-bottom: 5px;
+  padding-bottom: 3px;
 }
 
 .comment {
@@ -636,7 +636,7 @@ button:active {
 
 .support-single span {
 	font-size: 30px;
-	color: #f7cc03;
+	color: #ffc107;
 	margin-bottom: 15px;
 }
 
@@ -933,13 +933,14 @@ background: linear-gradient(90deg, rgba(87,158,222,1) 0%, rgba(0,212,255,1) 100%
 
 
  .page-item .page-link { 
-   color: #f7cc03!important;
+   color: #ffc107!important;
+   font-weight: 500;
     -webkit-border-radius: 5px; -moz-border-radius:5px; -ms-border-radius:5px; -o-border-radius:5px;
 }
 
-.active .page-link { background-color:#f7cc03!important; 
+.active .page-link { background-color:#ffc107!important; 
   color:black!important;
-  border: brown; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px;
+  border: #ffc107; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px;
 }
 
 /* CATEGORY */
@@ -971,3 +972,10 @@ background: linear-gradient(90deg, rgba(87,158,222,1) 0%, rgba(0,212,255,1) 100%
 
 }
 
+.registerBtn {
+  margin-top: 20px!important;
+}
+
+.profileImg img {
+  width:300px;
+}

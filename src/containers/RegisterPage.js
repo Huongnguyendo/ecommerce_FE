@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { authActions, routeActions } from "../redux/actions";
 // import { routeActions } from "redux/actions/route.actions";
+import Select from 'react-select';
+import { FormGroup } from "@material-ui/core";
 
 
 const RegisterPage = () => {
@@ -15,6 +17,7 @@ const RegisterPage = () => {
     password2: "",
     avatarUrl:
       "",
+    role: "",
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -22,7 +25,8 @@ const RegisterPage = () => {
     password: "",
     password2: "",
   });
-
+  
+  
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.auth.loading);
   const redirectTo = useSelector((state) => state.route.redirectTo);
@@ -33,12 +37,13 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password, password2, avatarUrl } = formData;
+    const { name, email, password, password2, avatarUrl, role } = formData;
+    // console.log("role ne: ", role);
     if (password !== password2) {
       setErrors({ ...errors, password2: "Passwords do not match" });
       return;
     }
-    dispatch(authActions.register(name, email, password, avatarUrl));
+    dispatch(authActions.register(name, email, password, avatarUrl, role));
   };
 
   useEffect(() => {
@@ -86,15 +91,7 @@ const RegisterPage = () => {
             </p>
           </div>
           <Form onSubmit={handleSubmit}>
-            {/* <Form.Group>
-              <Form.Control
-                type="text"
-                placeholder="Avatar"
-                name="avatarUrl"
-                value={formData.avatarUrl}
-                onChange={handleChange}
-              />
-            </Form.Group> */}
+            
             <Form.Group>
               <Button
                     variant="info"
@@ -151,6 +148,12 @@ const RegisterPage = () => {
                 onChange={handleChange}
               />
             </Form.Group>
+            <FormGroup>
+              <select name="role" id="roles" value={formData.role} onChange={handleChange}>
+                <option value="User">User</option>
+                <option value="Seller">Seller</option>
+              </select>
+            </FormGroup>
 
             {loading ? (
               <Button
@@ -167,7 +170,7 @@ const RegisterPage = () => {
                 Loading...
               </Button>
             ) : (
-              <Button className="btn-block" type="submit" variant="primary">
+              <Button className="btn-block mt-3" type="submit" variant="primary">
                 Register
               </Button>
             )}

@@ -15,8 +15,10 @@ import moment from "moment";
 const ProductDetailPage = () => {
   let { id } = useParams();
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch();
   let productDetail = useSelector((state) => state.product.selectedProduct);
+  let currentPrice = productDetail?.price;
+  const dispatch = useDispatch();
+  
   const loading = useSelector((state) => state.product.loading);
   const currentUser = useSelector((state) => state.auth.user);
   const history = useHistory();
@@ -49,8 +51,9 @@ const ProductDetailPage = () => {
 
   const handleAddToCart = () => {
     // history.push('/cart/add/' + id + '?quantity=' + quantity);
-    window.location.reload(false);
-    dispatch(cartActions.addToCart(id, quantity));
+    // window.location.reload(false);
+    
+    dispatch(cartActions.addToCart(id, quantity, currentPrice));
   };
 
   useEffect(() => {
@@ -101,7 +104,7 @@ const ProductDetailPage = () => {
                       <span className="productDetailName ml-2">{productDetail.name}</span>
                     </div>
                     <div className="d-flex productInfoRow">
-                      <span><i class="fa fa-star" style={{color: "orange"}}></i> {averageRating}</span>
+                      <span><i class="fa fa-star" style={{color: "orange"}}></i> {parseInt(averageRating) ? averageRating : 0}</span>
                       <span>{productDetail?.reviews.length} reviews</span>
                     </div>
                     <div>
@@ -152,7 +155,7 @@ const ProductDetailPage = () => {
 
                           <div className="productInfoLower d-flex justify-content-between mt-3">
                             <span><i class="fa fa-money-bill"></i> 7 days cash back</span>
-                            <span><i class="fa fa-check-circle"></i> 100% auth</span>
+                            <span><i class="fa fa-check-circle"></i> 100% authentic</span>
                             <span><i class="fa fa-shipping-fast"></i> Free shipping</span>
                           </div>
                     </div>
@@ -162,34 +165,7 @@ const ProductDetailPage = () => {
           </div>        
         )}
 
-    {/* <div style={{marginTop: "50px", marginLeft: "50px", marginTop: "20px"}}>
-      <ul className="nav nav-tabs" id="myTab" role="tablist">
-        <li className="nav-item">
-          <a className="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Description</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="profile" aria-selected="false">Reviews</a>
-        </li>
-      </ul>
-      <div className="tab-content" id="myTabContent">
-        <div className="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="home-tab">
-          <div className="description">
-            <div className="row">
-              <div className="col-xs-12 col-sm-12 col-md-12">
-                <p style={{marginTop: "30px"}}>
-                  {productDetail?.description}            
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="tab-pane fade" id="review" role="tabpanel" aria-labelledby="profile-tab">
-          <ReviewList reviews={productDetail?.reviews} loading={submitLoading}/>
-        </div>
-      </div>
-    </div>
 
-     */}
     <div className="productDetailRVlist">
         <ReviewList setAverageRating={setAverageRating} reviews={productDetail?.reviews} loading={submitLoading}/>
     </div>
