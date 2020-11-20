@@ -28,7 +28,6 @@ const HomePage = () => {
   const [pageNum, setPageNum] = useState(1); 
 
   let [category, setCategory] = useState("");
-  let [originalList, setOriginalList] = useState([]);
 
 
   const totalPageNum = useSelector((state) => state.product.totalPageNum);
@@ -103,7 +102,7 @@ const HomePage = () => {
             </div>
 
           </div>
-          <div className="col-6" >
+          <div className="col-6">
             <div className="product-img">
               <div className="img-wrapper right-to-left">
                 <div >
@@ -119,49 +118,51 @@ const HomePage = () => {
       <div className="container mt-3">
         <h2 className="homepageTitle" style={{paddingTop: "15px"}}>CATEGORY</h2>
         <div className="categorySelect">
-        <div className="categoryItem" onClick={() =>setCategory("Fashion")}>
-          <div className="innerCategoryItem">
-            <img src={fashion}/>
-          </div>
-            <p>Fashion</p>
-        </div>
-        <div className="categoryItem"  onClick={() =>setCategory("Phones and Accessories")}>
-          <div className="innerCategoryItem">
-            <img src={phone}/>
-          </div>
-            <p>Phones and Accessories</p>
-        </div>
-        <div className="categoryItem"  onClick={() => setCategory("Electronic device")}>
-          <div className="innerCategoryItem">
-            <img src={tv}/>
-          </div>
-            <p>Electronic device</p>
-        </div>
-        <div className="categoryItem"  onClick={() => setCategory("Household goods")}>
-          <div className="innerCategoryItem">
-            <img src={house}/>
-          </div>
-            <p>Household goods</p>
-        </div>
-        <div className="categoryItem"  onClick={() => setCategory("Health and Life")}>
-          <div className="innerCategoryItem">
-            <img src={health}/>
-          </div>
-            <p>Health and Life</p>
-        </div>
-        <div className="categoryItem"  onClick={() => setCategory("Fashion Accessories")}>
-          <div className="innerCategoryItem">
-            <img src={accessories}/>
-          </div>
-            <p>Fashion Accessories</p>
-        </div>
-        <div className="categoryItem"  onClick={ () => setCategory("Books")}>
+          <div className="row">
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12" onClick={() =>setCategory("Fashion")}>
+                <div className="innerCategoryItem">
+                  <img src={fashion}/>
+                </div>
+                  <p>Fashion</p>
+              </div>
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={() =>setCategory("Phones and Accessories")}>
+                <div className="innerCategoryItem">
+                  <img src={phone}/>
+                </div>
+                  <p>Phones and Accessories</p>
+              </div>
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={() => setCategory("Electronic device")}>
+                <div className="innerCategoryItem">
+                  <img src={tv}/>
+                </div>
+                  <p>Electronic device</p>
+              </div>
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={() => setCategory("Household goods")}>
+                <div className="innerCategoryItem">
+                  <img src={house}/>
+                </div>
+                  <p>Household goods</p>
+              </div>
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={() => setCategory("Health and Life")}>
+                <div className="innerCategoryItem">
+                  <img src={health}/>
+                </div>
+                  <p>Health and Life</p>
+              </div>
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={() => setCategory("Fashion Accessories")}>
+                <div className="innerCategoryItem">
+                  <img src={accessories}/>
+                </div>
+                  <p>Fashion Accessories</p>
+              </div>
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={ () => setCategory("Books")}>
           <div className="innerCategoryItem">
             <img src={book}/>
           </div>
             <p>Books</p>
         </div>
-      </div>
+          </div>
+        </div>
       </div>
 
       <div className="homePageProduct" id="homePageProduct">
@@ -225,22 +226,22 @@ const HomePage = () => {
 
       <section className="footer_info">
         <div className="footer_info__items">
-          <div className="footer_info__item about_us">
+          <div className="footer_info__item about_us col-md-4 col-sm-4 col-xs-12">
             <p>About Us</p>
             <p>Latest player in the field</p>
           </div>
           
-          <div className="footer_info__item info">
+          <div className="footer_info__item info col-md-4 col-sm-4 col-xs-12">
             <p>Information</p>
             <a href="/">Home</a>
             <a href="/">Products</a>
             <a href="/">Mail us</a>
           </div>
-          <div className="footer_info__item contact">
+          <div className="footer_info__item contact col-md-4 col-sm-4 col-xs-12">
             <p>Contact</p>
-            <p>
+            {/* <p>
               <span />
-            </p>
+            </p> */}
             <p>
               <i className="fa fa-phone" />
               <span className="ml-2">0123456789</span>

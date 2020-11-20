@@ -28,41 +28,42 @@ const SellerProductPage = () => {
             </Link>
         </div>
         
-
-        {loading ? <h3>Loading...</h3> : selectedProducts?.length == 0 ? <h3 style={{textAlign: "center", backgroundColor: "rgb(243, 243, 243)"}}>Begin selling by adding products</h3> :
-          selectedProducts?.map((product) => (
-          <div >
-            {/* <Col sm={6} > */}
-              
-              <Link to={"/seller/products/edit/" + product._id} style={{textDecoration: "none"}}>
-                  <div className="productCard float-left" style={{borderRadius: "15px"}}>
-                    {/* <div> */}
-                        <div className="productCardImg">
-                            {product.image && (
-                              <img src={product.image}  />
-                            )}
-                        </div>
-                        <div className="productCardBody"
-                          >
-                          <Badge variant="warning" style={{fontSize: "12px"}}>{product.category}</Badge>
-                          <h3 className="productCardName">{product.name}</h3>
-                          <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
-                          <div className="productCardDes-Btn">
-                            <p className="productCardDescription">{product.description.length < 80 ? product.description : product.description.slice(0, 80) + "..."}</p>
-                            <button 
-                              className="productCardBtn" 
-                              >DETAILS</button>
+      <div className="sellerAllProducts row">
+          {loading ? <h3>Loading...</h3> : selectedProducts?.length == 0 ? <h3 style={{textAlign: "center", backgroundColor: "rgb(243, 243, 243)"}}>Begin selling by adding products</h3> :
+            selectedProducts?.map((product) => (
+            <div className="sellerProductItem col-md-6 col-sm-6 col-xs-12">
+              {/* <Col sm={6} > */}
+                
+                <Link to={"/seller/products/edit/" + product._id} style={{textDecoration: "none"}}>
+                    <div className="productCard float-left" style={{borderRadius: "15px"}}>
+                      {/* <div> */}
+                          <div className="productCardImg">
+                              {product.image && (
+                                <img src={product.image}  />
+                              )}
                           </div>
-                        </div>
-                    {/* </div> */}
-                    </div>
-              </Link>
-            {/* </Col> */}
-          </div>
-        
+                          <div className="productCardBody"
+                            >
+                            <Badge variant="warning" style={{fontSize: "12px"}}>{product.category}</Badge>
+                            <h3 className="productCardName">{product.name}</h3>
+                            <p className="productCardPrice" style={{paddingLeft: "10px"}}>${product.price}</p>
+                            <div className="productCardDes-Btn">
+                              <p className="productCardDescription">{product.description.length < 80 ? product.description : product.description.slice(0, 80) + "..."}</p>
+                              <button 
+                                className="productCardBtn" 
+                                >DETAILS</button>
+                            </div>
+                          </div>
+                      {/* </div> */}
+                      </div>
+                </Link>
+              {/* </Col> */}
+            </div>
           
-        ))
-      }
+            
+          ))
+        }
+      </div>
 
     
 

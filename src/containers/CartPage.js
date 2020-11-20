@@ -76,7 +76,7 @@ const CartScreen = () => {
           <h3>Loading...</h3>
         ) :
           (cart.length === 0 || isCheckedout) ?
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between emptyCart">
               <img src={emptycart} style={{margin: "auto"}}/>
             </div>
             
