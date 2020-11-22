@@ -3,26 +3,25 @@ import api from "../api";
 import { ToastContainer, toast } from 'react-toastify';
 import { routeActions } from "../actions";
 import * as types from "../constants/cart.constants";
-import { useHistory } from "react-router";
+
 
 
 const addToCart = (product, quantity, currentPrice) => async (dispatch) => {
   
   try {
-    
     dispatch({ type: types.CART_ADD_ITEM_REQUEST, payload: null });
     try {
       
         const res = await api.post("/cart/add/", { product, quantity, currentPrice });
         dispatch({ type: types.CART_ADD_ITEM_SUCCESS, payload: res.data.data });
-        dispatch(routeActions.redirect("/login"));
         toast.success(`Add to cart successful`);
       } catch (error) {
-        toast.error(error.message);
+        // toast.error(error.data.error);
+        // dispatch(routeActions.redirect("/login"));
         dispatch({ type: types.CART_ADD_ITEM_FAILURE, payload: error });
       }
   } catch (error) {
-    toast.error(error.message);
+    console.log("err", error.data.error);
   }
 }
 

@@ -234,7 +234,7 @@ const CartScreen = () => {
   </div>
    <Modal show={show} onHide={handleClose}>
    <Modal.Header closeButton>
-     <Modal.Title>Hi {user.name}</Modal.Title>
+     <Modal.Title>Hi {user?.name}</Modal.Title>
    </Modal.Header>
    <Modal.Body>Thanks for buying with us!</Modal.Body>
    <Modal.Footer>

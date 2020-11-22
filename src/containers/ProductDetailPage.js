@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Row, Col, Card, Image, Button, Badge } from "react-bootstrap";
 // import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const ProductDetailPage = () => {
   let { id } = useParams();
@@ -25,6 +26,8 @@ const ProductDetailPage = () => {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const submitLoading = useSelector((state) => state.product.submitLoading);
+
+
   const [reviewText, setReviewText] = useState("");
 
   let [averageRating, setAverageRating] = useState(0);
@@ -51,9 +54,15 @@ const ProductDetailPage = () => {
 
   const handleAddToCart = () => {
     // history.push('/cart/add/' + id + '?quantity=' + quantity);
-    // window.location.reload(false);
-    
-    dispatch(cartActions.addToCart(id, quantity, currentPrice));
+    if(!currentUser) {
+      toast.error("Login required");
+      setTimeout(() => {
+        history.push("/login");
+      }, 4000);
+
+    } else {
+      dispatch(cartActions.addToCart(id, quantity, currentPrice));
+    }
   };
 
   useEffect(() => {
