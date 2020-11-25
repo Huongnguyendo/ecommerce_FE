@@ -88,7 +88,7 @@ const HomePage = () => {
             <div className="product-info">
               <div className="info-wrapper">
                 <div className="homepageDeal left-to-right">
-                  <h1 class="blink_me">
+                  <h1 className="blink_me">
                     HOT ITEM THIS WEEK
                   </h1>
                 </div>

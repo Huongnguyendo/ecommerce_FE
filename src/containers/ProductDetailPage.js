@@ -11,7 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Container, Row, Col, Card, Image, Button, Badge } from "react-bootstrap";
 // import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import moment from "moment";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+
 import user from "../images/defaultavapic.png";
 
 const ProductDetailPage = () => {
@@ -57,6 +58,7 @@ const ProductDetailPage = () => {
     // history.push('/cart/add/' + id + '?quantity=' + quantity);
     if(!currentUser) {
       toast.error("Login required");
+      // console.log("Login required");
       setTimeout(() => {
         history.push("/login");
       }, 4000);
