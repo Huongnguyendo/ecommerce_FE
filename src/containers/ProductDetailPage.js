@@ -12,6 +12,7 @@ import { Container, Row, Col, Card, Image, Button, Badge } from "react-bootstrap
 // import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import moment from "moment";
 import { toast } from "react-toastify";
+import user from "../images/defaultavapic.png";
 
 const ProductDetailPage = () => {
   let { id } = useParams();
@@ -113,7 +114,7 @@ const ProductDetailPage = () => {
                       <span className="productDetailName ml-2">{productDetail.name}</span>
                     </div>
                     <div className="d-flex productInfoRow">
-                      <span><i class="fa fa-star" style={{color: "orange"}}></i> {parseInt(averageRating) ? averageRating : 0}</span>
+                      <span><i className="fa fa-star" style={{color: "orange"}}></i> {parseInt(averageRating) ? averageRating : 0}</span>
                       <span>{productDetail?.reviews.length} reviews</span>
                     </div>
                     <div>
@@ -135,14 +136,16 @@ const ProductDetailPage = () => {
                           <p style={{display: "flex",alignItems: "center",}}> 
                           Merchant
                             <Image
-                              src={ productDetail && productDetail.seller &&
-                                productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}`
-                                : "../images/defaultavapic.png"}
+                              src=
+                              // { productDetail && productDetail.seller &&
+                              //   productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}`
+                              //   : "../images/defaultavapic.png"}
+                              {user}
                               style={{width: "30px",height: "30px",marginLeft: "10px", marginRight: "10px", marginTop: "5px", marginBottom: "5px" }} roundedCircle/>{" "}
-                            <div style={{ width: "fit-content", display: "flex" }}>
+                            <span style={{ width: "fit-content", display: "flex" }}>
                               {productDetail?.seller?.name} 
                               
-                            </div>
+                            </span>
                           </p>
                       </div>
 
@@ -163,9 +166,9 @@ const ProductDetailPage = () => {
                           </Link>
 
                           <div className="productInfoLower d-flex justify-content-between mt-3">
-                            <span><i class="fa fa-money-bill"></i> 7 days cash back</span>
-                            <span><i class="fa fa-check-circle"></i> 100% authentic</span>
-                            <span><i class="fa fa-shipping-fast"></i> Free shipping</span>
+                            <span><i className="fa fa-money-bill"></i> 7 days cash back</span>
+                            <span><i className="fa fa-check-circle"></i> 100% authentic</span>
+                            <span><i className="fa fa-shipping-fast"></i> Free shipping</span>
                           </div>
                     </div>
                   </div>
@@ -176,7 +179,11 @@ const ProductDetailPage = () => {
 
 
     <div className="productDetailRVlist">
-        <ReviewList setAverageRating={setAverageRating} reviews={productDetail?.reviews} loading={submitLoading}/>
+        <ReviewList 
+        setAverageRating={setAverageRating} 
+        reviews={productDetail?.reviews} 
+        loading={submitLoading}
+        />
     </div>
 
     <div className="reviewFormInPD mt-5">

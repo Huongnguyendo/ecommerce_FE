@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import user from "../images/defaultavapic.png";
 
 const ReviewList = ({ reviews, loading, setAverageRating }) => {
   let averageRating = 0;
@@ -32,11 +33,14 @@ const ReviewContent = ({ review, loading }) => {
         <li>
           <div className="media" style={{fontWeight: "400"}}>
             <div className="media-left">
-                <img className="media-object" src={review?.user?.avatarUrl} style={{width: "30px", marginRight: "20px", borderRadius: "15px"}}/>
+                <img className="media-object" src=
+                // {review?.user?.avatarUrl}
+                {user}
+                style={{width: "30px", marginRight: "20px", borderRadius: "15px"}}/>
             </div>
             <div className="media-body">
               <span className="aa-product-rating">
-                <i class="fa fa-star" style={{color: "orange"}}></i>{" "}{review?.rating}{"  "}
+                <i className="fa fa-star" style={{color: "orange"}}></i>{" "}{review?.rating}{"  "}
                 <i>{review?.content}</i>
               </span>
               <span className="media-heading mx-3">{review?.user?.name} </span> - {" "}

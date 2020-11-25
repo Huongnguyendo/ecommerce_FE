@@ -51,7 +51,7 @@ const PublicNavbar = () => {
       </Nav.Link>
       
       <Nav.Link as={Link} to="/cart">
-        <i class="fa fa-shopping-cart"></i>
+        <i className="fa fa-shopping-cart"></i>
         {cartloading ? <sup></sup> : <sup style={{color: "red"}}>{cart.length}</sup>}
         
       </Nav.Link>
@@ -190,7 +190,7 @@ const PublicNavbar = () => {
                       type="text" placeholder="Search a product..." 
                       onChange={(event) => {keyword = event.target.value;}}/>
                       <button type="submit" className="kwSubmit">
-                          <i class="fa fa-search"></i>
+                          <i className="fa fa-search"></i>
                       </button>
                     </Form>                                    
             </div>

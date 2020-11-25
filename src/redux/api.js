@@ -17,7 +17,7 @@ api.interceptors.request.use(
     if(localStorage.getItem('accessToken')) {
       request.headers.authorization = `Bearer ${localStorage.getItem('accessToken')}`
     }
-    console.log("Starting Request", request);
+    // console.log("Starting Request", request);
     return request;
   },
   function (error) {
