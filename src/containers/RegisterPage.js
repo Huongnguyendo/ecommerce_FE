@@ -150,7 +150,6 @@ const RegisterPage = () => {
             </Form.Group>
             <FormGroup>
               <select name="role" id="roles" value={formData.role} onChange={handleChange}>
-                {/* <option value="Role" disabled>Role</option> */}
                 <option value="User">User</option>
                 <option value="Seller">Seller</option>
               </select>

@@ -143,6 +143,12 @@ const HomePage = () => {
                 </div>
                   <p>Household goods</p>
               </div>
+              <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={() => setCategory("Home and Life")}>
+                <div className="innerCategoryItem">
+                  <img src={household}/>
+                </div>
+                  <p>Home and Life</p>
+              </div>
               <div className="categoryItem col-md-4 col-sm-4 col-xs-12"  onClick={() => setCategory("Health and Life")}>
                 <div className="innerCategoryItem">
                   <img src={health}/>

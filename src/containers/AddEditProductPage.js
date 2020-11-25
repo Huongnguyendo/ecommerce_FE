@@ -167,19 +167,30 @@ const AddEditProductPage = () => {
             </Form.Group>
 
             <Form.Group>
-              <Form.Control
+              {/* <Form.Control
                 as="textarea"
                 placeholder="category"
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-              />
+              /> */}
+              Category
+              <select style={{width: "100%"}} name="category" placeholder="category" value={formData.category} onChange={handleChange}>
+                <option value="Fashion">Fashion</option>
+                <option value="Phones and Accessories">Phones and Accessories</option>
+                <option value="Electronic device">Electronic device</option>
+                <option value="Household goods">Household goods</option>
+                <option value="Home and Life">Home and Life</option>
+                <option value="Health and Life">Health and Life</option>
+                <option value="Fashion Accessories">Fashion Accessories</option>
+                <option value="Books">Books</option>
+              </select>
             </Form.Group>
-              Price:
+              Price
               <input placeholder="price" type="number" id="price" name="price" value={formData.price} onChange={handleChange}
               style={{height:"40px", width:"100%", marginBottom: "20px"}}
               />
-              Stock:
+              Stock
               <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"  value={formData.inStockNum} onChange={handleChange}
               style={{height:"40px", width:"100%", marginBottom: "20px"}}
               />
