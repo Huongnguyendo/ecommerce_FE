@@ -89,6 +89,9 @@ const RegisterPage = () => {
             <p className="lead">
               <FontAwesomeIcon icon="user" size="1x" /> Create Your Account
             </p>
+            <p className="text-muted">
+              All fields are required <sup><i class="fa fa-star" style={{fontSize: "10px", color:"red"}}></i></sup>
+            </p>
           </div>
           <Form onSubmit={handleSubmit}>
             
@@ -170,12 +173,12 @@ const RegisterPage = () => {
                 Loading...
               </Button>
             ) : (
-              <Button className="btn-block mt-3" type="submit" variant="primary">
+              <Button className="btn-block mt-3 mb-2" type="submit" variant="primary">
                 Register
               </Button>
             )}
 
-            <p>
+            <p style={{textAlign: "center"}}>
               Already have an account? <Link to="/login">Log In</Link>
             </p>
           </Form>

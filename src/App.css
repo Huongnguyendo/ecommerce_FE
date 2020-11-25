@@ -83,19 +83,19 @@ a {
 
 .signinBtn {
   display: block;
-  margin-top: 45px;
+  margin-top: 30px;
   width: 100%;
-  padding: 15px;
+  padding: 10px;
   color: white;
   text-align: center;
   cursor: pointer;
   border: 0;
   /* border-radius: 15px; */
-  background-color: #81c91d;
+  /* background-color: #81c91d; */
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 20px;
-  box-shadow: 0 10px 20px -5px rgba(#81c91d, 0.9);
+  /* box-shadow: 0 10px 20px -5px rgba(#81c91d, 0.9); */
   outline: none;
 }
 
@@ -755,6 +755,7 @@ button:active {
 .addProductBtn {
   background-color:#003366 !important;
   text-decoration: none !important;
+  padding: 10px;
 }
 
 /* HEADER */

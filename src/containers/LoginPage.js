@@ -60,7 +60,7 @@ const LoginPage = () => {
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit}>
-            <div className="text-center mb-3 mt-5">
+            <div className="text-center mb-3 mt-3">
               <h1 className="text-primary">Log In</h1>
               {/* <p className="lead">
                 <FontAwesomeIcon icon="user" size="1x" /> Sign Into Your Account
@@ -110,9 +110,9 @@ const LoginPage = () => {
                 Loading...
               </Button>
             ) : (
-              <button className="signinBtn" type="submit" >
+              <Button className="signinBtn" type="submit" variant="primary">
                 Login
-              </button>
+              </Button>
             )}
 
             {/* <div className="d-flex flex-column text-center">

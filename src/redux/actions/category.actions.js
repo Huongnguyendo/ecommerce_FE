@@ -13,7 +13,7 @@ const getProductsWithCategory = (category) => async (dispatch) => {
         // console.log(res);
         dispatch({ type: types.CATEGORY_CHOOSE_SUCCESS, payload: res.data.data });
         dispatch(routeActions.redirect("/login"));
-        toast.success(`Get category successfull`);
+        toast.success(`Get category successfully`);
       } catch (error) {
         dispatch({ type: types.CATEGORY_CHOOSE_FAILURE, payload: error });
       }

@@ -14,7 +14,7 @@ const addToCart = (product, quantity, currentPrice) => async (dispatch) => {
       
         const res = await api.post("/cart/add/", { product, quantity, currentPrice });
         dispatch({ type: types.CART_ADD_ITEM_SUCCESS, payload: res.data.data });
-        toast.success(`Add to cart successful`);
+        toast.success(`Add to cart successfully`);
       } catch (error) {
         // toast.error(error.data.error);
         // dispatch(routeActions.redirect("/login"));
@@ -48,7 +48,7 @@ const removeFromCart = (product) => async (dispatch) => {
         // console.log(res);
         dispatch({ type: types.CART_REMOVE_ITEM_SUCCESS, payload: res.data.data });
         dispatch(routeActions.redirect("/login"));
-        toast.success(`Remove from cart successfull`);
+        toast.success(`Remove from cart successfully`);
       } catch (error) {
         dispatch({ type: types.CART_REMOVE_ITEM_FAILURE, payload: error });
       }
