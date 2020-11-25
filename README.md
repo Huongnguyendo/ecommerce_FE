@@ -1,3 +1,36 @@
+**ShopNow e-commerce website**
+
+Website link: https://shopnow-ecommerce.netlify.app
+
+**Accounts:**
+
+To test functions of this website, you can sign in using existing accounts below:
+
+-   Buyer account: <user.e@gmail.com>, password: 123456
+
+-   Seller account: <user.b@gmail.com>, password: 123456
+
+-   Seller account 2: <user.c@cs.vn>, password: 123456
+
+You can also register as a new buyer or seller, please add your avatar picture and fill in all the fields.
+
+**Functions:**
+
+*As a buyer, you can:*
+
+-   browse products
+-   click on products to see details
+-   add to cart
+-   checkout 
+-   see your buying history
+
+*As a seller, you can:*
+
+-   add more products
+-   editing existing product details 
+-   see your selling history
+<br />
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
