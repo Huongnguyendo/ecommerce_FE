@@ -47,9 +47,9 @@ const CartScreen = () => {
       
       dispatch(cartActions.checkOutCart());
 
-      if(isCheckedout) {
+      // if(isCheckedout) {
         handleShow();
-      }
+      // }
       // {
       //   onClose: () =>  history.push('/'),
       // }

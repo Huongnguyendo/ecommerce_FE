@@ -17,7 +17,7 @@ const RegisterPage = () => {
     password2: "",
     avatarUrl:
       "",
-    role: "",
+    role: "User",
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -38,7 +38,7 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, password2, avatarUrl, role } = formData;
-    // console.log("role ne: ", role);
+    console.log("role ne: ", role);
     if (password !== password2) {
       setErrors({ ...errors, password2: "Passwords do not match" });
       return;
@@ -150,6 +150,7 @@ const RegisterPage = () => {
             </Form.Group>
             <FormGroup>
               <select name="role" id="roles" value={formData.role} onChange={handleChange}>
+                {/* <option value="Role" disabled>Role</option> */}
                 <option value="User">User</option>
                 <option value="Seller">Seller</option>
               </select>
