@@ -29,7 +29,7 @@ const PublicNavbar = () => {
     if(!isCheckedout && isAuthenticated) {
       dispatch(cartActions.getCartItems());
     }
-  }, [isCheckedout]);
+  }, [isCheckedout, isAuthenticated]);
 
   let keyword = "";
 
