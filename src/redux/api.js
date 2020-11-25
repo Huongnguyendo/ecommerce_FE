@@ -27,8 +27,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    console.log("Response:", response);
-    // This thing happens because axios wraps all the response from the server inside response['data']. So if you're going to use the normal rest convention on your api responses you will need to access it like response['data']['data'] or like response.data.data
+    // console.log("Response:", response);
 
     // if (response.data.data && response.data.data.accessToken) {
     //   console.log('replacing access token', response.data.data.accessToken)
