@@ -38,7 +38,6 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, password2, avatarUrl, role } = formData;
-    console.log("role ne: ", role);
     if (password !== password2) {
       setErrors({ ...errors, password2: "Passwords do not match" });
       return;
