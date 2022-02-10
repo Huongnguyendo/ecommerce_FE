@@ -1,17 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  ButtonGroup,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Row, Col, Button, Form, ButtonGroup } from "react-bootstrap";
 import { authActions } from "../../redux/actions/auth.actions";
-// import { ClipLoader } from "react-spinners";
 
 const ProfilePage = () => {
   const currentUser = useSelector((state) => state.auth.user);
@@ -72,7 +62,7 @@ const ProfilePage = () => {
       <br /> */}
 
       <Row className="d-flex justify-content-center align-items-center">
-        <Col md={{ span: 8}}>
+        <Col md={{ span: 8 }}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
               Loading...
@@ -92,11 +82,7 @@ const ProfilePage = () => {
                     </div>
                   )}
 
-                {/* <Link to="/seller/products/add">
-                    <Button variant="primary">Add more product</Button>
-                </Link> */}
-
-                {/* <Link to="/admin/dashboard">
+                  {/* <Link to="/admin/dashboard">
                     <Button variant="primary">Dashboard</Button>
                 </Link> */}
 

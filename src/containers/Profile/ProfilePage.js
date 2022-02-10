@@ -1,14 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  ButtonGroup,
-} from "react-bootstrap";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Row, Col, Button, Form, ButtonGroup } from "react-bootstrap";
 import { authActions } from "../../redux/actions/auth.actions";
 // import { ClipLoader } from "react-spinners";
 
@@ -23,7 +15,7 @@ const ProfilePage = () => {
   });
   const dispatch = useDispatch();
 
-  let [avatarUrl, setAvatarUrl] = useState("");
+  // let [avatarUrl, setAvatarUrl] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -50,7 +42,6 @@ const ProfilePage = () => {
       function (error, result) {
         if (error) console.log(error);
         if (result.event === "success") {
-          
           setFormData({
             ...formData,
             avatarUrl: result.info.secure_url,
@@ -60,36 +51,12 @@ const ProfilePage = () => {
     );
   };
 
-  // const openWidget = () => {
-  //   const widget = window.cloudinary.createUploadWidget(
-  //     {
-  //       cloud_name: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
-  //       upload_preset: process.env.REACT_APP_CLOUDINARY_PRESET,
-  //     },
-  //     (error, result) => {
-  //       if (result.event === "success") {
-  //         setAvatarUrl(result.info.secure_url);
-  //       }
-  //     }
-  //   );
-  //   widget.open(); // open up the widget after creation
-  // };
+  useEffect(() => {}, [handleSubmit]);
 
   return (
     <div fluid className="userProfilePage">
-      {/* <br />
-      <Row>
-        
-        <Col className="d-flex justify-content-end align-items-start">
-          <Button variant="primary" onClick={() => setEditable(true)}>
-            Edit
-          </Button>
-        </Col>
-      </Row>
-      <br /> */}
-
       <Row className="d-flex justify-content-center align-items-center">
-        <Col md={{ span: 8}}>
+        <Col md={{ span: 8 }}>
           {loading ? (
             <div className="d-flex justify-content-center align-items-center">
               Loading...
@@ -97,12 +64,16 @@ const ProfilePage = () => {
             </div>
           ) : (
             <Form onSubmit={handleSubmit}>
-              <Form.Group>{console.log(formData.avatarUrl)}
+              <Form.Group>
                 <div className="text-center">
                   {formData.avatarUrl && (
                     <div className="mb-3 profileImg">
                       <img
-                        src={formData.avatarUrl ? formData.avatarUrl : "https://lh3.googleusercontent.com/proxy/6XSzNgIYVLWue7bahUshLuO6MDh-7a-2iYWCmnIJnmMHcoOgj4r9Gn9pRHXotfaDyTIqid8Es0U8MHUqZpe2F4n0ImUbjlM"}
+                        src={
+                          formData.avatarUrl
+                            ? formData.avatarUrl
+                            : "https://lh3.googleusercontent.com/proxy/6XSzNgIYVLWue7bahUshLuO6MDh-7a-2iYWCmnIJnmMHcoOgj4r9Gn9pRHXotfaDyTIqid8Es0U8MHUqZpe2F4n0ImUbjlM"
+                        }
                         className="avatar-lg"
                         alt="avatar"
                       />

@@ -1,18 +1,16 @@
-import { faSlideshare } from "@fortawesome/free-brands-svg-icons";
 import * as types from "redux/constants/cart.constants";
 
 const initialState = {
-    cartItems: [],
-    shipping: {},
-    payment: {},
-    loading: false,
-    isCheckedout: false,
-    error: "",
-
-  };
+  cartItems: [],
+  shipping: {},
+  payment: {},
+  loading: false,
+  isCheckedout: false,
+  error: "",
+};
 
 const cartReducer = (state = initialState, action) => {
-    const { type, payload } = action;
+  const { type, payload } = action;
 
   switch (type) {
     case types.GET_CART_ITEMS_REQUEST:
@@ -38,18 +36,16 @@ const cartReducer = (state = initialState, action) => {
         cartItems: [],
         // cartItems: payload.cartItems,
       };
-      // return { ...state, cartItems: cartItems, loading: false };
-
+    // return { ...state, cartItems: cartItems, loading: false };
     case types.GET_CART_ITEMS_FAILURE:
     case types.CART_ADD_ITEM_FAILURE:
     case types.CART_REMOVE_ITEM_FAILURE:
     case types.CART_CHECKOUT_FAILURE:
       return { ...state, loading: false, error: payload };
-      
-    
+
     default:
       return state;
-  }  
-}
+  }
+};
 
 export default cartReducer;

@@ -1,29 +1,44 @@
 import React from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
 const ReviewForm = ({
-  reviewNumber,
   reviewText,
   handleInputChange,
   handleSubmitReview,
   loading,
+  rating,
+  setRating,
 }) => {
   return (
-      <Form onSubmit={handleSubmitReview}>
+    <Form onSubmit={handleSubmitReview}>
       <Form.Group as={Row}>
-        <Col htmlFor="review" sm="2">
-          {/* <Form.Control
-              id="reviewNumber"
-              type="number"
-              value={reviewNumber}
-              placeholder="rating"
-              onChange={handleInputChange}
-            /> */}
+        <Col
+          htmlFor="review"
+          sm="2"
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ marginBottom: "0" }}>Rating</p>
+          <select
+            id="reviewNumber"
+            value={rating}
+            onChange={(e) => {
+              setRating(e.target.value);
+            }}
+          >
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
         </Col>
         <Col sm="6">
           <Form.Control
             id="review"
-            // className="mt-5"
             type="text"
             value={reviewText}
             placeholder="Leave a review"

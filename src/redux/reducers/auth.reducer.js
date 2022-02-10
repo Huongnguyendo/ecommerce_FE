@@ -3,6 +3,7 @@ const initialState = {
   user: {},
   isAuthenticated: false,
   loading: true,
+  error: "",
 };
 
 const authReducer = (state = initialState, action) => {
@@ -16,7 +17,7 @@ const authReducer = (state = initialState, action) => {
     case types.REGISTER_SUCCESS:
       return { ...state, loading: false };
     case types.REGISTER_FAILURE:
-      return { ...state, loading: false };
+      return { ...state, loading: false, error: payload?.data?.error };
 
     case types.LOGIN_REQUEST:
     case types.LOGIN_FACEBOOK_REQUEST:
@@ -26,7 +27,7 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_FACEBOOK_SUCCESS:
     case types.LOGIN_GOOGLE_SUCCESS:
     case types.VERIFY_EMAIL_SUCCESS:
-      // check trong postman, payload.accessToken vì accessToken nằm trong data
+      // check payload.accessToken since accessToken is in data
       localStorage.setItem("accessToken", payload.accessToken);
       return {
         ...state,
@@ -38,8 +39,14 @@ const authReducer = (state = initialState, action) => {
     case types.LOGIN_FAILURE:
     case types.LOGIN_FACEBOOK_FAILURE:
     case types.LOGIN_GOOGLE_FAILURE:
-    case types.VERIFY_EMAIL_SUCCESS:
-      return { ...state, loading: false, isAuthenticated: false };
+    case types.VERIFY_EMAIL_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: false,
+        error: payload?.data?.error,
+      };
+
     case types.LOGOUT:
       return {
         ...state,
@@ -66,7 +73,7 @@ const authReducer = (state = initialState, action) => {
 
     case types.UPDATE_PROFILE_FAILURE:
       return { ...state, loading: false };
-      
+
     default:
       return state;
   }

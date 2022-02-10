@@ -1,21 +1,18 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch} from "react-redux";
-import {userActions} from "../../../../redux/actions/user.actions";
-// import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../../../redux/actions/user.actions";
 
 const AdminSideMenu = () => {
   let dispatch = useDispatch();
-  // let seller = useSelector((state) => state.auth.isAuthenticated);
 
   const getAllUsers = () => {
     dispatch(userActions.getAllUsersForAdmin());
-  }
-
+  };
 
   return (
-    <div style={{textAlign: "center" }}>
+    <div style={{ textAlign: "center" }}>
       <h1>Admin Dashboard</h1>
       <div className="d-flex justify-content-center">
         <Nav.Item>
@@ -39,9 +36,8 @@ const AdminSideMenu = () => {
             Users
           </Nav.Link>
         </Nav.Item>
-        </div>
+      </div>
     </div>
-    
   );
 };
 

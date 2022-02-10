@@ -1,15 +1,11 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Row, Col } from "react-bootstrap";
 import { Switch, Route } from "react-router-dom";
 import NotFoundPage from "components/NotFoundPage";
-import AddEditProductPage from "../../../AddEditProductPage";
 import AdminProfilePage from "../../../Profile/AdminProfilePage";
 import AdminSideMenu from "../../../Routes/layouts/Admin/AdminSideMenu";
-import SellerProfilePage from "../../../Profile/SellerProfilePage"
-import ProductDetailPage from "../../../ProductDetailPage";
 import PublicNavbar from "../../../PublicNavbar";
-import AlertMsg from "components/AlertMsg";
 import PrivateAdminRoute from "../../PrivateAdminRoute";
 import AdminAllUsersPage from "../../layouts/Admin/AdminAllUsersPage";
 
@@ -31,7 +27,10 @@ const AdminLayout = () => {
                 path="/admin/dashboard"
                 component={AdminSideMenu}
               />
-              <PrivateAdminRoute  path="/admin/profile" component={AdminProfilePage} />
+              <PrivateAdminRoute
+                path="/admin/profile"
+                component={AdminProfilePage}
+              />
               <PrivateAdminRoute
                 exact
                 path="/admin/users"

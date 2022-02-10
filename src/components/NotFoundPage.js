@@ -1,6 +1,5 @@
-import { faDiceFive } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Row, Col, Image } from "react-bootstrap";
 
 const NotFoundPage = () => {
   return (
