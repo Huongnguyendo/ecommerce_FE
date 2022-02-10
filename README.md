@@ -8,11 +8,15 @@ To test functions of this website, you can sign in using existing accounts below
 
 -   Buyer account: <user.e@gmail.com>, password: 123456
 
+-   Buyer account: <kim@gmail.com>, password: 123456
+
 -   Seller account: <user.b@gmail.com>, password: 123456
 
 -   Seller account 2: <user.c@cs.vn>, password: 123456
 
-You can also register as a new buyer or seller, please add your avatar picture and fill in all the fields.
+-   Seller account 3: <seller1@gmail.com>, password: 123456
+
+You can also register as a new buyer or seller, please fill in all fields.
 
 **Functions:**
 
@@ -21,14 +25,16 @@ You can also register as a new buyer or seller, please add your avatar picture a
 -   browse products
 -   click on products to see details
 -   add to cart
--   checkout 
+-   checkout with Stripe
 -   see your buying history
+-   leave product reviews
 
 *As a seller, you can:*
 
 -   add more products
--   editing existing product details 
+-   edit existing product details
 -   see your selling history
+-   see your revenue chart of the last 12 months
 <br />
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
