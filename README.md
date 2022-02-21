@@ -8,13 +8,13 @@ To test functions of this website, you can sign in using existing accounts below
 
 -   Buyer account: <user.e@gmail.com>, password: 123456
 
--   Buyer account: <kim@gmail.com>, password: 123456
+-   Buyer account: <pika@gmail.com>, password: 123456
 
 -   Seller account: <user.b@gmail.com>, password: 123456
 
 -   Seller account 2: <user.c@cs.vn>, password: 123456
 
--   Seller account 3: <seller1@gmail.com>, password: 123456
+-   Seller account 3: <snorlax@gmail.com>, password: 123456
 
 You can also register as a new buyer or seller, please fill in all fields.
 
