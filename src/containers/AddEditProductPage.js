@@ -5,6 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { productActions, routeActions } from "../redux/actions";
 // import { routeActions } from "redux/actions/route.actions";
 import { Button } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddEditProductPage = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const AddEditProductPage = () => {
     category: "",
     inStockNum: 0,
   });
+
   const loading = useSelector((state) => state.product.loading);
   const dispatch = useDispatch();
   const [editable, setEditable] = useState(true);
@@ -31,14 +33,12 @@ const AddEditProductPage = () => {
 
   useEffect(() => {
     if (productId) {
-      if (!selectedProduct) {
+      if (productId !== selectedProduct?._id) {
         // dispatch(productActions.getSingleProduct(productId));
         dispatch(productActions.getProductDetailForSeller(productId));
-        // refreshPage();
       } else {
         setFormData((formData) => ({
           ...formData,
-
           name: selectedProduct?.name,
           description: selectedProduct?.description,
           image: selectedProduct?.image,
@@ -61,6 +61,10 @@ const AddEditProductPage = () => {
       formData;
 
     if (addOrEdit === "Add") {
+      if (!name || !description || !image || !brand || !price || !inStockNum) {
+        toast.error("Please fill in all fields!");
+        return;
+      }
       if (category !== "") {
         dispatch(
           productActions.createNewProduct(
@@ -123,7 +127,7 @@ const AddEditProductPage = () => {
         dispatch(routeActions.removeRedirectTo());
       }
     }
-  }, [redirectTo, dispatch, productId]);
+  }, [redirectTo, dispatch, history]);
 
   const uploadWidget = () => {
     window.cloudinary.openUploadWidget(
@@ -146,16 +150,24 @@ const AddEditProductPage = () => {
 
   return (
     <div>
-      <Row className="d-flex align-items-center">
+      <ToastContainer />
+      <Row
+        className="d-flex align-items-center"
+        style={{ marginRight: "0", marginLeft: "0", justifyContent: "center" }}
+      >
         {error?.data?.error === "Unauthorized action" ? (
           <h1>Not allowed</h1>
         ) : (
-          <Col md={{ span: 6, offset: 3 }}>
+          <Col md={{ span: 6 }}>
             <Form onSubmit={handleSubmit}>
               <div className="text-center mb-3">
                 <h1
                   className="text-primary"
-                  style={{ marginTop: "50px", marginBottom: "30px" }}
+                  style={{
+                    marginTop: "30px",
+                    marginBottom: "30px",
+                    color: "#0089d1",
+                  }}
                 >
                   {addOrEdit} product
                 </h1>
@@ -233,10 +245,17 @@ const AddEditProductPage = () => {
                 placeholder="price"
                 type="number"
                 id="price"
+                className="price"
                 name="price"
                 value={formData.price}
                 onChange={handleChange}
-                style={{ height: "40px", width: "100%", marginBottom: "20px" }}
+                style={{
+                  height: "40px",
+                  width: "100%",
+                  marginBottom: "20px",
+                  border: "1px solid #ced4da",
+                  textIndent: "10px",
+                }}
               />
               Stock
               <input
@@ -246,7 +265,13 @@ const AddEditProductPage = () => {
                 name="inStockNum"
                 value={formData.inStockNum}
                 onChange={handleChange}
-                style={{ height: "40px", width: "100%", marginBottom: "20px" }}
+                style={{
+                  height: "40px",
+                  width: "100%",
+                  marginBottom: "20px",
+                  border: "1px solid #ced4da",
+                  textIndent: "10px",
+                }}
               />
               <div className="d-flex mb-3 editDeleteProduct">
                 <ButtonGroup className="d-flex mb-3">

@@ -12,14 +12,21 @@ const ReviewList = ({ reviews, setAverageRating }) => {
   return (
     <>
       {reviews?.length > 0 && (
-        <div>
-          <h4 style={{ marginBottom: "25px" }}>
+        <div
+          className="productDetailRVlistInner"
+          style={{ textAlign: "center" }}
+        >
+          <div className="ratingDiv">
+            <h5 style={{ marginBottom: "10px" }}>Average Rating</h5>
+            <div className="rating">
+              {(averageRating / reviews?.length).toFixed(1)}
+            </div>
             {reviews?.length > 1
               ? reviews?.length + " reviews "
-              : reviews?.length + " review "}{" "}
-            for this product
-          </h4>
+              : reviews?.length + " review "}
+          </div>
           <div className="list-unstyled">
+            <h5 style={{ marginBottom: "15px" }}>Reviews</h5>
             {reviews.map((review) => (
               <ReviewContent key={review._id} review={review} />
             ))}
@@ -47,18 +54,19 @@ const ReviewContent = ({ review }) => {
                 marginRight: "20px",
                 borderRadius: "15px",
               }}
+              alt="user"
             />
           </div>
           <div className="media-body">
-            <span className="aa-product-rating">
+            <small className="media-heading">{review?.user?.name} </small>
+            <p className="aa-product-rating" style={{ marginBottom: "0" }}>
               <i className="fa fa-star" style={{ color: "orange" }}></i>{" "}
               {review?.rating}
-              {"  "}
+              {" - "}
               <i>{review?.content}</i>
-            </span>
-            <span className="media-heading mx-3">{review?.user?.name} </span> -{" "}
+            </p>
             {/* <span><Moment fromNow>{review?.createdAt}</Moment></span></h5> */}
-            <span>{moment(review?.createdAt).format("DD/MM/YYYY")}</span>
+            <small>on {moment(review?.createdAt).format("DD/MM/YYYY")}</small>
           </div>
         </div>
       </li>

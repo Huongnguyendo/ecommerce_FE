@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../images/online-shopping.png";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "redux/actions";
 import { cartActions } from "../redux/actions/cart.actions";
@@ -14,7 +13,6 @@ import ".././App.css";
 
 const PublicNavbar = () => {
   const dispatch = useDispatch();
-  // const [pageNum, setPageNum] = useState(1);
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);

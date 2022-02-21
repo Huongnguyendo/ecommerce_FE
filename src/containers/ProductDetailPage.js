@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { productActions, cartActions } from "redux/actions";
 import ReviewList from "components/ReviewList";
 import ReviewForm from "components/ReviewForm";
 import { Row, Col, Image, Button, Badge } from "react-bootstrap";
-import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 
 import user from "../images/defaultavapic.png";
@@ -99,14 +98,14 @@ const ProductDetailPage = () => {
                     <img
                       src={productDetail.image}
                       className="productDetailImg image-zoom"
-                      style={{ width: "100%", borderRadius: "15px" }}
+                      style={{ width: "90%", borderRadius: "15px" }}
                       data-zoom={{ img_url: "1024x1024", scale: 2 }}
                     />
                   )}
                 </Col>
-                <Col md={6} sm={12}>
+                <Col className="productInfoCard" md={6} sm={12}>
                   <div>
-                    <div className="d-flex">
+                    <div className="d-flex mb-2">
                       <Badge className="productDetailBadge" variant="warning">
                         {productDetail.category}
                       </Badge>
@@ -122,48 +121,58 @@ const ProductDetailPage = () => {
                         ></i>{" "}
                         {parseInt(averageRating) ? averageRating : 0}
                       </span>
-                      <span>
+                      <span className="reviewDevider">
                         {productDetail?.reviews?.length > 1
                           ? productDetail?.reviews?.length + " reviews"
                           : productDetail?.reviews?.length + " review"}
                       </span>
                     </div>
-                    <div>
-                      {/* <div class="is-divider"></div> */}
-                      <p>
-                        <span className="productDetailPrice">
-                          ${productDetail?.price}
-                        </span>
-                      </p>
-                      {/* <p>{LocalShippingIcon} Free shipping</p> */}
-                      <Badge variant="dark">
-                        {productDetail?.inStockNum > 0
-                          ? "In Stock"
-                          : "Unavailable"}
-                      </Badge>
-                      <p className="mt-3">
-                        Quantity{" "}
-                        <select
-                          value={quantity}
-                          onChange={(e) => {
-                            setQuantity(e.target.value);
-                          }}
-                        >
-                          {productDetail?.inStockNum >= 5
-                            ? [...Array(5).keys()].map((x) => (
-                                <option key={x + 1} value={x + 1}>
-                                  {x + 1}
-                                </option>
-                              ))
-                            : productDetail?.inStockNum > 0 &&
-                              [...Array(productDetail?.inStockNum).keys()].map(
-                                (x) => (
-                                  <option key={x + 1} value={x + 1}>
-                                    {x + 1}
-                                  </option>
-                                )
-                              )}
-                          {/* {productDetail?.inStockNum > 0 &&
+
+                    <table className="productDetailTable">
+                      <tbody>
+                        <tr>
+                          <td className="pdInfoTitle">Price</td>
+                          <td>
+                            <span className="productDetailPrice">
+                              ${productDetail?.price}
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="pdInfoTitle">Availability</td>
+                          <td>
+                            {productDetail?.inStockNum > 0 ? (
+                              <Badge variant="success">In stock</Badge>
+                            ) : (
+                              <Badge variant="dark">Unavailable</Badge>
+                            )}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="pdInfoTitle">Quantity</td>
+                          <td className="pdInfoTitle">
+                            <select
+                              value={quantity}
+                              onChange={(e) => {
+                                setQuantity(e.target.value);
+                              }}
+                              style={{ width: "55px" }}
+                            >
+                              {productDetail?.inStockNum >= 5
+                                ? [...Array(5).keys()].map((x) => (
+                                    <option key={x + 1} value={x + 1}>
+                                      {x + 1}
+                                    </option>
+                                  ))
+                                : productDetail?.inStockNum > 0 &&
+                                  [
+                                    ...Array(productDetail?.inStockNum).keys(),
+                                  ].map((x) => (
+                                    <option key={x + 1} value={x + 1}>
+                                      {x + 1}
+                                    </option>
+                                  ))}
+                              {/* {productDetail?.inStockNum > 0 &&
                             [...Array(productDetail?.inStockNum).keys()].map(
                               (x) => (
                                 <option key={x + 1} value={x + 1}>
@@ -171,63 +180,76 @@ const ProductDetailPage = () => {
                                 </option>
                               )
                             )} */}
-                        </select>
-                      </p>
-
-                      <div>
-                        <p style={{ display: "flex", alignItems: "center" }}>
-                          Merchant
-                          <Image
-                            src={
-                              //   : "../images/defaultavapic.png"} //   productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}` // { productDetail && productDetail.seller &&
-                              user
-                            }
-                            style={{
-                              width: "30px",
-                              height: "30px",
-                              marginLeft: "10px",
-                              marginRight: "10px",
-                              marginTop: "5px",
-                              marginBottom: "5px",
-                            }}
-                            roundedCircle
-                          />{" "}
-                          <span
-                            style={{ width: "fit-content", display: "flex" }}
-                          >
-                            {productDetail?.seller?.name}
-                          </span>
-                        </p>
-                      </div>
-
-                      <p style={{ marginTop: "30px" }}>
-                        {productDetail?.description}
-                      </p>
-
-                      {productDetail?.inStockNum > 0 && (
-                        <Button
-                          variant="success"
-                          onClick={handleAddToCart}
-                          className="button primary mr-3"
-                        >
-                          Add to Cart
-                        </Button>
-                      )}
-                      <Link to="/">
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="pdInfoTitle">Merchant</td>
+                          <td>
+                            <p
+                              style={{
+                                marginBottom: "0",
+                              }}
+                            >
+                              <Image
+                                src={
+                                  //   : "../images/defaultavapic.png"} //   productDetail.seller.avatarUrl ? `${productDetail.seller.avatarUrl}` // { productDetail && productDetail.seller &&
+                                  user
+                                }
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  marginLeft: "10px",
+                                  marginRight: "10px",
+                                  marginTop: "5px",
+                                  marginBottom: "5px",
+                                }}
+                                roundedCircle
+                              />{" "}
+                              <span
+                                style={{
+                                  width: "fit-content",
+                                  // display: "flex",
+                                }}
+                              >
+                                {productDetail?.seller?.name}
+                              </span>
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="pdInfoTitle">Description</td>
+                          <td>
+                            <span>{productDetail?.description}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    {productDetail?.inStockNum > 0 && (
+                      <Button
+                        variant="danger"
+                        onClick={handleAddToCart}
+                        className="button primary mt-3"
+                        style={{ width: "100%" }}
+                      >
+                        <i className="fa fa-shopping-cart"></i>
+                        <span style={{ marginLeft: "10px" }}>Add to Cart</span>
+                      </Button>
+                    )}
+                    {/* <Link to="/">
                         <Button>Continue Shopping</Button>
-                      </Link>
+                      </Link> */}
 
-                      <div className="productInfoLower d-flex justify-content-between mt-3">
-                        <span>
-                          <i className="fa fa-money-bill"></i> 7 days cash back
-                        </span>
-                        <span>
-                          <i className="fa fa-check-circle"></i> 100% authentic
-                        </span>
-                        <span>
-                          <i className="fa fa-shipping-fast"></i> Free shipping
-                        </span>
-                      </div>
+                    <div className="productInfoLower d-flex justify-content-between mt-3">
+                      <span>
+                        <i className="fa fa-money-bill"></i> 7 days cash back
+                      </span>
+                      <span>
+                        <i className="fa fa-check-circle"></i> 100% authentic
+                      </span>
+                      <span>
+                        <i className="fa fa-shipping-fast"></i> Free shipping
+                      </span>
                     </div>
                   </div>
                 </Col>
@@ -243,12 +265,9 @@ const ProductDetailPage = () => {
             />
           </div>
 
-          <div className="reviewFormInPD mt-5">
+          <div className="reviewFormInPD">
             {isAuthenticated && (
-              <div
-                className="reviewGroupForm"
-                style={{ marginLeft: "50px", marginTop: "20px" }}
-              >
+              <div className="reviewGroupForm" style={{ marginTop: "20px" }}>
                 <ReviewForm
                   reviewText={reviewText}
                   handleInputChange={handleInputChange}

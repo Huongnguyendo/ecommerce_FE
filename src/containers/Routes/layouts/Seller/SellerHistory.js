@@ -10,7 +10,6 @@ const SellerProductPage = () => {
 
   // const seller = useSelector((state) => state.auth.user);
   const sellingHistory = useSelector((state) => state.product.historyToRender);
-  // console.log("sellingHistory", sellingHistory);
   let loading = useSelector((state) => state.product.loading);
   let starting = moment();
   const notBefore = moment().add(-1, "year");
@@ -49,9 +48,20 @@ const SellerProductPage = () => {
 
   return (
     <>
+      <div className="revenueChart">
+        <h2>Last Twelve Months revenue</h2>
+        <Line
+          datasetIdKey="id"
+          data={{
+            labels,
+            datasets: [{ data: months, label: "Revenue ($)" }],
+          }}
+        />
+      </div>
       <div className="sellingHistoryPage">
+        <h2>Selling Details</h2>
         {loading ? (
-          <h3 style={{ textAlign: "center" }}>Loading ... </h3>
+          <h2 style={{ textAlign: "center" }}>Loading ... </h2>
         ) : sellingHistory?.length <= 0 ? (
           <h1 style={{ textAlign: "center", marginTop: "30px" }}>
             No Selling History
@@ -104,16 +114,6 @@ const SellerProductPage = () => {
             </table>
           </div>
         )}
-      </div>
-      <div className="revenueChart">
-        <h3>Last Twelve Months revenue</h3>
-        <Line
-          datasetIdKey="id"
-          data={{
-            labels,
-            datasets: [{ data: months, label: "revenue ($)" }],
-          }}
-        />
       </div>
     </>
   );

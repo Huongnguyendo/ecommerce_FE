@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 const ReviewForm = ({
   reviewText,
@@ -10,20 +10,22 @@ const ReviewForm = ({
   setRating,
 }) => {
   return (
-    <Form onSubmit={handleSubmitReview}>
-      <Form.Group as={Row}>
-        <Col
+    <Form onSubmit={handleSubmitReview} style={{ marginBottom: "80px" }}>
+      <Form.Group className="reviewForm" style={{ width: "100%" }}>
+        <div
           htmlFor="review"
-          sm="2"
+          className="reviewScore"
           style={{
             display: "flex",
-            justifyContent: "space-around",
             alignItems: "center",
           }}
         >
-          <p style={{ marginBottom: "0" }}>Rating</p>
+          <p style={{ marginBottom: "0", marginRight: "10px" }}>
+            <i className="fa fa-star" style={{ color: "orange" }}></i>
+          </p>
           <select
             id="reviewNumber"
+            className="select"
             value={rating}
             onChange={(e) => {
               setRating(e.target.value);
@@ -35,8 +37,8 @@ const ReviewForm = ({
             <option value="2">2</option>
             <option value="1">1</option>
           </select>
-        </Col>
-        <Col sm="6">
+        </div>
+        <div style={{ display: "flex" }} className="reviewText">
           <Form.Control
             id="review"
             type="text"
@@ -44,21 +46,21 @@ const ReviewForm = ({
             placeholder="Leave a review"
             onChange={handleInputChange}
           />
-        </Col>
-        {loading ? (
-          <Button variant="primary" type="button" disabled>
-            <span
-              className="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            Submitting...
-          </Button>
-        ) : (
-          <Button type="submit" disabled={!reviewText}>
-            Submit
-          </Button>
-        )}
+          {loading ? (
+            <Button variant="primary" type="button" disabled>
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Submitting...
+            </Button>
+          ) : (
+            <Button type="submit" disabled={!reviewText}>
+              Submit
+            </Button>
+          )}
+        </div>
       </Form.Group>
     </Form>
   );

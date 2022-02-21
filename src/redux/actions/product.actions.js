@@ -14,7 +14,7 @@ const getProductList =
       let res;
       if (category)
         res = await api.get(
-          `/products?page=${pageNum}&limit=${limit}&category=${category}`
+          `/products?page=1&limit=${limit}&category=${category}`
         );
       else res = await api.get(`/products?page=${pageNum}&limit=${limit}`);
       dispatch({ type: types.GET_PRODUCTS_SUCCESS, payload: res.data.data });

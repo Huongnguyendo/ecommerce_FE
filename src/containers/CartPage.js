@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { cartActions } from "../redux/actions/cart.actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+// import { useHistory, useParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import emptycart from "images/empty-cart.png";
 import moment from "moment";
@@ -15,8 +15,8 @@ const CartScreen = () => {
 
   const [stripeToken, setStripeToken] = useState(null);
 
-  const params = useParams();
-  const history = useHistory();
+  // const params = useParams();
+  // const history = useHistory();
   const user = useSelector((state) => state.auth.user);
   let cart = useSelector((state) => state.cart.cartItems);
   const isCheckedout = useSelector((state) => state.cart.isCheckedout);
@@ -29,7 +29,7 @@ const CartScreen = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true);
 
   const removeFromCartHandler = (product) => {
     dispatch(cartActions.removeFromCart(product));

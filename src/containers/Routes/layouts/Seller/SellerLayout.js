@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import NotFoundPage from "components/NotFoundPage";
 import AddEditProductPage from "../../../AddEditProductPage";
@@ -10,12 +9,12 @@ import SellerProducts from "../Seller/SellerProducts";
 import SellerHistory from "../Seller/SellerHistory";
 
 const SellerLayout = () => {
-  let currentUser = useSelector((state) => state.auth.user);
+  // let currentUser = useSelector((state) => state.auth.user);
 
   return (
     <>
       <PublicNavbar />
-      <div>
+      <div className="content">
         <Switch>
           <PrivateSellerRoute exact path="/" component={SellerProducts} />
           <PrivateSellerRoute

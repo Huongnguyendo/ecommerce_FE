@@ -1,4 +1,3 @@
-import Axios from "axios";
 import api from "../api";
 import { toast } from "react-toastify";
 import { routeActions } from "../actions";

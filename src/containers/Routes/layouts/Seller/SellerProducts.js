@@ -5,7 +5,6 @@ import { productActions } from "../../../../redux/actions/product.actions";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { MenuBookIcon, ThumbUpIcon } from "@mui/icons-material";
 
 import "react-pro-sidebar/dist/css/styles.css";
 
@@ -17,7 +16,7 @@ const SellerProductPage = () => {
 
   useEffect(() => {
     dispatch(productActions.getAllProductsForSeller());
-  }, []);
+  }, [dispatch]);
 
   const columns = [
     { field: "_id", headerName: "ID", width: 150 },
@@ -140,45 +139,6 @@ const SellerProductPage = () => {
             Begin selling by adding products
           </h3>
         ) : (
-          // (
-          //   selectedProducts?.map((product) => (
-          //     <div className="sellerProductItem col-md-4 col-sm-4 col-xs-6">
-          //       <Link
-          //         to={"/seller/products/edit/" + product._id}
-          //         style={{ textDecoration: "none" }}
-          //       >
-          //         <div
-          //           className="productCard float-left"
-          //           style={{ borderRadius: "15px" }}
-          //         >
-          //           <div className="productCardImg">
-          //             {product.image && <img src={product.image} />}
-          //           </div>
-          //           <div className="productCardBody">
-          //             <Badge variant="warning" style={{ fontSize: "12px" }}>
-          //               {product.category}
-          //             </Badge>
-          //             <h3 className="productCardName">{product.name}</h3>
-          //             <p
-          //               className="productCardPrice"
-          //               style={{ paddingLeft: "10px" }}
-          //             >
-          //               ${product.price}
-          //             </p>
-          //             <div className="productCardDes-Btn">
-          //               <p className="productCardDescription">
-          //                 {product.description.length < 80
-          //                   ? product.description
-          //                   : product.description.slice(0, 80) + "..."}
-          //               </p>
-          //               <button className="productCardBtn">DETAILS</button>
-          //             </div>
-          //           </div>
-          //         </div>
-          //       </Link>
-          //     </div>
-          //   ))
-          // )
           <div style={{ height: 380, marginLeft: "30px" }}>
             <DataGrid
               rows={selectedProducts}
@@ -197,10 +157,3 @@ const SellerProductPage = () => {
 };
 
 export default SellerProductPage;
-
-{
-  /* <Link
-                to={"/seller/products/edit/" + product._id}
-                style={{ textDecoration: "none" }}
-              ></Link> */
-}

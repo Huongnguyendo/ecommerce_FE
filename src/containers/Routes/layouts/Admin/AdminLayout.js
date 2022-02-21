@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import { Switch, Route } from "react-router-dom";
 import NotFoundPage from "components/NotFoundPage";
@@ -10,12 +9,11 @@ import PrivateAdminRoute from "../../PrivateAdminRoute";
 import AdminAllUsersPage from "../../layouts/Admin/AdminAllUsersPage";
 
 const AdminLayout = () => {
-  let currentUser = useSelector((state) => state.auth.user);
+  // let currentUser = useSelector((state) => state.auth.user);
 
   return (
     <>
       <PublicNavbar />
-      {/* <>Admin route here</> */}
       <div fluid>
         <Row>
           {/* <SideMenu /> */}

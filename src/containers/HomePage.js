@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { productActions } from "redux/actions";
 import { useHistory } from "react-router-dom";
 import PaginationBar from "../components/PaginationBar";
-import logo from "../images/shopping-cart.png";
 import iphoneimg from "../images/iphone-12-pro.png";
 import fashion from "../images/dress.png";
 import phone from "../images/smartphone.png";
@@ -15,6 +14,7 @@ import health from "../images/healthcare.png";
 import house from "../images/house.png";
 import household from "../images/household.png";
 import book from "../images/open-book.png";
+import { ToastContainer, toast } from "react-toastify";
 
 const HomePage = () => {
   const history = useHistory();
@@ -39,7 +39,7 @@ const HomePage = () => {
   //   { value: 'Books', label: 'Books' },
   // ]
 
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const dispatch = useDispatch();
 
@@ -67,6 +67,7 @@ const HomePage = () => {
 
   return (
     <div>
+      {/* <ToastContainer /> */}
       <div id="slider" className="slider">
         <div className="row fullheight slide">
           <div className="col-6">
@@ -215,31 +216,6 @@ const HomePage = () => {
         </div>
       </div>
 
-      <section id="support">
-        <div className="container">
-          <div className="support-area row">
-            <div className="col-md-4 col-sm-4 col-xs-12">
-              <div className="support-single">
-                <span className="fa fa-truck" />
-                <h4>FREE SHIPPING</h4>
-              </div>
-            </div>
-            <div className="col-md-4 col-sm-4 col-xs-12">
-              <div className="support-single">
-                <span className="fa fa-clock" />
-                <h4>30 DAYS MONEY BACK</h4>
-              </div>
-            </div>
-            <div className="col-md-4 col-sm-4 col-xs-12">
-              <div className="support-single">
-                <span className="fa fa-phone" />
-                <h4>SUPPORT 24/7</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="footer_info">
         <div className="footer_info__items">
           <div className="footer_info__item about_us col-md-4 col-sm-4 col-xs-12">
@@ -255,9 +231,6 @@ const HomePage = () => {
           </div>
           <div className="footer_info__item contact col-md-4 col-sm-4 col-xs-12">
             <p>Contact</p>
-            {/* <p>
-              <span />
-            </p> */}
             <p>
               <i className="fa fa-phone" />
               <span className="ml-2">0123456789</span>
@@ -269,7 +242,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
       <footer className="footer">
         <div className="footer__left">
           <p>Copyright</p>
