@@ -1,67 +1,25 @@
 import React from "react";
-import { Pagination } from "react-bootstrap";
+import { Pagination, Box } from "@mui/material";
 
 const PaginationBar = ({ pageNum, setPageNum, totalPageNum, loading }) => {
-  const handleClick = (page) => {
+  const handleChange = (event, value) => {
     if (!loading) {
-      setPageNum(parseInt(page));
-    }
-  };
-
-  const handleClickOnFirst = () => {
-    if (!loading) {
-      setPageNum(1);
-    }
-  };
-
-  const handleClickOnLast = () => {
-    if (!loading) {
-      setPageNum(totalPageNum);
-    }
-  };
-  const handleClickOnNext = () => {
-    if (pageNum < totalPageNum && !loading) {
-      setPageNum((num) => num + 1);
-    }
-  };
-  const handleClickOnPrev = () => {
-    if (pageNum > 1 && !loading) {
-      setPageNum((num) => num - 1);
+      setPageNum(value);
     }
   };
 
   return (
-    <Pagination className="justify-content-center mt-5" disabled={loading}>
-      <Pagination.First disabled={pageNum === 1} onClick={handleClickOnFirst} />
-      <Pagination.Prev disabled={pageNum === 1} onClick={handleClickOnPrev} />
-      <Pagination.Item active={pageNum === 1} onClick={() => handleClick(1)}>
-        {1}
-      </Pagination.Item>
-
-      {pageNum - 1 > 1 && <Pagination.Ellipsis />}
-      {pageNum > 1 && pageNum < totalPageNum && (
-        <Pagination.Item active>{pageNum}</Pagination.Item>
-      )}
-      {totalPageNum > pageNum + 1 && <Pagination.Ellipsis />}
-
-      {totalPageNum > 1 && (
-        <Pagination.Item
-          active={pageNum === totalPageNum}
-          onClick={() => handleClick(totalPageNum)}
-        >
-          {totalPageNum}
-        </Pagination.Item>
-      )}
-
-      <Pagination.Next
-        disabled={pageNum === totalPageNum}
-        onClick={handleClickOnNext}
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+      <Pagination
+        count={totalPageNum}
+        page={pageNum}
+        onChange={handleChange}
+        color="primary"
+        disabled={loading}
+        showFirstButton
+        showLastButton
       />
-      <Pagination.Last
-        disabled={pageNum === totalPageNum}
-        onClick={handleClickOnLast}
-      />
-    </Pagination>
+    </Box>
   );
 };
 

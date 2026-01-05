@@ -1,17 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Form,
-  Button,
-  Container,
-  Row,
-  Col,
-  ButtonGroup,
-} from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
 import { productActions, routeActions } from "../redux/actions";
-// import { routeActions } from "redux/actions/route.actions";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  ButtonGroup,
+  InputAdornment,
+  MenuItem,
+} from "@mui/material";
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
+const glassStyle = {
+  background: 'rgba(255,255,255,0.18)',
+  boxShadow: '0 8px 32px 0 rgba(31,38,135,0.10)',
+  backdropFilter: 'blur(8px)',
+  borderRadius: 10,
+  border: '1px solid rgba(255,255,255,0.18)',
+  color: '#222',
+  p: { xs: 2, sm: 4 },
+  maxWidth: 520,
+  mx: 'auto',
+  mt: 7,
+};
+
+const categories = [
+  "Fashion",
+  "Phones and Accessories",
+  "Electronic device",
+  "Household goods",
+  "Home and Life",
+  "Health and Life",
+  "Fashion Accessories",
+  "Books",
+];
+
+const darkBg = '#181c24';
+const cardBg = '#23283a';
+const cardShadow = '0 2px 12px 0 rgba(0,0,0,0.18)';
+const textPrimary = '#fff';
+const textSecondary = '#b0b8c1';
+const accent = '#6c63ff';
+const accent2 = '#00e6d0';
 
 const AddEditProductPage = () => {
   const [formData, setFormData] = useState({
@@ -21,37 +56,32 @@ const AddEditProductPage = () => {
     brand: "",
     price: 0,
     category: "",
-    inStockNum: 0
+    inStockNum: 0,
   });
   const loading = useSelector((state) => state.product.loading);
   const dispatch = useDispatch();
-  const [editable, setEditable] = useState(true);
-
   const history = useHistory();
   const params = useParams();
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const redirectTo = useSelector((state) => state.route.redirectTo);
   const addOrEdit = params.id ? "Edit" : "Add";
   const productId = params.id;
-
   const error = useSelector((state) => state.product.error);
 
   useEffect(() => {
     if (productId) {
       if (!selectedProduct) {
-        // dispatch(productActions.getSingleProduct(productId));
         dispatch(productActions.getProductDetailForSeller(productId));
       } else {
         setFormData((formData) => ({
           ...formData,
-        
           name: selectedProduct?.name,
           description: selectedProduct?.description,
           image: selectedProduct?.image,
-          brand: selectedProduct?.brand, 
-          price: selectedProduct?.price, 
-          category: selectedProduct?.category, 
-          inStockNum: selectedProduct?.inStockNum
+          brand: selectedProduct?.brand,
+          price: selectedProduct?.price,
+          category: selectedProduct?.category,
+          inStockNum: selectedProduct?.inStockNum,
         }));
       }
     }
@@ -65,10 +95,30 @@ const AddEditProductPage = () => {
     e.preventDefault();
     const { name, description, image, brand, price, category, inStockNum } = formData;
     if (addOrEdit === "Add") {
-      dispatch(productActions.createNewProduct(name, description, image, brand, price, category, inStockNum));
+      dispatch(
+        productActions.createNewProduct(
+          name,
+          description,
+          image,
+          brand,
+          price,
+          category || "Fashion",
+          inStockNum
+        )
+      );
+      history.push(`/seller/products`);
     } else if (addOrEdit === "Edit") {
       dispatch(
-        productActions.updateProduct(selectedProduct?._id, name, description, image, brand, price, category, inStockNum)
+        productActions.updateProduct(
+          selectedProduct?._id,
+          name,
+          description,
+          image,
+          brand,
+          price,
+          category,
+          inStockNum
+        )
       );
     }
   };
@@ -78,10 +128,8 @@ const AddEditProductPage = () => {
   };
 
   const handleDelete = () => {
-    dispatch(productActions.deleteProduct(selectedProduct._id, '/'));
+    dispatch(productActions.deleteProduct(selectedProduct._id, "/"));
   };
-
-  // useEffect(() => {dispatch(productActions.getProductDetailForSeller(productId))},[])
 
   useEffect(() => {
     if (redirectTo) {
@@ -93,7 +141,7 @@ const AddEditProductPage = () => {
         dispatch(routeActions.removeRedirectTo());
       }
     }
-  }, [redirectTo, dispatch, history]);
+  }, [redirectTo, dispatch, productId]);
 
   const uploadWidget = () => {
     window.cloudinary.openUploadWidget(
@@ -103,9 +151,10 @@ const AddEditProductPage = () => {
         tags: ["productImg"],
       },
       function (error, result) {
-        if (error) console.log(error);
+        if (error && process.env.NODE_ENV === 'development') {
+          console.log(error);
+        }
         if (result.event === "success") {
-          
           setFormData({
             ...formData,
             image: result.info.secure_url,
@@ -116,124 +165,125 @@ const AddEditProductPage = () => {
   };
 
   return (
-    <div>
-      <Row className="d-flex justify-content-center align-items-center">
-        {(error?.data?.error === "Unauthorized action") ? <h1>Not allowed</h1> :
-        <Col md={{ span: 6, offset: 3 }}>
-          <Form onSubmit={handleSubmit}>
-            <div className="text-center mb-3">
-              <h1 className="text-primary">{addOrEdit} product</h1>
-              
-            </div>
-
-            <Button
-                    variant="info"
-                    className="btn-block w-100 mb-3"
-                    onClick={uploadWidget}
-                    disabled={!editable}
-                  >
-                    Upload image
+    <Box sx={{ minHeight: '100vh', background: darkBg, py: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Typography variant="h4" fontWeight={700} align="center" sx={{ mb: 3, letterSpacing: 1, color: accent }}>
+        {addOrEdit} Product
+      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
+        {formData.image ? (
+          <Box sx={{ mb: 2 }}>
+            <img src={formData.image} alt="Product" style={{ width: 180, height: 180, objectFit: 'cover', borderRadius: 12, boxShadow: cardShadow }} />
+          </Box>
+        ) : null}
+        <Button
+          variant="outlined"
+          color="primary"
+          startIcon={<AddPhotoAlternateIcon />}
+          onClick={uploadWidget}
+          sx={{ borderRadius: 2, fontWeight: 500 }}
+        >
+          {formData.image ? 'Change Image' : 'Upload Image'}
+        </Button>
+      </Box>
+      <Box component="form" onSubmit={handleSubmit} autoComplete="off" sx={{ width: '100%', maxWidth: 440, mx: 'auto', display: 'flex', flexDirection: 'column', gap: 2, background: cardBg, color: textPrimary, borderRadius: 3, boxShadow: cardShadow, p: 4 }}>
+        <TextField
+          label="Product Name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          fullWidth
+          variant="outlined"
+          sx={{ borderRadius: 1, input: { color: textPrimary }, label: { color: textSecondary } }}
+          InputLabelProps={{ style: { color: textSecondary } }}
+        />
+        <TextField
+          label="Description"
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          required
+          fullWidth
+          multiline
+          minRows={4}
+          variant="outlined"
+          sx={{ borderRadius: 1, input: { color: textPrimary }, label: { color: textSecondary } }}
+          InputLabelProps={{ style: { color: textSecondary } }}
+        />
+        <TextField
+          label="Brand"
+          name="brand"
+          value={formData.brand}
+          onChange={handleChange}
+          fullWidth
+          variant="outlined"
+          sx={{ borderRadius: 1, input: { color: textPrimary }, label: { color: textSecondary } }}
+          InputLabelProps={{ style: { color: textSecondary } }}
+        />
+        <TextField
+          label="Category"
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          select
+          fullWidth
+          SelectProps={{
+            MenuProps: {
+              PaperProps: {
+                style: { minWidth: 340 },
+              },
+            },
+          }}
+          variant="outlined"
+          sx={{ borderRadius: 1, input: { color: textPrimary }, label: { color: textSecondary } }}
+          InputLabelProps={{ style: { color: textSecondary } }}
+        >
+          {categories.map((cat) => (
+            <MenuItem key={cat} value={cat}>{cat}</MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          label="Price"
+          name="price"
+          value={formData.price}
+          onChange={handleChange}
+          type="number"
+          required
+          fullWidth
+          variant="outlined"
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
+          sx={{ borderRadius: 1, input: { color: textPrimary }, label: { color: textSecondary } }}
+          InputLabelProps={{ style: { color: textSecondary } }}
+        />
+        <TextField
+          label="Stock Quantity"
+          name="inStockNum"
+          value={formData.inStockNum}
+          onChange={handleChange}
+          type="number"
+          required
+          fullWidth
+          variant="outlined"
+          sx={{ borderRadius: 1, input: { color: textPrimary }, label: { color: textSecondary } }}
+          InputLabelProps={{ style: { color: textSecondary } }}
+        />
+        <ButtonGroup fullWidth sx={{ mt: 4 }}>
+          <Button type="submit" variant="contained" color="primary" sx={{ fontWeight: 600, borderRadius: 2 }}>
+            {addOrEdit === "Add" ? "Add Product" : "Save Changes"}
+          </Button>
+          <Button variant="outlined" color="secondary" onClick={handleCancel} sx={{ fontWeight: 600, borderRadius: 2 }}>
+            Cancel
+          </Button>
+          {addOrEdit === "Edit" && (
+            <Button variant="outlined" color="error" onClick={handleDelete} sx={{ fontWeight: 600, borderRadius: 2 }}>
+              Delete
             </Button>
-            
-            <Form.Group>
-              <Form.Control
-                type="text"
-                required
-                placeholder="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Control
-                as="textarea"
-                rows="10"
-                placeholder="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Control
-                as="textarea"
-                placeholder="brand"
-                name="brand"
-                value={formData.brand}
-                onChange={handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group>
-              {/* <Form.Control
-                as="textarea"
-                placeholder="category"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-              /> */}
-              Category
-              <select style={{width: "100%"}} name="category" placeholder="category" value={formData.category} onChange={handleChange}>
-                <option value="Fashion">Fashion</option>
-                <option value="Phones and Accessories">Phones and Accessories</option>
-                <option value="Electronic device">Electronic device</option>
-                <option value="Household goods">Household goods</option>
-                <option value="Home and Life">Home and Life</option>
-                <option value="Health and Life">Health and Life</option>
-                <option value="Fashion Accessories">Fashion Accessories</option>
-                <option value="Books">Books</option>
-              </select>
-            </Form.Group>
-              Price
-              <input placeholder="price" type="number" id="price" name="price" value={formData.price} onChange={handleChange}
-              style={{height:"40px", width:"100%", marginBottom: "20px"}}
-              />
-              Stock
-              <input placeholder="inStockNum" type="number" id="inStockNum" name="inStockNum"  value={formData.inStockNum} onChange={handleChange}
-              style={{height:"40px", width:"100%", marginBottom: "20px"}}
-              />
-
-            <ButtonGroup className="d-flex mb-3">
-              {loading ? (
-                <Button
-                  className="mr-3"
-                  variant="primary"
-                  type="button"
-                  disabled
-                >
-                  <span
-                    className="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  Submitting...
-                </Button>
-              ) : (
-                <Button className="mr-3" type="submit" variant="primary">
-                  Submit
-                </Button>
-              )}
-              <Button variant="light" onClick={handleCancel} disabled={loading}>
-                Cancel
-              </Button>
-            </ButtonGroup>
-            {addOrEdit === "Edit" && (
-              <ButtonGroup className="d-flex">
-                <Button
-                  variant="danger"
-                  onClick={handleDelete}
-                  disabled={loading}
-                >
-                  Delete product
-                </Button>
-              </ButtonGroup>
-            )}
-          </Form>
-        </Col>}
-      </Row>
-    </div>
+          )}
+        </ButtonGroup>
+      </Box>
+    </Box>
   );
 };
 

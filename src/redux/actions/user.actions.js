@@ -1,7 +1,6 @@
 import * as types from "redux/constants/user.constants";
 import api from "redux/api";
-import { routeActions } from "../actions";
-import { toast } from "react-toastify";
+import { enqueueSnackbar } from 'notistack';
 
 const getAllUsersForAdmin = () => async (dispatch) => {
     
@@ -10,8 +9,7 @@ const getAllUsersForAdmin = () => async (dispatch) => {
     try {
         const res = await api.get("/auth/admin/allusers");
         dispatch({ type: types.GET_ALLUSERS_SUCCESS, payload: res.data.data });
-        dispatch(routeActions.redirect("/login"));
-        toast.success(`Get all users succesfully`);
+        // Removed redirect and success message to prevent duplicates
     } catch (error) {
         dispatch({ type: types.GET_ALLUSERS_FAILURE, payload: error });
     }
@@ -24,10 +22,10 @@ const deleteForAdmin = (userID) => async (dispatch) => {
     try {
         const res = await api.delete("/auth/admin/user/" + userID);
         dispatch({ type: types.DELETE_USER_SUCCESS, payload: res.data.data });
-        dispatch(routeActions.redirect("/login"));
-        toast.success(`Get all users succesfully`);
+        enqueueSnackbar("User deleted successfully", { variant: 'success' });
     } catch (error) {
         dispatch({ type: types.DELETE_USER_FAILURE, payload: error });
+        enqueueSnackbar("Failed to delete user", { variant: 'error' });
     }
 }
 
@@ -45,8 +43,59 @@ const getHistoryForUser = () => async (dispatch) => {
     }
 }
 
+const addToWishlist = (productId) => async (dispatch, getState) => {
+    const isAuthenticated = !!getState().auth.user;
+    if (!isAuthenticated) {
+        // Guest logic
+        let guestWishlist = JSON.parse(localStorage.getItem('guestWishlist') || '[]');
+        if (!guestWishlist.includes(productId)) {
+            guestWishlist.push(productId);
+            localStorage.setItem('guestWishlist', JSON.stringify(guestWishlist));
+            enqueueSnackbar('Added to wishlist!', { variant: 'success' });
+        } else {
+            enqueueSnackbar('Already in wishlist', { variant: 'info' });
+        }
+        return;
+    }
+    // Logged-in logic (call backend)
+    dispatch({ type: types.ADD_WISHLIST_REQUEST });
+    try {
+        const res = await api.post("/users/wishlist/add", { productId });
+        dispatch({ type: types.ADD_WISHLIST_SUCCESS, payload: res.data.data });
+        enqueueSnackbar("Added to wishlist!", { variant: 'success' });
+    } catch (error) {
+        dispatch({ type: types.ADD_WISHLIST_FAILURE, payload: error });
+        enqueueSnackbar("Failed to add to wishlist", { variant: 'error' });
+    }
+};
+
+const removeFromWishlist = (productId) => async (dispatch) => {
+    dispatch({ type: types.REMOVE_WISHLIST_REQUEST });
+    try {
+        const res = await api.post("/users/wishlist/remove", { productId });
+        dispatch({ type: types.REMOVE_WISHLIST_SUCCESS, payload: res.data.data });
+        enqueueSnackbar("Removed from wishlist!", { variant: 'success' });
+    } catch (error) {
+        dispatch({ type: types.REMOVE_WISHLIST_FAILURE, payload: error });
+        enqueueSnackbar("Failed to remove from wishlist", { variant: 'error' });
+    }
+};
+
+const getWishlist = () => async (dispatch) => {
+    dispatch({ type: types.GET_WISHLIST_REQUEST });
+    try {
+        const res = await api.get("/users/wishlist");
+        dispatch({ type: types.GET_WISHLIST_SUCCESS, payload: res.data.data });
+    } catch (error) {
+        dispatch({ type: types.GET_WISHLIST_FAILURE, payload: error });
+    }
+};
+
 export const userActions = {
     getAllUsersForAdmin,
     deleteForAdmin,
     getHistoryForUser,
+    addToWishlist,
+    removeFromWishlist,
+    getWishlist,
 };

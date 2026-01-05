@@ -1,27 +1,43 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../redux/actions/auth.actions";
 import {
   Container,
-  Row,
-  Col,
+  Box,
+  Card,
+  CardContent,
+  Avatar,
+  Typography,
   Button,
-  Form,
-  ButtonGroup,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { authActions } from "../../redux/actions/auth.actions";
-// import { ClipLoader } from "react-spinners";
+  TextField,
+  Stack,
+  Divider,
+  Grid,
+  IconButton,
+  CircularProgress,
+  Alert,
+  Snackbar
+} from "@mui/material";
+import {
+  Edit as EditIcon,
+  Save as SaveIcon,
+  Cancel as CancelIcon,
+  CloudUpload as UploadIcon,
+  Person as PersonIcon,
+  Email as EmailIcon,
+  PhotoCamera as PhotoCameraIcon
+} from "@mui/icons-material";
 
-const ProfilePage = () => {
+const AdminProfilePage = () => {
   const currentUser = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.auth.loading);
   const [editable, setEditable] = useState(false);
   const [formData, setFormData] = useState({
-    name: currentUser.name,
-    email: currentUser.email,
-    avatarUrl: currentUser.avatarUrl,
+    name: currentUser?.name || '',
+    email: currentUser?.email || '',
+    avatarUrl: currentUser?.avatarUrl || '',
   });
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -33,9 +49,19 @@ const ProfilePage = () => {
     const { name, avatarUrl } = formData;
     dispatch(authActions.updateProfile(name, avatarUrl));
     setEditable(false);
+    setSnackbar({
+      open: true,
+      message: 'Profile updated successfully',
+      severity: 'success'
+    });
   };
 
   const handleCancel = () => {
+    setFormData({
+      name: currentUser?.name || '',
+      email: currentUser?.email || '',
+      avatarUrl: currentUser?.avatarUrl || '',
+    });
     setEditable(false);
   };
 
@@ -47,145 +73,249 @@ const ProfilePage = () => {
         tags: ["userAvatar"],
       },
       function (error, result) {
-        if (error) console.log(error);
-        if (result.event === "success") {
+        if (error) {
+          if (process.env.NODE_ENV === 'development') {
+            console.log(error);
+          }
+          setSnackbar({
+            open: true,
+            message: 'Error uploading image',
+            severity: 'error'
+          });
+        }
+        if (result && result.event === "success") {
           setFormData({
             ...formData,
             avatarUrl: result.info.secure_url,
+          });
+          setSnackbar({
+            open: true,
+            message: 'Avatar uploaded successfully',
+            severity: 'success'
           });
         }
       }
     );
   };
 
+  if (!currentUser) {
+    return (
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 400 }}>
+          <CircularProgress />
+        </Box>
+      </Container>
+    );
+  }
+
   return (
-    <div fluid className="adminProfilePage">
-      {/* <br />
-      <Row>
-        
-        <Col className="d-flex justify-content-end align-items-start">
-          <Button variant="primary" onClick={() => setEditable(true)}>
-            Edit
-          </Button>
-        </Col>
-      </Row>
-      <br /> */}
+    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+      {/* Header */}
+      <Box sx={{ mb: 4 }}>
+        <Typography 
+          variant="h4" 
+          fontWeight="bold" 
+          gutterBottom
+          sx={{
+            background: 'linear-gradient(45deg, #12efc8 30%, #f2b455 90%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}
+        >
+          Admin Profile
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Manage your account settings and profile information
+        </Typography>
+      </Box>
 
-      <Row className="d-flex justify-content-center align-items-center">
-        <Col md={{ span: 8}}>
-          {loading ? (
-            <div className="d-flex justify-content-center align-items-center">
-              Loading...
-              {/* <ClipLoader color="#f86c6b" size={150} loading={true} /> */}
-            </div>
-          ) : (
-            <Form onSubmit={handleSubmit}>
-              <Form.Group>
-                <div className="text-center">
-                  {formData.avatarUrl && (
-                    <div className="mb-3">
-                      <img
+      <Card elevation={3}>
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            {/* Avatar Section */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
+              <Box sx={{ position: 'relative', display: 'inline-block' }}>
+                <Avatar
                         src={formData.avatarUrl}
-                        className="avatar-lg"
-                        alt="avatar"
-                      />
-                    </div>
-                  )}
-
-                {/* <Link to="/seller/products/add">
-                    <Button variant="primary">Add more product</Button>
-                </Link> */}
-
-                {/* <Link to="/admin/dashboard">
-                    <Button variant="primary">Dashboard</Button>
-                </Link> */}
-
-                  <Button
-                    variant="success"
-                    className="btn-block w-100 mb-5"
-                    onClick={() => setEditable(true)}
-                  >
-                    Edit info
-                  </Button>
-
-                  <Button
-                    variant="info"
-                    className="btn-block w-100 "
+                  alt={currentUser.name}
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    bgcolor: 'primary.main',
+                    fontSize: 64,
+                    mb: 2,
+                  }}
+                >
+                  {!formData.avatarUrl && <PersonIcon sx={{ fontSize: 80 }} />}
+                </Avatar>
+                {editable && (
+                  <IconButton
                     onClick={uploadWidget}
-                    disabled={!editable}
+                    sx={{
+                      position: 'absolute',
+                      bottom: 20,
+                      right: -10,
+                      bgcolor: 'primary.main',
+                      border: '3px solid',
+                      borderColor: 'background.paper',
+                      '&:hover': {
+                        bgcolor: 'primary.dark',
+                      },
+                    }}
                   >
-                    Edit avatar
-                  </Button>
-                </div>
-              </Form.Group>
-              <Form.Group as={Row}>
-                <Form.Label column sm="2">
-                  Name
-                </Form.Label>
-                <Col>
-                  <Form.Control
-                    type="text"
-                    required
-                    placeholder="Name"
+                    <PhotoCameraIcon />
+                  </IconButton>
+                )}
+              </Box>
+              <Typography variant="h5" fontWeight="bold" gutterBottom>
+                {currentUser.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Administrator
+              </Typography>
+            </Box>
+
+            <Divider sx={{ mb: 3 }} />
+
+            {/* Profile Information */}
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     disabled={!editable}
-                  />
-                </Col>
-              </Form.Group>
-              <Form.Group as={Row}>
-                <Form.Label column sm="2">
-                  Email
-                </Form.Label>
-                <Col>
-                  <Form.Control
-                    type="email"
-                    required
-                    placeholder="Email"
+                  InputProps={{
+                    startAdornment: <PersonIcon sx={{ mr: 1, color: 'text.secondary' }} />,
+                  }}
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  fullWidth
+                  label="Email"
                     name="email"
                     value={formData.email}
                     disabled={true}
-                  />
-                </Col>
-              </Form.Group>
-              <br />
-              {editable && (
-                <ButtonGroup className="d-flex mb-3">
-                  {loading ? (
+                  InputProps={{
+                    startAdornment: <EmailIcon sx={{ mr: 1, color: 'text.secondary' }} />,
+                  }}
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="User ID"
+                  value={currentUser._id}
+                  disabled={true}
+                  InputProps={{
+                    sx: { fontFamily: 'monospace' }
+                  }}
+                  helperText="This is your unique user identifier"
+                />
+              </Grid>
+            </Grid>
+
+            <Divider sx={{ my: 3 }} />
+
+            {/* Action Buttons */}
+            <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+              {!editable ? (
                     <Button
-                      className="mr-3"
-                      variant="primary"
-                      type="button"
-                      disabled
-                    >
-                      <span
-                        className="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                      Submitting...
+                  variant="contained"
+                  size="large"
+                  startIcon={<EditIcon />}
+                  onClick={() => setEditable(true)}
+                  sx={{
+                    background: 'linear-gradient(135deg, #12efc8 0%, #0ebfa0 100%)',
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, #0ebfa0 0%, #0b8f78 100%)',
+                    },
+                  }}
+                >
+                  Edit Profile
                     </Button>
                   ) : (
-                    <Button className="mr-3" type="submit" variant="primary">
-                      Submit
-                    </Button>
-                  )}
+                <>
                   <Button
-                    variant="light"
+                    variant="contained"
+                    size="large"
+                    type="submit"
+                    startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SaveIcon />}
+                    disabled={loading}
+                    sx={{
+                      background: 'linear-gradient(135deg, #12efc8 0%, #0ebfa0 100%)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #0ebfa0 0%, #0b8f78 100%)',
+                      },
+                    }}
+                  >
+                    Save Changes
+                    </Button>
+                  <Button
+                    variant="outlined"
+                    size="large"
                     onClick={handleCancel}
                     disabled={loading}
+                    startIcon={<CancelIcon />}
+                    sx={{
+                      borderColor: 'text.secondary',
+                      color: 'text.primary',
+                      '&:hover': {
+                        borderColor: 'text.secondary',
+                        bgcolor: 'action.hover',
+                      },
+                    }}
                   >
                     Cancel
                   </Button>
-                </ButtonGroup>
+                </>
               )}
-            </Form>
-          )}
-        </Col>
-      </Row>
-    </div>
+              {editable && (
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={uploadWidget}
+                  startIcon={<UploadIcon />}
+                  disabled={loading}
+                  sx={{
+                    borderColor: 'primary.main',
+                    color: 'primary.main',
+                    '&:hover': {
+                      borderColor: 'primary.dark',
+                      bgcolor: 'primary.main',
+                      color: '#000',
+                    },
+                  }}
+                >
+                  Change Avatar
+                </Button>
+              )}
+            </Stack>
+          </form>
+        </CardContent>
+      </Card>
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar({ open: false, message: '', severity: 'success' })}
+      >
+        <Alert
+          onClose={() => setSnackbar({ open: false, message: '', severity: 'success' })}
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+    </Container>
   );
 };
 
-export default ProfilePage;
+export default AdminProfilePage;
