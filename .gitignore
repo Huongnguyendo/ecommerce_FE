@@ -25,3 +25,6 @@ yarn-error.log*
 
 constants.js
 src/config
+*.md
+!README.md
+!readme.md

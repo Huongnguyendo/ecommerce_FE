@@ -13,27 +13,6 @@ select {
   font-size: 16px;
 }
 
-select:focus-visible {
-  outline: 0;
-}
-
-.header-with-search {
-  position: fixed;
-  width: 100%;
-  z-index: 100;
-  height: 85px;
-}
-
-.header {
-  background-color: #131e26;
-  height: 85px;
-}
-
-.content {
-  padding-top: 85px !important;
-  overflow: hidden;
-}
-
 a {
   text-decoration: none;
 }
@@ -51,8 +30,7 @@ a {
 }
 
 .comment {
-  padding-bottom: 0.3em;
-  border-bottom: 1px solid #f1f1f1;
+  padding-bottom: 0.5em;
 }
 
 .comment_body {
@@ -69,12 +47,7 @@ a {
 /* PRODUCT DETAILS */
 .productDetailCom {
   /* background-color:#f8f9fa !important; */
-  padding-top: 50px;
-}
-
-.productInfoLower {
-  margin-right: 30px;
-  width: 100%;
+  padding-top: 100px;
 }
 
 .homepageTitle {
@@ -305,12 +278,8 @@ a {
 .productInfoRow span {
   margin-top: 15px;
   margin-bottom: 15px;
-  padding-right: 15px;
-}
-
-.reviewDevider {
+  padding: 0 15px;
   border-left: 1px solid rgba(0, 0, 0, 0.14);
-  padding-left: 15px;
 }
 
 .is-divider {
@@ -328,23 +297,12 @@ a {
 }
 
 .productDetailImg {
-  display: flex;
-  margin: 0 auto;
+  margin-right: 50px;
 }
 
 .productDetailRVlist {
-  display: none;
-}
-
-.productDetailRVlistInner {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px 20px;
-  width: 80%;
-  background-color: #f8f9fa;
-  display: flex;
-  height: 200px;
-  overflow-y: scroll;
+  margin-top: 50px;
+  padding-left: 15%;
 }
 
 .productCardBtn {
@@ -619,43 +577,8 @@ button:active {
 }
 
 .reviewFormInPD {
-  display: flex;
-  width: 90%;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 20px;
-}
-
-.reviewGroupForm {
-  width: 90%;
-}
-
-/* .reviewGroupForm {
-  width: 100%;
-} */
-
-/* .reviewForm {
-  display: flex;
-  justify-content: center;
-  flex: 1;
-} */
-
-.reviewScore {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.reviewText {
-  margin-bottom: 10px;
-}
-
-.reviewText input {
-  margin-right: 10px;
-}
-
-.reviewForm select {
-  width: 60px;
+  margin-left: 50px !important;
+  margin-right: 50px !important;
 }
 
 .sellerAllProducts {
@@ -671,20 +594,15 @@ button:active {
 }
 
 .revenueChart {
-  width: 65%;
-  height: auto;
+  width: 100%;
+  height: 800px;
   margin: 0 auto;
   margin-top: 50px;
 }
 
-.revenueChart h2,
-.sellingHistoryPage h2 {
+.revenueChart h3 {
   text-align: center;
   margin-bottom: 30px;
-}
-
-.sellingHistoryPage h2 {
-  margin-top: 50px;
 }
 
 .myTab {
@@ -742,10 +660,6 @@ button:active {
   -o-border-radius: 0 !important;
 }
 
-.header-search-form-inner input {
-  font-size: 15px;
-}
-
 .kwSubmit {
   border-radius: 0 !important;
   -webkit-border-radius: 0 !important;
@@ -760,10 +674,6 @@ button:active {
 
   padding: 0 10px;
   padding-bottom: 20px !important;
-}
-
-.kwSubmit i {
-  font-size: 15px;
 }
 
 .kwSubmit:hover,
@@ -804,7 +714,6 @@ button:active {
   background-color: black;
   color: #ffffff;
   font-size: 12px;
-  height: 180px;
   /* display: flex;
     justify-content: space-between !important; */
 }
@@ -927,16 +836,7 @@ button:active {
 }
 
 .upper_header__right div a:hover {
-  transform: scale(1.1);
-  transition-duration: 0.1s;
-}
-
-.upper_header__right div a:active {
-  transform: translateY(2px);
-  -webkit-transform: translateY(2px);
-  -moz-transform: translateY(2px);
-  -ms-transform: translateY(2px);
-  -o-transform: translateY(2px);
+  margin-top: -5px !important;
   transition-duration: 0.1s;
 }
 
@@ -1117,6 +1017,10 @@ button:active {
 .page-item .page-link {
   color: #ffc107 !important;
   font-weight: 500;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
 }
 
 .active .page-link {
@@ -1226,4 +1130,44 @@ button:active {
     margin: 0 auto;
     margin-top: 30px;
   }
+}
+
+/* Force DataGrid column header background and text color for dark mode (all versions) */
+.MuiDataGrid-columnHeaders, .MuiDataGrid-columnHeader {
+  background: #11131a !important;
+  color: #fff !important;
+  border-bottom: 2px solid #23283a !important;
+  font-weight: 900 !important;
+  font-size: 1.12rem !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* DataGrid header: modern dark theme */
+.MuiDataGrid-columnHeaders {
+  background: linear-gradient(90deg, #181c24 0%, #23283a 100%);
+  color: #fff;
+  border-bottom: 2px solid #23283a;
+  font-weight: 700;
+  font-size: 1.13rem;
+  letter-spacing: 0.7px;
+  min-height: 56px;
+  height: 56px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* First and last header cell: rounded corners */
+.MuiDataGrid-columnHeader:first-of-type {
+  border-top-left-radius: 12px;
+}
+.MuiDataGrid-columnHeader--last {
+  background: linear-gradient(90deg, #181c24 0%, #23283a 100%);
+  border-top-right-radius: 12px;
+  color: #fff;
+}
+
+/* DataGrid filler: match header background for seamless look */
+.MuiDataGrid-filler {
+  display: none !important;
 }

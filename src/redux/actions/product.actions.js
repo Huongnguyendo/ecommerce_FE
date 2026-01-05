@@ -1,9 +1,10 @@
 import * as types from "redux/constants/product.constants";
 // import routeActions from "./route.actions";
 import api from "redux/api";
-import { toast } from "react-toastify";
-import { routeActions } from "../actions";
-import "react-toastify/dist/ReactToastify.css";
+import { routeActions } from "./route.actions";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import { enqueueSnackbar } from 'notistack';
 
 const getProductList =
   (category, pageNum = 1, limit = 10) =>
@@ -14,7 +15,7 @@ const getProductList =
       let res;
       if (category)
         res = await api.get(
-          `/products?page=1&limit=${limit}&category=${category}`
+          `/products?page=${pageNum}&limit=${limit}&category=${category}`
         );
       else res = await api.get(`/products?page=${pageNum}&limit=${limit}`);
       dispatch({ type: types.GET_PRODUCTS_SUCCESS, payload: res.data.data });
@@ -132,9 +133,18 @@ const createNewProduct =
         payload: res.data.data,
       });
       dispatch(routeActions.redirect(redirectTo));
-      toast.success("New product has been created!");
+      enqueueSnackbar("New product has been created!", { variant: 'success' });
     } catch (error) {
-      // console.log(error);
+      // Error message is already shown by API interceptor
+      // But extract and log for debugging
+      const errorMsg = error.response?.data?.data?.error || 
+                      error.response?.data?.error || 
+                      error.response?.data?.message || 
+                      error.message || 
+                      "Failed to create product";
+      if (process.env.NODE_ENV === 'development') {
+        console.error("Create product error:", errorMsg);
+      }
       dispatch({ type: types.CREATE_PRODUCT_FAILURE, payload: error });
     }
   };
@@ -169,7 +179,7 @@ const updateProduct =
       });
 
       dispatch(routeActions.redirect(redirectTo));
-      toast.success("The product has been updated!");
+      enqueueSnackbar("The product has been updated!", { variant: 'success' });
     } catch (error) {
       // console.log(error);
       dispatch({ type: types.UPDATE_PRODUCT_FAILURE, payload: error });
@@ -187,7 +197,7 @@ const deleteProduct =
         payload: res.data,
       });
       dispatch(routeActions.redirect(redirectTo));
-      toast.success("The product has been deleted!");
+      enqueueSnackbar("The product has been deleted!", { variant: 'success' });
     } catch (error) {
       // console.log(error);
       dispatch({ type: types.DELETE_PRODUCT_FAILURE, payload: error });
@@ -200,9 +210,7 @@ const searchProductsByKeyword =
     dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_REQUEST, payload: null });
 
     try {
-      const res = await api.post(`/products/?page=${pageNum}&limit=${limit}`, {
-        keyword,
-      });
+      const res = await api.get(`/products?page=${pageNum}&limit=${limit}&search=${encodeURIComponent(keyword)}`);
       dispatch({
         type: types.GET_PRODUCTS_BYKEYWORD_SUCCESS,
         payload: res.data.data,
@@ -213,7 +221,30 @@ const searchProductsByKeyword =
   };
 
 const updateList = (list) => (dispatch) => {
-  dispatch({ type: "UPDATE_LIST", payload: list });
+  dispatch({ type: types.GET_PRODUCTS_SUCCESS, payload: list });
+};
+
+const getRecommendations = () => async (dispatch) => {
+  dispatch({ type: types.GET_RECOMMENDATIONS_REQUEST, payload: null });
+  
+  try {
+    const res = await api.get('/recommendations');
+    dispatch({ type: types.GET_RECOMMENDATIONS_SUCCESS, payload: res.data.data });
+  } catch (err) {
+    // Don't show error for authentication issues - return trending products instead
+    if (err.response && err.response.status === 401) {
+      // User not authenticated - get trending products instead
+      try {
+        const trendingRes = await api.get('/products?page=1&limit=8');
+        dispatch({ type: types.GET_RECOMMENDATIONS_SUCCESS, payload: trendingRes.data.data.products || [] });
+      } catch (trendingErr) {
+        dispatch({ type: types.GET_RECOMMENDATIONS_SUCCESS, payload: [] });
+      }
+    } else {
+      // Other errors should be handled
+      dispatch({ type: types.GET_RECOMMENDATIONS_FAILURE, payload: err });
+    }
+  }
 };
 
 export const productActions = {
@@ -228,4 +259,5 @@ export const productActions = {
   deleteProduct,
   searchProductsByKeyword,
   updateList,
+  getRecommendations,
 };

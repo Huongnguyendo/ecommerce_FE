@@ -38,7 +38,9 @@ const ProfilePage = () => {
         tags: ["userAvatar"],
       },
       function (error, result) {
-        if (error) console.log(error);
+        if (error && process.env.NODE_ENV === 'development') {
+          console.log(error);
+        }
         if (result.event === "success") {
           setFormData({
             ...formData,

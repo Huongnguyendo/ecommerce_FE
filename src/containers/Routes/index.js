@@ -26,7 +26,11 @@ const Routes = (props) => {
       <PrivateRoute path="/user" component={PublicLayout} />
       <Route
         path="/"
-        component={user && user.role === "Seller" ? SellerLayout : PublicLayout}
+        component={
+          user && user.role === "Admin" ? AdminLayout :
+          user && user.role === "Seller" ? SellerLayout : 
+          PublicLayout
+        }
       />
     </Switch>
   );

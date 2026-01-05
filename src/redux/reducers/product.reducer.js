@@ -3,6 +3,7 @@ import * as categoryTypes from "../constants/category.constants";
 const initialState = {
   historyToRender: [],
   products: [],
+  recommendations: [],
   totalPageNum: 1,
   selectedProduct: null,
   loading: false,
@@ -121,6 +122,20 @@ const productReducer = (state = initialState, action) => {
     case types.UPDATE_PRODUCT_FAILURE:
     case types.DELETE_PRODUCT_FAILURE:
       return { ...state, loading: false };
+      
+    // Recommendation cases
+    case types.GET_RECOMMENDATIONS_REQUEST:
+      return { ...state, loading: true };
+      
+    case types.GET_RECOMMENDATIONS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        recommendations: payload,
+      };
+      
+    case types.GET_RECOMMENDATIONS_FAILURE:
+      return { ...state, loading: false, error: payload };
       
     default:
       return { ...state };

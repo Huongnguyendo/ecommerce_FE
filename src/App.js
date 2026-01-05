@@ -1,11 +1,17 @@
 import React, {useEffect} from "react";
 import "App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./containers/Routes";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "redux/actions";
 import { ClipLoader } from "react-spinners";
+// MUI Theme imports
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import theme from './theme';
+// Chat Widget
+import ChatWidget from "./components/ChatWidget";
+// Error Boundary
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // Adding Fontawesome icons
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -33,19 +39,22 @@ function App() {
     }
   }, [dispatch]);
 
-  
   return (
-    <>
-      {isAuthenticated === null ? (
-        <div className="vh-100 vw-100 d-flex justify-content-center align-items-center">
-          <ClipLoader color="#f86c6b" size={150} loading={true} />
-        </div>
-      ) : (
-        <Router>
-          <Routes />
-        </Router>
-      )}
-    </>
+    <ErrorBoundary>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {isAuthenticated === null ? (
+          <div className="vh-100 vw-100 d-flex justify-content-center align-items-center" style={{ background: '#f5f7fa' }}>
+            <ClipLoader color="#1976d2" size={150} loading={true} />
+          </div>
+        ) : (
+          <Router>
+            <Routes />
+            <ChatWidget />
+          </Router>
+        )}
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 }
 
