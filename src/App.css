@@ -1,5 +1,16 @@
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
+} */
+
+/* NAV */
+select {
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #e8eaed;
+  border-radius: 5px;
+  /* background: white; */
+  box-shadow: 0 1px 3px -2px #9098a9;
+  font-size: 16px;
 }
 
 a {
@@ -15,12 +26,13 @@ a {
 }
 
 .nav-link:hover {
-  padding-bottom: 3px;
+  padding-bottom: 2px;
 }
 
 .comment {
   padding-bottom: 0.5em;
 }
+
 .comment_body {
   font-size: 15px;
   font-style: italic;
@@ -30,11 +42,6 @@ a {
 .comment_author {
   font-size: 15px;
   font-weight: 500;
-}
-
-/* NAV */
-.header {
-  background-color: #131e26;
 }
 
 /* PRODUCT DETAILS */
@@ -53,6 +60,7 @@ a {
   letter-spacing: 1px;
   width: 24%;
   margin-bottom: 15px;
+  padding-top: 15px;
 }
 
 .product-card {
@@ -60,6 +68,58 @@ a {
   padding-left: 50px;
   padding-right: 50px;
   /* background-color: #f8f9fa; */
+}
+
+.product-card img {
+  box-shadow: 0 0 5px rgba(33, 33, 33, 0.2);
+}
+
+.ratingDiv {
+  margin: 0 60px;
+}
+
+.list-unstyled {
+  width: 60%;
+  padding-left: 20px;
+}
+
+.list-unstyled::-webkit-scrollbar {
+  width: 5px;
+}
+
+.rating {
+  font-size: 50px;
+  line-height: 60px;
+  color: #cb1c22;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.media {
+  display: flex;
+  align-items: center !important;
+}
+
+.media-left img {
+  width: 40px;
+}
+
+.media-body {
+  flex: none;
+  text-align: left;
+}
+
+.productDetailTable {
+  width: 80%;
+}
+
+.productDetailTable td {
+  height: 35px;
+}
+
+.pdInfoTitle {
+  padding-right: 30px;
 }
 
 /* CART */
@@ -80,7 +140,7 @@ a {
 
 .signinBtn {
   display: block;
-  margin-top: 30px;
+  margin-top: 10px;
   width: 100%;
   padding: 10px;
   color: white;
@@ -240,10 +300,6 @@ a {
   margin-right: 50px;
 }
 
-/* .productDetailImg img {
-	width: 400px;
-} */
-
 .productDetailRVlist {
   margin-top: 50px;
   padding-left: 15%;
@@ -356,7 +412,6 @@ button:active {
   height: auto;
   width: 80%;
   filter: drop-shadow(5px 5px 10px #7979794f);
-
   -webkit-filter: drop-shadow(8px 8px 10px #0000004f);
   -webkit-filter: drop-shadow(5px 5px 10px #7979794f);
 }
@@ -787,6 +842,7 @@ button:active {
 
 .upper_header__right div a {
   transition-duration: 0.1s;
+  font-size: 15px;
 }
 
 .lower_header {
@@ -803,6 +859,10 @@ button:active {
 .logo,
 .nav {
   line-height: 60px;
+}
+
+.logo {
+  margin-top: -10px;
 }
 
 .check_out {
@@ -1016,6 +1076,59 @@ button:active {
   .footer_info__items {
     padding: 0;
     flex-wrap: wrap;
+  }
+
+  .reviewForm {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .reviewFormInPD {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+  }
+
+  .reviewGroupForm {
+    width: 100%;
+  }
+
+  .reviewForm {
+    display: flex;
+    justify-content: center;
+  }
+
+  .reviewScore {
+    margin-right: 20px;
+  }
+
+  .reviewText input {
+    width: 300px;
+    margin-right: 10px;
+  }
+
+  .productDetailRVlist {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .reviewText input {
+    width: 500px;
+    margin-right: 10px;
+  }
+
+  .productDetailRVlist {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
   }
 }
 

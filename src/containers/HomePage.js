@@ -4,7 +4,7 @@ import { productActions } from "redux/actions";
 import { useHistory, useLocation } from "react-router-dom";
 import ProductCard from "components/ProductCard";
 import PaginationBar from "../components/PaginationBar";
-import logoImg from "../images/shopping-logo.jpg";
+import logoImg from "../images/shopnow.png";
 import iphoneimg from "../images/iphone-17.png";
 import fashion from "../images/dress.png";
 import phone from "../images/smartphone.png";
@@ -133,6 +133,7 @@ const HomePage = () => {
   const urlSearch = new URLSearchParams(location.search).get("search") || "";
 
   const gotoProductDetail = (index) => {
+    // console.log("ind ", index); ???
     history.push(`/products/${index}`);
   };
 

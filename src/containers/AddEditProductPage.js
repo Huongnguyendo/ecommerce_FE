@@ -58,6 +58,7 @@ const AddEditProductPage = () => {
     category: "",
     inStockNum: 0,
   });
+
   const loading = useSelector((state) => state.product.loading);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -93,7 +94,9 @@ const AddEditProductPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, description, image, brand, price, category, inStockNum } = formData;
+    const { name, description, image, brand, price, category, inStockNum } =
+      formData;
+
     if (addOrEdit === "Add") {
       dispatch(
         productActions.createNewProduct(

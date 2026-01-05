@@ -6,12 +6,13 @@ import { darkTheme } from '../../../../theme';
 import NotFoundPage from "components/NotFoundPage";
 import AddEditProductPage from "../../../AddEditProductPage";
 import SellerProfilePage from "../../../Profile/SellerProfilePage";
+import PublicNavbar from "../../../PublicNavbar";
 import PrivateSellerRoute from "../../PrivateSellerRoute";
 import SellerProducts from "../Seller/SellerProducts";
 import SellerHistory from "../Seller/SellerHistory";
 
 const SellerLayout = () => {
-  let currentUser = useSelector((state) => state.auth.user);
+  // let currentUser = useSelector((state) => state.auth.user);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -29,8 +30,6 @@ const SellerLayout = () => {
             component={SellerProducts}
           />
           <PrivateSellerRoute
-            exact
-            path="/seller/history"
             component={SellerHistory}
           />
           <PrivateSellerRoute

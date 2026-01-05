@@ -1,4 +1,3 @@
-import Axios from "axios";
 import api from "../api";
 import { enqueueSnackbar } from 'notistack';
 import { routeActions } from "../actions";

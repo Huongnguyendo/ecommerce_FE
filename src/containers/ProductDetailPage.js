@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { productActions, cartActions, userActions } from "redux/actions";
 import ReviewList from "components/ReviewList";

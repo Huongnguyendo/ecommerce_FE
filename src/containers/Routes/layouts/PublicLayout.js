@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import AlertMsg from "components/AlertMsg";
 import NotFoundPage from "components/NotFoundPage";
 import ProductDetailPage from "containers/ProductDetailPage";
 import HomePage from "containers/HomePage";
@@ -29,9 +28,9 @@ const PublicLayout = () => {
   const isSeller = currentUser && currentUser.role === "Seller";
 
   return (
-    <>
+    <div>
       <PublicNavbar />
-      <div>
+      <div className="content">
         {/* <AlertMsg /> */}
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -44,7 +43,7 @@ const PublicLayout = () => {
           <Route component={NotFoundPage} />
         </Switch>
       </div>
-    </>
+    </div>
   );
 };
 
