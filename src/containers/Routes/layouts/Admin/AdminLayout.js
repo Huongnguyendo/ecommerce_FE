@@ -1,5 +1,4 @@
 import React from "react";
-<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Avatar, Toolbar, IconButton } from "@mui/material";
@@ -14,21 +13,12 @@ import AdminProfilePage from "../../../Profile/AdminProfilePage";
 import AdminDashboard from "./AdminDashboard";
 import AdminAllUsersPage from "./AdminAllUsersPage";
 import AdminAnalyticsPage from "./AdminAnalyticsPage";
-=======
-import { Row, Col } from "react-bootstrap";
-import { Switch, Route } from "react-router-dom";
-import NotFoundPage from "components/NotFoundPage";
-import AdminProfilePage from "../../../Profile/AdminProfilePage";
-import AdminSideMenu from "../../../Routes/layouts/Admin/AdminSideMenu";
-import PublicNavbar from "../../../PublicNavbar";
->>>>>>> master
 import PrivateAdminRoute from "../../PrivateAdminRoute";
 import { authActions } from "../../../../redux/actions/auth.actions";
 import { ThemeProvider } from '@mui/material';
 import { darkTheme } from '../../../../theme';
 
 const AdminLayout = () => {
-<<<<<<< HEAD
   const dispatch = useDispatch();
   const history = useHistory();
   const currentUser = useSelector((state) => state.auth.user);
@@ -166,18 +156,6 @@ const AdminLayout = () => {
             bgcolor: 'background.default',
           }}
         >
-=======
-  // let currentUser = useSelector((state) => state.auth.user);
-
-  return (
-    <>
-      <PublicNavbar />
-      <div fluid>
-        <Row>
-          {/* <SideMenu /> */}
-          <Col md={9} lg={10}>
-            {/* <AlertMsg /> */}
->>>>>>> master
             <Switch>
             <PrivateAdminRoute
               exact
@@ -198,13 +176,6 @@ const AdminLayout = () => {
                 path="/admin/profile"
                 component={AdminProfilePage}
               />
-<<<<<<< HEAD
-=======
-              <PrivateAdminRoute
-                path="/admin/profile"
-                component={AdminProfilePage}
-              />
->>>>>>> master
               <PrivateAdminRoute
                 exact
                 path="/admin/users"

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/actions/user.actions";
 import moment from "moment";
-<<<<<<< HEAD
 import {
   Box,
   Container,
@@ -28,8 +27,6 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-=======
->>>>>>> master
 
 const UserHistory = () => {
   let dispatch = useDispatch();
@@ -38,11 +35,6 @@ const UserHistory = () => {
   const buyingHistory = useSelector((state) => state.user.buyingHistory);
   let loading = useSelector((state) => state.user.loading);
 
-<<<<<<< HEAD
-=======
-  // console.log("buyingHistory ", buyingHistory);
-
->>>>>>> master
   useEffect(() => {
     dispatch(userActions.getHistoryForUser());
   }, [dispatch]);
@@ -117,7 +109,6 @@ const UserHistory = () => {
   }
 
   return (
-<<<<<<< HEAD
     <Box sx={{ minHeight: '100vh', bgcolor: '#f8fafb', py: 6 }}>
       <Container maxWidth="lg">
         {/* Header Section */}
@@ -294,91 +285,6 @@ const UserHistory = () => {
         </Paper>
       </Container>
     </Box>
-=======
-    <div className="buyingHistoryPage">
-      {loading ? (
-        <h3 style={{ textAlign: "center" }}>Loading ... </h3>
-      ) : buyingHistory?.length <= 0 ? (
-        <h1 style={{ textAlign: "center" }}>No Buying History</h1>
-      ) : (
-        <div>
-          <h3
-            style={{
-              textAlign: "center",
-              margin: "20px",
-              backgroundColor: "#f3f3f3",
-              padding: "10px",
-            }}
-          >
-            My Order History
-          </h3>
-          <div className="table-wrapper">
-            <table className="seller-table">
-              <thead>
-                <tr>
-                  {/* <td>Image</td> */}
-                  <td>Order ID</td>
-                  <td>Product</td>
-                  <td>Item price</td>
-                  <td>Quantity</td>
-                  <td>Total</td>
-                  <td>Purchase Date</td>
-                </tr>
-              </thead>
-              <tbody>
-                {buyingHistory?.map((item) => (
-                  <tr>
-                    <td>{item._id}</td>
-                    <td>
-                      {" "}
-                      {item.cartItems.map((innerItem) => (
-                        <div style={{ border: "none" }}>
-                          {innerItem.product.brand} - {innerItem.product.name}
-                        </div>
-                      ))}
-                    </td>
-                    <td>
-                      {" "}
-                      {item.cartItems.map((innerItem) => (
-                        <div style={{ border: "none" }}>
-                          ${innerItem.currentPrice}
-                        </div>
-                      ))}
-                    </td>
-                    <td>
-                      {" "}
-                      {item.cartItems.map((innerItem) => (
-                        <div style={{ border: "none" }}>
-                          {innerItem.quantity}
-                        </div>
-                      ))}
-                    </td>
-                    <td>
-                      {" "}
-                      {item.cartItems.map((innerItem) => (
-                        <div style={{ border: "none" }}>
-                          ${innerItem.currentPrice * innerItem.quantity}
-                        </div>
-                      ))}
-                    </td>
-                    <td className="no-padding">
-                      {" "}
-                      {item.cartItems.map((innerItem) => (
-                        <div style={{ border: "none" }}>
-                          {" "}
-                          {moment(item.createdAt).format("DD/MM/YYYY")}
-                        </div>
-                      ))}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-    </div>
->>>>>>> master
   );
 };
 

@@ -45,7 +45,6 @@ const cartReducer = (state = initialState, action) => {
     case types.CART_CHECKOUT_FAILURE:
       return { ...state, loading: false, error: payload };
 
-<<<<<<< HEAD
     case types.CART_UPDATE_ITEM_QUANTITY:
       // For guest cart, payload is the updated guestCart array
       return {
@@ -63,8 +62,6 @@ const cartReducer = (state = initialState, action) => {
         error: "",
       };
 
-=======
->>>>>>> master
     default:
       return state;
   }

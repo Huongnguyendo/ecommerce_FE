@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-<<<<<<< HEAD
-=======
-import { Row, Col, Button, Form, ButtonGroup } from "react-bootstrap";
->>>>>>> master
 import { authActions } from "../../redux/actions/auth.actions";
 import {
   Box,
@@ -53,13 +49,8 @@ const ProfilePage = () => {
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const dispatch = useDispatch();
-<<<<<<< HEAD
   const history = useHistory();
   const theme = useTheme();
-=======
-
-  // let [avatarUrl, setAvatarUrl] = useState("");
->>>>>>> master
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -104,7 +95,6 @@ const ProfilePage = () => {
     );
   };
 
-<<<<<<< HEAD
   const quickActions = [
     {
       title: "Order History",
@@ -230,36 +220,6 @@ const ProfilePage = () => {
               </Typography>
               <Stack spacing={2}>
                 {quickActions.map((action, index) => (
-=======
-  useEffect(() => {}, [handleSubmit]);
-
-  return (
-    <div fluid className="userProfilePage">
-      <Row className="d-flex justify-content-center align-items-center">
-        <Col md={{ span: 8 }}>
-          {loading ? (
-            <div className="d-flex justify-content-center align-items-center">
-              Loading...
-              {/* <ClipLoader color="#f86c6b" size={150} loading={true} /> */}
-            </div>
-          ) : (
-            <Form onSubmit={handleSubmit}>
-              <Form.Group>
-                <div className="text-center">
-                  {formData.avatarUrl && (
-                    <div className="mb-3 profileImg">
-                      <img
-                        src={
-                          formData.avatarUrl
-                            ? formData.avatarUrl
-                            : "https://lh3.googleusercontent.com/proxy/6XSzNgIYVLWue7bahUshLuO6MDh-7a-2iYWCmnIJnmMHcoOgj4r9Gn9pRHXotfaDyTIqid8Es0U8MHUqZpe2F4n0ImUbjlM"
-                        }
-                        className="avatar-lg"
-                        alt="avatar"
-                      />
-                    </div>
-                  )}
->>>>>>> master
                   <Button
                     key={index}
                     startIcon={action.icon}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-<<<<<<< HEAD
 import { authActions } from "../../redux/actions/auth.actions";
 import {
   Container,
@@ -28,10 +27,6 @@ import {
   Email as EmailIcon,
   PhotoCamera as PhotoCameraIcon
 } from "@mui/icons-material";
-=======
-import { Row, Col, Button, Form, ButtonGroup } from "react-bootstrap";
-import { authActions } from "../../redux/actions/auth.actions";
->>>>>>> master
 
 const AdminProfilePage = () => {
   const currentUser = useSelector((state) => state.auth.user);
@@ -134,7 +129,6 @@ const AdminProfilePage = () => {
         </Typography>
       </Box>
 
-<<<<<<< HEAD
       <Card elevation={3}>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -156,44 +150,6 @@ const AdminProfilePage = () => {
                 </Avatar>
                 {editable && (
                   <IconButton
-=======
-      <Row className="d-flex justify-content-center align-items-center">
-        <Col md={{ span: 8 }}>
-          {loading ? (
-            <div className="d-flex justify-content-center align-items-center">
-              Loading...
-              {/* <ClipLoader color="#f86c6b" size={150} loading={true} /> */}
-            </div>
-          ) : (
-            <Form onSubmit={handleSubmit}>
-              <Form.Group>
-                <div className="text-center">
-                  {formData.avatarUrl && (
-                    <div className="mb-3">
-                      <img
-                        src={formData.avatarUrl}
-                        className="avatar-lg"
-                        alt="avatar"
-                      />
-                    </div>
-                  )}
-
-                  {/* <Link to="/admin/dashboard">
-                    <Button variant="primary">Dashboard</Button>
-                </Link> */}
-
-                  <Button
-                    variant="success"
-                    className="btn-block w-100 mb-5"
-                    onClick={() => setEditable(true)}
-                  >
-                    Edit info
-                  </Button>
-
-                  <Button
-                    variant="info"
-                    className="btn-block w-100 "
->>>>>>> master
                     onClick={uploadWidget}
                     sx={{
                       position: 'absolute',
