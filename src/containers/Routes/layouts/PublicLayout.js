@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import AlertMsg from "components/AlertMsg";
 import NotFoundPage from "components/NotFoundPage";
 import ProductDetailPage from "containers/ProductDetailPage";
 import HomePage from "containers/HomePage";
@@ -9,6 +8,7 @@ import WishlistPage from "containers/WishlistPage";
 import PublicNavbar from "containers/PublicNavbar";
 import ProfilePage from "containers/Profile/ProfilePage";
 import UserHistoryPage from "containers/Profile/UserHistoryPage";
+<<<<<<< HEAD
 import RegisterPage from "containers/RegisterPage";
 import LoginPage from "containers/LoginPage";
 import PrivateRoute from "containers/Routes/PrivateRoute";
@@ -28,23 +28,30 @@ const PublicLayout = () => {
   const currentUser = useSelector((state) => state.auth.user);
   const isSeller = currentUser && currentUser.role === "Seller";
 
+=======
+
+const PublicLayout = () => {
+>>>>>>> master
   return (
-    <>
+    <div>
       <PublicNavbar />
-      <div>
+      <div className="content">
         {/* <AlertMsg /> */}
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/products/:id" component={ProductDetailPage} />
           <Route path="/cart" component={CartPage} />
+<<<<<<< HEAD
           <Route path="/wishlist" component={WishlistPage} />
+=======
+>>>>>>> master
           <Route path="/user/profile" component={ProfilePage} />
           <Route path="/user/history" component={UserHistoryPage} />
 
           <Route component={NotFoundPage} />
         </Switch>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -2,8 +2,6 @@ import * as types from "redux/constants/product.constants";
 // import routeActions from "./route.actions";
 import api from "redux/api";
 import { routeActions } from "./route.actions";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import { enqueueSnackbar } from 'notistack';
 
 const getProductList =
@@ -133,6 +131,7 @@ const createNewProduct =
         payload: res.data.data,
       });
       dispatch(routeActions.redirect(redirectTo));
+<<<<<<< HEAD
       enqueueSnackbar("New product has been created!", { variant: 'success' });
     } catch (error) {
       // Error message is already shown by API interceptor
@@ -145,6 +144,11 @@ const createNewProduct =
       if (process.env.NODE_ENV === 'development') {
         console.error("Create product error:", errorMsg);
       }
+=======
+      toast.success("New product has been created!");
+    } catch (error) {
+      // console.log(error);
+>>>>>>> master
       dispatch({ type: types.CREATE_PRODUCT_FAILURE, payload: error });
     }
   };
@@ -179,7 +183,11 @@ const updateProduct =
       });
 
       dispatch(routeActions.redirect(redirectTo));
+<<<<<<< HEAD
       enqueueSnackbar("The product has been updated!", { variant: 'success' });
+=======
+      toast.success("The product has been updated!");
+>>>>>>> master
     } catch (error) {
       // console.log(error);
       dispatch({ type: types.UPDATE_PRODUCT_FAILURE, payload: error });
@@ -197,7 +205,11 @@ const deleteProduct =
         payload: res.data,
       });
       dispatch(routeActions.redirect(redirectTo));
+<<<<<<< HEAD
       enqueueSnackbar("The product has been deleted!", { variant: 'success' });
+=======
+      toast.success("The product has been deleted!");
+>>>>>>> master
     } catch (error) {
       // console.log(error);
       dispatch({ type: types.DELETE_PRODUCT_FAILURE, payload: error });
@@ -210,7 +222,13 @@ const searchProductsByKeyword =
     dispatch({ type: types.GET_PRODUCTS_BYKEYWORD_REQUEST, payload: null });
 
     try {
+<<<<<<< HEAD
       const res = await api.get(`/products?page=${pageNum}&limit=${limit}&search=${encodeURIComponent(keyword)}`);
+=======
+      const res = await api.post(`/products/?page=${pageNum}&limit=${limit}`, {
+        keyword,
+      });
+>>>>>>> master
       dispatch({
         type: types.GET_PRODUCTS_BYKEYWORD_SUCCESS,
         payload: res.data.data,
@@ -221,6 +239,7 @@ const searchProductsByKeyword =
   };
 
 const updateList = (list) => (dispatch) => {
+<<<<<<< HEAD
   dispatch({ type: types.GET_PRODUCTS_SUCCESS, payload: list });
 };
 
@@ -245,6 +264,9 @@ const getRecommendations = () => async (dispatch) => {
       dispatch({ type: types.GET_RECOMMENDATIONS_FAILURE, payload: err });
     }
   }
+=======
+  dispatch({ type: "UPDATE_LIST", payload: list });
+>>>>>>> master
 };
 
 export const productActions = {

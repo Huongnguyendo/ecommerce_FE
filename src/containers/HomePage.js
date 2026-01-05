@@ -136,7 +136,6 @@ const HomePage = () => {
     history.push(`/products/${index}`);
   };
 
-
   // Fetch Today's Deals with fallback to popular products
   const fetchTodaysDeals = async () => {
     setDealsLoading(true);
