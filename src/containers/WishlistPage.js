@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { 
   Box, 
   Typography, 
@@ -33,16 +33,27 @@ import {
   Close as CloseIcon
 } from "@mui/icons-material";
 
-// Custom Wishlist Card Component
-const WishlistCard = ({ product }) => {
+// Custom Wishlist Card Component - Memoized to prevent unnecessary re-renders
+const WishlistCard = memo(({ product, onRemove }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const currentUser = useSelector(state => state.auth.user);
+  const [isRemoving, setIsRemoving] = useState(false);
 
-  const handleRemoveFromWishlist = (e) => {
+  const handleRemoveFromWishlist = useCallback((e) => {
     e.stopPropagation();
+    
+    // Safety check: ensure product and _id exist
+    if (!product || !product._id || isRemoving) {
+      if (process.env.NODE_ENV === 'development' && !product?._id) {
+        console.error('Cannot remove from wishlist: product or product._id is missing', product);
+      }
+      return;
+    }
+    
     if (currentUser) {
-      dispatch(userActions.removeFromWishlist(product._id));
+      setIsRemoving(true);
+      onRemove(product._id).finally(() => setIsRemoving(false));
     } else {
       // Guest wishlist logic
       const guestWishlist = JSON.parse(localStorage.getItem('guestWishlist') || '[]');
@@ -50,17 +61,17 @@ const WishlistCard = ({ product }) => {
       localStorage.setItem('guestWishlist', JSON.stringify(updatedWishlist));
       window.location.reload(); // Simple refresh for guest users
     }
-  };
+  }, [product, currentUser, onRemove, isRemoving]);
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = useCallback((e) => {
     e.stopPropagation();
     const currentPrice = product.effectivePrice || product.price || product.currentPrice || 0;
     dispatch(cartActions.addToCart(product._id, 1, currentPrice));
-  };
+  }, [product, dispatch]);
 
-  const handleViewProduct = () => {
+  const handleViewProduct = useCallback(() => {
     history.push(`/products/${product._id}`);
-  };
+  }, [product._id, history]);
 
   return (
     <Paper
@@ -128,6 +139,7 @@ const WishlistCard = ({ product }) => {
         <Tooltip title="Remove from wishlist" arrow placement="top">
           <IconButton
             onClick={handleRemoveFromWishlist}
+            disabled={isRemoving}
             sx={{
               position: 'absolute',
               top: 12,
@@ -143,10 +155,17 @@ const WishlistCard = ({ product }) => {
                 transform: 'scale(1.1)',
                 boxShadow: '0 4px 12px rgba(231, 76, 60, 0.3)',
               },
+              '&:disabled': {
+                opacity: 0.6,
+              },
               transition: 'all 0.2s ease',
             }}
           >
-            <DeleteIcon sx={{ fontSize: 20 }} />
+            {isRemoving ? (
+              <CircularProgress size={20} sx={{ color: '#e74c3c' }} />
+            ) : (
+              <DeleteIcon sx={{ fontSize: 20 }} />
+            )}
           </IconButton>
         </Tooltip>
       </Box>
@@ -287,15 +306,16 @@ const WishlistCard = ({ product }) => {
       </Box>
     </Paper>
   );
-};
+});
 
 const WishlistPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const reduxWishlist = useSelector((state) => state.user.wishlist);
+  const wishlistLoading = useSelector((state) => state.user.loading);
   const [guestWishlist, setGuestWishlist] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [guestLoading, setGuestLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -307,17 +327,32 @@ const WishlistPage = () => {
         setGuestWishlist([]);
         return;
       }
-      setLoading(true);
+      setGuestLoading(true);
       Promise.all(ids.map(id => api.get(`/products/${id}`)))
         .then(responses => {
           setGuestWishlist(responses.map(res => res.data.data));
         })
         .catch(() => setGuestWishlist([]))
-        .finally(() => setLoading(false));
+        .finally(() => setGuestLoading(false));
     }
   }, [isAuthenticated, dispatch]);
 
-  const wishlistProducts = isAuthenticated ? reduxWishlist : guestWishlist;
+  // Memoized filter function
+  const filterValidProducts = useCallback((products) => {
+    if (!Array.isArray(products)) return [];
+    return products.filter(product => product && product._id);
+  }, []);
+  
+  // Memoized wishlist products - only recalculate when reduxWishlist or guestWishlist changes
+  const wishlistProducts = useMemo(() => {
+    const products = isAuthenticated ? reduxWishlist : guestWishlist;
+    return filterValidProducts(products);
+  }, [isAuthenticated, reduxWishlist, guestWishlist, filterValidProducts]);
+
+  // Memoized remove handler
+  const handleRemove = useCallback((productId) => {
+    return dispatch(userActions.removeFromWishlist(productId));
+  }, [dispatch]);
 
   if (!isAuthenticated) {
     return (
@@ -481,7 +516,9 @@ const WishlistPage = () => {
     );
   }
 
-  if (loading) {
+  const loading = isAuthenticated ? wishlistLoading : guestLoading;
+  
+  if (loading && wishlistProducts.length === 0) {
     return (
       <Box sx={{ 
         minHeight: '100vh', 
@@ -508,7 +545,10 @@ const WishlistPage = () => {
           <Grid container spacing={3} justifyContent="flex-start">
             {wishlistProducts.map(product => (
               <Grid item xs={12} sm={6} md={4} key={product._id} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <WishlistCard product={product} />
+                <WishlistCard 
+                  product={product} 
+                  onRemove={handleRemove}
+                />
               </Grid>
             ))}
           </Grid>
