@@ -31,6 +31,7 @@ const userReducer = (state = initialState, action) => {
     case types.ADD_WISHLIST_SUCCESS:
     case types.REMOVE_WISHLIST_SUCCESS:
     case types.GET_WISHLIST_SUCCESS:
+      // wishlist actions return product objects
       return { ...state, loading: false, wishlist: payload };
     case types.ADD_WISHLIST_REQUEST:
     case types.REMOVE_WISHLIST_REQUEST:
