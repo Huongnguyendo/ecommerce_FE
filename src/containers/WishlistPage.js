@@ -516,27 +516,6 @@ const WishlistPage = () => {
     );
   }
 
-  const loading = isAuthenticated ? wishlistLoading : guestLoading;
-  
-  if (loading && wishlistProducts.length === 0) {
-    return (
-      <Box sx={{ 
-        minHeight: '100vh', 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center',
-        bgcolor: '#f8fafb'
-      }}>
-        <Stack alignItems="center" spacing={2}>
-          <CircularProgress size={60} sx={{ color: '#ff6b6b' }} />
-          <Typography variant="h6" color="text.secondary">
-            Loading your wishlist...
-          </Typography>
-        </Stack>
-      </Box>
-    );
-  }
-
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: '#f8fafb', py: 6 }}>
       <Container maxWidth="lg">
