@@ -6,6 +6,9 @@ const initialState = {
   recommendations: [],
   totalPageNum: 1,
   selectedProduct: null,
+  reviews: [],
+  reviewsLoading: false,
+  reviewsError: "",
   loading: false,
   error: "",
 };
@@ -30,6 +33,7 @@ const productReducer = (state = initialState, action) => {
 
     case types.GET_PRODUCTS_REQUEST:
     case types.GET_PRODUCTDETAIL_REQUEST:
+      return { ...state, loading: true, selectedProduct: null };
     case types.GET_PRODUCTDETAILFORSELLER_REQUEST:
     case types.GET_PRODUCTS_BYKEYWORD_REQUEST:
     case types.GET_ALLPRODUCTSFORSELLER_REQUEST:
@@ -79,6 +83,13 @@ const productReducer = (state = initialState, action) => {
     case types.GET_PRODUCTDETAILFORSELLER_SUCCESS:
       return { ...state, selectedProduct: payload, loading: false };
 
+    case types.GET_PRODUCTREVIEWS_REQUEST:
+      return { ...state, reviews: [], reviewsLoading: true, reviewsError: "" };
+    case types.GET_PRODUCTREVIEWS_SUCCESS:
+      return { ...state, reviews: payload, reviewsLoading: false };
+    case types.GET_PRODUCTREVIEWS_FAILURE:
+      return { ...state, reviewsLoading: false, reviewsError: payload };
+
     case types.GET_PRODUCTDETAIL_FAILURE:
     case types.GET_PRODUCTDETAILFORSELLER_FAILURE:
       return { ...state, loading: false, error: payload };
@@ -86,12 +97,13 @@ const productReducer = (state = initialState, action) => {
     case types.CREATE_REVIEW_REQUEST:
       return { ...state, submitLoading: true };
     case types.CREATE_REVIEW_SUCCESS:
+      const nextReviews = [...(state.reviews || []), payload];
       return {
         ...state,
-        selectedProduct: {
-          ...state.selectedProduct,
-          reviews: [...state.selectedProduct.reviews, payload],
-        },
+        reviews: nextReviews,
+        selectedProduct: state.selectedProduct
+          ? { ...state.selectedProduct, reviews: nextReviews }
+          : state.selectedProduct,
         submitLoading: false,
       };
 

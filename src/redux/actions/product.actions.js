@@ -35,6 +35,17 @@ const getProductDetail = (id) => async (dispatch) => {
   }
 };
 
+const getProductReviews = (id) => async (dispatch) => {
+  dispatch({ type: types.GET_PRODUCTREVIEWS_REQUEST, payload: null });
+
+  try {
+    const res = await api.get(`/products/${id}/reviews`);
+    dispatch({ type: types.GET_PRODUCTREVIEWS_SUCCESS, payload: res.data.data });
+  } catch (err) {
+    dispatch({ type: types.GET_PRODUCTREVIEWS_FAILURE, payload: err });
+  }
+};
+
 const getProductDetailForSeller = (id) => async (dispatch) => {
   dispatch({ type: types.GET_PRODUCTDETAILFORSELLER_REQUEST, payload: null });
 
@@ -250,6 +261,7 @@ const getRecommendations = () => async (dispatch) => {
 export const productActions = {
   getProductList,
   getProductDetail,
+  getProductReviews,
   getProductDetailForSeller,
   getAllProductsForSeller,
   getHistoryForSeller,
