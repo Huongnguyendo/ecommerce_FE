@@ -60,42 +60,15 @@ const addToWishlist = (productId) => async (dispatch, getState) => {
     // Logged-in logic (call backend)
     dispatch({ type: types.ADD_WISHLIST_REQUEST });
     try {
-        const res = await api.post("/users/wishlist/add", { productId });
-        // Backend returns IDs
-        // Show success message
+        await api.post("/users/wishlist/add", { productId });
+        // Backend returns IDs only - don't update wishlist state here
+        // User will see the updated wishlist when they visit the wishlist page
+        // Just set loading to false without changing wishlist
         dispatch({ type: types.ADD_WISHLIST_SUCCESS, payload: getState().user.wishlist || [] });
         enqueueSnackbar("Added to wishlist!", { variant: 'success' });
     } catch (error) {
         dispatch({ type: types.ADD_WISHLIST_FAILURE, payload: error });
         enqueueSnackbar("Failed to add to wishlist", { variant: 'error' });
-    }
-};
-
-const removeFromWishlist = (productId) => async (dispatch, getState) => {
-    const currentWishlist = getState().user.wishlist || [];
-    
-    // Optimistic update: remove from UI immediately
-    const optimisticWishlist = currentWishlist.filter(p => p._id?.toString() !== productId?.toString());
-    dispatch({ type: types.REMOVE_WISHLIST_SUCCESS, payload: optimisticWishlist });
-    
-    dispatch({ type: types.REMOVE_WISHLIST_REQUEST });
-    try {
-        const res = await api.post("/users/wishlist/remove", { productId });
-        // Backend returns IDs only - verify our optimistic update matches
-        const updatedIds = res.data.data || [];
-        const finalWishlist = currentWishlist.filter(p => 
-            updatedIds.includes(p._id?.toString() || p._id)
-        );
-        // Only update if different (should match optimistic, but verify)
-        if (JSON.stringify(finalWishlist) !== JSON.stringify(optimisticWishlist)) {
-            dispatch({ type: types.REMOVE_WISHLIST_SUCCESS, payload: finalWishlist });
-        }
-        enqueueSnackbar("Removed from wishlist!", { variant: 'success' });
-    } catch (error) {
-        // Revert optimistic update on error
-        dispatch({ type: types.REMOVE_WISHLIST_SUCCESS, payload: currentWishlist });
-        dispatch({ type: types.REMOVE_WISHLIST_FAILURE, payload: error });
-        enqueueSnackbar("Failed to remove from wishlist", { variant: 'error' });
     }
 };
 
@@ -106,6 +79,31 @@ const getWishlist = () => async (dispatch) => {
         dispatch({ type: types.GET_WISHLIST_SUCCESS, payload: res.data.data });
     } catch (error) {
         dispatch({ type: types.GET_WISHLIST_FAILURE, payload: error });
+    }
+};
+
+const removeFromWishlist = (productId) => async (dispatch, getState) => {
+    const currentWishlist = getState().user.wishlist || [];
+    
+    // Optimistic update: remove from UI immediately
+    const optimisticWishlist = currentWishlist.filter(p => {
+        const productIdStr = p._id?.toString();
+        const removeIdStr = productId?.toString();
+        return productIdStr !== removeIdStr;
+    });
+    dispatch({ type: types.REMOVE_WISHLIST_SUCCESS, payload: optimisticWishlist });
+    
+    dispatch({ type: types.REMOVE_WISHLIST_REQUEST });
+    try {
+        await api.post("/users/wishlist/remove", { productId });
+        // Refetch to keep UI in sync with backend
+        dispatch(getWishlist());
+        enqueueSnackbar("Removed from wishlist!", { variant: 'success' });
+    } catch (error) {
+        // Revert optimistic update on error
+        dispatch({ type: types.REMOVE_WISHLIST_SUCCESS, payload: currentWishlist });
+        dispatch({ type: types.REMOVE_WISHLIST_FAILURE, payload: error });
+        enqueueSnackbar("Failed to remove from wishlist", { variant: 'error' });
     }
 };
 

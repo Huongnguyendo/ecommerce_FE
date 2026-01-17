@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
 import { productActions, cartActions, userActions } from "redux/actions";
 import ReviewList from "components/ReviewList";
 import ReviewForm from "components/ReviewForm";
@@ -19,17 +18,12 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import moment from "moment";
 import { enqueueSnackbar } from 'notistack';
 
-import user from "../images/defaultavapic.png";
 
 const ProductDetailPage = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // first, get and display product details
-  const getProductDetail = () => {
-    dispatch(productActions.getProductDetail(id));
-  };
   let productDetail = useSelector((state) => state.product.selectedProduct);
   const loading = useSelector((state) => state.product.loading);
 
@@ -59,6 +53,8 @@ const ProductDetailPage = () => {
   const submitLoading = useSelector((state) => state.product.submitLoading);
   const [reviewText, setReviewText] = useState("");
   let [averageRating, setAverageRating] = useState(0);
+  const reviews = useSelector((state) => state.product.reviews);
+  const reviewsLoading = useSelector((state) => state.product.reviewsLoading);
 
   const handleInputChange = (e) => {
     setReviewText(e.target.value);
@@ -88,7 +84,8 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     if (id) {
-      getProductDetail();
+      dispatch(productActions.getProductDetail(id));
+      dispatch(productActions.getProductReviews(id));
     }
   }, [id]);
 
@@ -108,7 +105,23 @@ const ProductDetailPage = () => {
     }
   };
 
-  if (loading) return <></>;
+  // Show skeleton while loading
+  if (loading || !productDetail) {
+    return (
+      <Box sx={{ maxWidth: 1200, mx: 'auto', mt: 6, mb: 6, px: 2 }}>
+        <Box sx={{ display: 'flex', gap: 4, flexDirection: { xs: 'column', md: 'row' } }}>
+          <Box sx={{ flex: 1 }}>
+            <Box sx={{ width: '100%', height: 400, bgcolor: '#f0f0f0', borderRadius: 2 }} />
+          </Box>
+          <Box sx={{ flex: 1 }}>
+            <Box sx={{ height: 40, bgcolor: '#f0f0f0', borderRadius: 1, mb: 2 }} />
+            <Box sx={{ height: 24, bgcolor: '#f0f0f0', borderRadius: 1, mb: 2, width: '60%' }} />
+            <Box sx={{ height: 100, bgcolor: '#f0f0f0', borderRadius: 1, mb: 2 }} />
+          </Box>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ maxWidth: 1200, mx: 'auto', mt: 6, mb: 6, px: 2 }}>
@@ -141,13 +154,13 @@ const ProductDetailPage = () => {
               <Typography variant="h4" fontWeight={800} sx={{ mb: 1, color: '#222' }}>{productDetail.name}</Typography>
               {/* Rating */}
               <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
-                {productDetail?.reviews?.length > 0 ? (
+                {reviews?.length > 0 ? (
                   <>
                     <StarIcon sx={{ color: '#ffc107', fontSize: 22, mr: 0.5 }} />
                     <Typography variant="body1" fontWeight={600}>{parseFloat(averageRating).toFixed(1)}</Typography>
                     <Typography variant="body2" color="text.secondary">Rating</Typography>
                     <Typography variant="body2" color="primary" sx={{ ml: 1, textDecoration: 'underline', cursor: 'pointer' }}>
-                      ({productDetail?.reviews?.length || 0} reviews)
+                      ({reviews?.length || 0} reviews)
                     </Typography>
                   </>
                 ) : (
@@ -235,7 +248,7 @@ const ProductDetailPage = () => {
           {/* Left: Overall Rating */}
           <Box sx={{ flex: 1, textAlign: 'center', p: 3, bgcolor: '#fff', borderRadius: 3, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
             <Typography variant="h2" fontWeight={900} sx={{ color: '#00bfae', mb: 1 }}>
-              {productDetail?.reviews?.length > 0 ? `${parseFloat(averageRating).toFixed(1)}/5` : 'No Rating'}
+              {reviews?.length > 0 ? `${parseFloat(averageRating).toFixed(1)}/5` : 'No Rating'}
             </Typography>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
               {[1, 2, 3, 4, 5].map((star) => (
@@ -243,7 +256,7 @@ const ProductDetailPage = () => {
               ))}
             </Box>
             <Typography variant="h6" fontWeight={600} sx={{ color: '#666', mb: 2 }}>
-              {productDetail?.reviews?.length || 0} reviews
+              {reviews?.length || 0} reviews
             </Typography>
             <Button
               variant="contained"
@@ -269,8 +282,8 @@ const ProductDetailPage = () => {
               Rating Distribution
             </Typography>
             {[5, 4, 3, 2, 1].map((star) => {
-              const count = productDetail?.reviews?.filter(r => Math.round(r.rating) === star).length || 0;
-              const percentage = productDetail?.reviews?.length ? (count / productDetail.reviews.length) * 100 : 0;
+              const count = reviews?.filter(r => Math.round(r.rating) === star).length || 0;
+              const percentage = reviews?.length ? (count / reviews.length) * 100 : 0;
               return (
                 <Box key={star} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <Typography variant="body2" sx={{ minWidth: 20, mr: 1 }}>{star}</Typography>
@@ -302,7 +315,11 @@ const ProductDetailPage = () => {
           <Typography variant="h6" fontWeight={700} sx={{ mb: 3, color: '#222' }}>
             Customer Reviews
           </Typography>
-          <ReviewList setAverageRating={setAverageRating} reviews={productDetail?.reviews} />
+          {reviewsLoading ? (
+            <Typography variant="body2" color="text.secondary">Loading reviews...</Typography>
+          ) : (
+            <ReviewList setAverageRating={setAverageRating} reviews={reviews} />
+          )}
         </Box>
 
         {/* Review Form */}
