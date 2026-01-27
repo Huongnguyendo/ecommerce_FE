@@ -354,6 +354,7 @@ const HomePage = () => {
                 fontSize: 18,
                 boxShadow: '0 4px 24px 0 rgba(0,200,83,0.10)',
                 '&:hover': { bgcolor: '#009624' },
+                display: { xs: 'none', sm: 'inline-flex' },
               }}
               onClick={handleViewAllProducts}
               endIcon={<Box component="span" sx={{ fontSize: 22, ml: 1 }}>→</Box>}
@@ -413,9 +414,18 @@ const HomePage = () => {
             CATEGORY
           </Typography>
         </Box>
-        <Grid container spacing={3} justifyContent="flex-start">
+        <Grid
+          container
+          spacing={2}
+          justifyContent="flex-start"
+          sx={{
+            flexWrap: { xs: "nowrap", sm: "wrap" },
+            overflowX: { xs: "auto", sm: "visible" },
+            pb: { xs: 1, sm: 0 },
+          }}
+        >
           {/* "All" category option */}
-          <Grid item xs={6} sm={4} md={3}>
+          <Grid item xs="auto" sm={4} md={3} sx={{ minWidth: { xs: 88, sm: "auto" } }}>
             <Paper
               elevation={2}
               sx={{
@@ -424,10 +434,10 @@ const HomePage = () => {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 },
-                width: { xs: '100%', sm: 90, md: 100 },
-                minWidth: 80,
-                maxWidth: 110,
-                height: 100,
+                width: { xs: 88, sm: 90, md: 100 },
+                minWidth: { xs: 70, sm: 80 },
+                maxWidth: { xs: 90, sm: 110 },
+                height: { xs: 88, sm: 100 },
                 mx: 'auto',
                 boxSizing: 'border-box',
                 display: 'flex',
@@ -477,7 +487,7 @@ const HomePage = () => {
           
           {/* Regular categories */}
           {categories.map((cat) => (
-            <Grid item xs={6} sm={4} md={3} key={cat.label}>
+          <Grid item xs="auto" sm={4} md={3} key={cat.label} sx={{ minWidth: { xs: 88, sm: "auto" } }}>
               <Paper
                 elevation={2}
                 sx={{
@@ -486,10 +496,10 @@ const HomePage = () => {
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   '&:hover': { transform: 'translateY(-4px)', boxShadow: 4 },
-                  width: { xs: '100%', sm: 90, md: 100 },
-                  minWidth: 80,
-                  maxWidth: 110,
-                  height: 100,
+                width: { xs: 88, sm: 90, md: 100 },
+                minWidth: { xs: 70, sm: 80 },
+                maxWidth: { xs: 90, sm: 110 },
+                height: { xs: 88, sm: 100 },
                   mx: 'auto',
                   boxSizing: 'border-box',
                   display: 'flex',
@@ -535,7 +545,7 @@ const HomePage = () => {
                   src={cat.img}
                   alt={cat.label}
                   sx={{ 
-                    height: 28, 
+                  height: { xs: 22, sm: 28 }, 
                     mb: 0.5,
                   }}
                 />
@@ -580,7 +590,18 @@ const HomePage = () => {
         {totalRecs > 0 ? (
           <Grid container spacing={4} justifyContent="flex-start">
             {visibleRecs.map((product) => (
-              <Grid item xs={12} sm={6} md={3} key={product._id}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={3}
+                key={product._id}
+                sx={{
+                  display: { xs: 'flex', sm: 'block' },
+                  alignItems: { xs: 'stretch', sm: 'initial' },
+                  width: { xs: '100%', sm: 'auto' },
+                }}
+              >
                 <ProductCard product={product} gotoProductDetail={gotoProductDetail} />
               </Grid>
             ))}
@@ -633,7 +654,18 @@ const HomePage = () => {
         ) : totalDeals > 0 ? (
           <Grid container spacing={4} justifyContent="flex-start">
             {visibleDeals.map((product) => (
-              <Grid item xs={12} sm={6} md={3} key={product._id}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={3}
+                key={product._id}
+                sx={{
+                  display: { xs: 'flex', sm: 'block' },
+                  alignItems: { xs: 'stretch', sm: 'initial' },
+                  width: { xs: '100%', sm: 'auto' },
+                }}
+              >
                 <ProductCard product={product} gotoProductDetail={gotoProductDetail} />
               </Grid>
             ))}
@@ -689,7 +721,18 @@ const HomePage = () => {
           {totalRecentViews > 0 ? (
             <Grid container spacing={4} justifyContent="flex-start">
               {visibleRecentViews.map((product) => (
-                <Grid item xs={12} sm={6} md={3} key={product._id}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  key={product._id}
+                  sx={{
+                    display: { xs: 'flex', sm: 'block' },
+                    alignItems: { xs: 'stretch', sm: 'initial' },
+                    width: { xs: '100%', sm: 'auto' },
+                  }}
+                >
                   <ProductCard product={product} gotoProductDetail={gotoProductDetail} />
                 </Grid>
               ))}
@@ -788,9 +831,18 @@ const HomePage = () => {
               <Typography variant="h6" fontWeight={600} sx={{ mb: 3, color: '#222' }}>
                 Browse by Category
               </Typography>
-              <Grid container spacing={3} justifyContent="center">
+              <Grid
+                container
+                spacing={2}
+                justifyContent="center"
+                sx={{
+                  flexWrap: { xs: "nowrap", sm: "wrap" },
+                  overflowX: { xs: "auto", sm: "visible" },
+                  pb: { xs: 1, sm: 0 },
+                }}
+              >
                 {categories.slice(0, 4).map((cat) => (
-                  <Grid item xs={6} sm={4} md={3} key={cat.label}>
+                  <Grid item xs="auto" sm={4} md={3} key={cat.label} sx={{ minWidth: { xs: 88, sm: "auto" } }}>
                     <Paper
                       elevation={2}
                       sx={{
@@ -802,10 +854,10 @@ const HomePage = () => {
                           transform: 'translateY(-4px)', 
                           boxShadow: 4,
                         },
-                        width: { xs: '100%', sm: 90, md: 100 },
-                        minWidth: 80,
-                        maxWidth: 110,
-                        height: 100,
+                        width: { xs: 88, sm: 90, md: 100 },
+                        minWidth: { xs: 70, sm: 80 },
+                        maxWidth: { xs: 90, sm: 110 },
+                        height: { xs: 88, sm: 100 },
                         mx: 'auto',
                         boxSizing: 'border-box',
                         display: 'flex',
@@ -851,7 +903,14 @@ const HomePage = () => {
                     .filter(p => p && !p.isDeleted)
                     .slice(0, 4)
                     .map((product) => (
-                    <Grid item xs={12} sm={6} md={3} key={product._id}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={3}
+                      key={product._id}
+                      sx={{ display: 'flex', alignItems: 'stretch', width: { xs: '100%' } }}
+                    >
                       <ProductCard product={product} gotoProductDetail={gotoProductDetail} />
                     </Grid>
                   ))}
@@ -862,7 +921,19 @@ const HomePage = () => {
         ) : productList && productList.length > 0 ? (
           <Grid container spacing={4} justifyContent="flex-start">
             {productList.map((product) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                key={product._id}
+                sx={{
+                  display: { xs: 'flex', sm: 'block' },
+                  alignItems: { xs: 'stretch', sm: 'initial' },
+                  width: { xs: '100%', sm: 'auto' },
+                }}
+              >
                 <ProductCard product={product} gotoProductDetail={gotoProductDetail} />
               </Grid>
             ))}
@@ -885,7 +956,7 @@ const HomePage = () => {
       </Container>
 
       {/* Support Section */}
-      <Box sx={{ bgcolor: 'grey.100', py: 6, mt: 8 }}>
+      <Box sx={{ bgcolor: 'grey.100', py: 6, mt: 8, display: { xs: 'none', sm: 'block' } }}>
         <Container maxWidth="lg">
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} md={4}>

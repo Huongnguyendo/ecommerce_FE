@@ -29,7 +29,7 @@ library.add(
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loading = useSelector((state) => state.auth.loading);
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken && accessToken !== "undefined") {
@@ -43,10 +43,11 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {isAuthenticated === null ? (
-          <div className="vh-100 vw-100 d-flex justify-content-center align-items-center" style={{ background: '#f5f7fa' }}>
-            <ClipLoader color="#1976d2" size={150} loading={true} />
-          </div>
+        {loading ? (
+          <div
+            className="vh-100 vw-100 d-flex justify-content-center align-items-center"
+            style={{ background: "#0f172a" }}
+          />
         ) : (
           <Router>
             <Routes />

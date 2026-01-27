@@ -8,29 +8,24 @@ import {
   Button, 
   Container,
   Stack,
-  Avatar,
   IconButton,
   Tooltip
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import ProductCard from "../components/ProductCard";
 import { userActions } from "../redux/actions";
 import { cartActions } from "../redux/actions/cart.actions";
 import api from "../redux/api";
 import { useHistory } from "react-router-dom";
 import {
   Favorite as FavoriteIcon,
-  FavoriteBorder as FavoriteBorderIcon,
   ShoppingCartOutlined as ShoppingCartOutlinedIcon,
   Home as HomeIcon,
   Search as SearchIcon,
   Star as StarIcon,
   Add as AddIcon,
-  Remove as RemoveIcon,
   Visibility as VisibilityIcon,
   LocalOffer as LocalOfferIcon,
-  Delete as DeleteIcon,
-  Close as CloseIcon
+  Delete as DeleteIcon
 } from "@mui/icons-material";
 
 // Custom Wishlist Card Component - Memoized to prevent unnecessary re-renders
@@ -77,8 +72,10 @@ const WishlistCard = memo(({ product, onRemove }) => {
     <Paper
       elevation={0}
       sx={{
-        width: 320, // Fixed width
-        maxWidth: '100%',
+        width: { xs: '100%', sm: 320 },
+        maxWidth: { xs: '100%', sm: 320 },
+        flex: { xs: 1, sm: 'unset' },
+        alignSelf: { xs: 'stretch', sm: 'auto' },
         borderRadius: 3,
         overflow: 'hidden',
         bgcolor: 'white',
@@ -313,9 +310,7 @@ const WishlistPage = () => {
   const history = useHistory();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const reduxWishlist = useSelector((state) => state.user.wishlist);
-  const wishlistLoading = useSelector((state) => state.user.loading);
   const [guestWishlist, setGuestWishlist] = useState([]);
-  const [guestLoading, setGuestLoading] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -327,13 +322,11 @@ const WishlistPage = () => {
         setGuestWishlist([]);
         return;
       }
-      setGuestLoading(true);
       Promise.all(ids.map(id => api.get(`/products/${id}`)))
         .then(responses => {
           setGuestWishlist(responses.map(res => res.data.data));
         })
-        .catch(() => setGuestWishlist([]))
-        .finally(() => setGuestLoading(false));
+        .catch(() => setGuestWishlist([]));
     }
   }, [isAuthenticated, dispatch]);
 
@@ -523,7 +516,19 @@ const WishlistPage = () => {
         {wishlistProducts && wishlistProducts.length > 0 ? (
           <Grid container spacing={3} justifyContent="flex-start">
             {wishlistProducts.map(product => (
-              <Grid item xs={12} sm={6} md={4} key={product._id} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={product._id}
+                sx={{
+                  display: { xs: 'flex', sm: 'block' },
+                  justifyContent: { xs: 'stretch', sm: 'center' },
+                  alignItems: { xs: 'stretch', sm: 'initial' },
+                  width: { xs: '100%', sm: 'auto' },
+                }}
+              >
                 <WishlistCard 
                   product={product} 
                   onRemove={handleRemove}

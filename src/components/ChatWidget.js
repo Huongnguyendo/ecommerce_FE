@@ -275,7 +275,8 @@ const ChatWidget = () => {
           sx={{
             position: 'fixed',
             bottom: 24,
-            right: 24,
+            right: { xs: 24, sm: 24 },
+            mr: { xs: 2, sm: 0 },
             zIndex: 1000,
             display: 'flex',
             flexDirection: 'column',
@@ -458,7 +459,8 @@ const ChatWidget = () => {
           sx={{
             position: 'fixed',
             bottom: 24,
-            right: 24,
+            right: { xs: 24, sm: 24 },
+            mr: { xs: 2, sm: 0 },
             width: { xs: 'calc(100vw - 48px)', sm: 420 },
             height: 600,
             display: 'flex',
