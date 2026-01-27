@@ -802,6 +802,34 @@ button:active {
   width: 100px;
 }
 
+@media (max-width: 600px) {
+  .sellerProfilePage {
+    padding: 24px 16px;
+  }
+
+  .sellerProfilePage form {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sellerProfilePage .form-group.row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .sellerProfilePage .col-form-label {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .sellerProfilePage .col {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
 .addProductBtn {
   background-color: #003366 !important;
   text-decoration: none !important;
@@ -1080,6 +1108,47 @@ button:active {
 
   .reviewForm {
     display: block;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .homepageTitle {
+    width: 90%;
+    font-size: 18px;
+  }
+
+  .product-card {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .ratingDiv {
+    margin: 0 12px;
+  }
+
+  .list-unstyled {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .productDetailTable {
+    width: 100%;
+  }
+
+  .productDetailCom {
+    padding-top: 70px;
+  }
+
+  .cart-item-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-image img {
+    width: 100%;
+    max-width: 220px;
+    margin-right: 0;
+    margin-bottom: 12px;
   }
 }
 

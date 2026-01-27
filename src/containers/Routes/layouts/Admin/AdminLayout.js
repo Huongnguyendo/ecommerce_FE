@@ -1,12 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Switch, Route, useHistory } from "react-router-dom";
-import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Avatar, Toolbar, IconButton } from "@mui/material";
+import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Divider, Avatar, Toolbar, IconButton, AppBar } from "@mui/material";
 import {
   Dashboard as DashboardIcon,
   People as PeopleIcon,
   Person as PersonIcon,
-  Logout as LogoutIcon
+  Logout as LogoutIcon,
+  Menu as MenuIcon
 } from "@mui/icons-material";
 import NotFoundPage from "components/NotFoundPage";
 import AdminProfilePage from "../../../Profile/AdminProfilePage";
@@ -116,6 +117,25 @@ const AdminLayout = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ display: 'flex', bgcolor: 'background.default', minHeight: '100vh' }}>
+        {/* Mobile top bar */}
+        <AppBar
+          position="fixed"
+          sx={{
+            display: { xs: 'flex', sm: 'none' },
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
+          }}
+        >
+          <Toolbar sx={{ minHeight: 56 }}>
+            <IconButton edge="start" color="inherit" onClick={handleDrawerToggle}>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="subtitle1" fontWeight={700}>
+              Admin Panel
+            </Typography>
+          </Toolbar>
+        </AppBar>
         {/* Mobile drawer */}
         <Drawer
           variant="temporary"
@@ -149,10 +169,10 @@ const AdminLayout = () => {
           component="main"
           sx={{
             flexGrow: 1,
-            p: 3,
+            p: { xs: 2, sm: 3 },
             width: { sm: `calc(100% - ${drawerWidth}px)` },
             ml: { sm: `${drawerWidth}px` }, // Add left margin to account for sidebar
-            mt: 2, // Reduced margin since no navbar
+            mt: { xs: 7, sm: 2 }, // Space for mobile app bar
             bgcolor: 'background.default',
           }}
         >

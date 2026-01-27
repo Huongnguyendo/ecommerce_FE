@@ -129,15 +129,15 @@ const ProductDetailPage = () => {
         <Paper elevation={0} sx={{ p: { xs: 2, md: 4 }, borderRadius: 6, mb: 5, bgcolor: '#f8fafb' }}>
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 5 }}>
             {/* Left: Product Image & Gallery */}
-            <Box sx={{ flex: 1.1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', bgcolor: '#f4f8fb', borderRadius: 5, p: 3, position: 'relative', minWidth: 320 }}>
+            <Box sx={{ flex: 1.1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', bgcolor: '#f4f8fb', borderRadius: 5, p: 3, position: 'relative', minWidth: { xs: '100%', md: 320 } }}>
               {/* Main image */}
               <Box
                 component="img"
                 src={mainImage}
                 alt={productDetail.name}
                 sx={{
-                  width: { xs: 220, sm: 320, md: 340 },
-                  height: { xs: 220, sm: 320, md: 340 },
+                  width: { xs: 200, sm: 280, md: 340 },
+                  height: { xs: 200, sm: 280, md: 340 },
                   objectFit: 'contain',
                   borderRadius: 4,
                   boxShadow: '0 8px 32px 0 rgba(30,144,255,0.10)',
@@ -147,7 +147,7 @@ const ProductDetailPage = () => {
               />
             </Box>
             {/* Right: Product Info */}
-            <Box sx={{ flex: 1.3, display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: 320 }}>
+            <Box sx={{ flex: 1.3, display: 'flex', flexDirection: 'column', justifyContent: 'center', minWidth: { xs: '100%', md: 320 } }}>
               {/* Brand/store */}
               <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 0.5 }}>{brand}</Typography>
               {/* Name */}
@@ -201,12 +201,12 @@ const ProductDetailPage = () => {
               </Box>
               <Divider sx={{ my: 2 }} />
               {/* Action buttons */}
-              <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mb: 2 }}>
                 <Button
                   variant="contained"
                   size="large"
                   startIcon={<ShoppingCartOutlinedIcon />}
-                  sx={{ borderRadius: 4, fontWeight: 700, px: 5, bgcolor: '#00bfae', color: '#fff', '&:hover': { bgcolor: '#43e6c2' } }}
+                  sx={{ borderRadius: 4, fontWeight: 700, px: 5, bgcolor: '#00bfae', color: '#fff', '&:hover': { bgcolor: '#43e6c2' }, width: { xs: '100%', sm: 'auto' } }}
                   onClick={handleAddToCart}
                   disabled={productDetail.inStockNum <= 0}
                 >
@@ -215,7 +215,7 @@ const ProductDetailPage = () => {
                 <Button
                   variant="contained"
                   size="large"
-                  sx={{ borderRadius: 4, fontWeight: 700, px: 5, bgcolor: '#e0f7fa', color: '#00bfae', '&:hover': { bgcolor: '#b2fefa' } }}
+                  sx={{ borderRadius: 4, fontWeight: 700, px: 5, bgcolor: '#e0f7fa', color: '#00bfae', '&:hover': { bgcolor: '#b2fefa' }, width: { xs: '100%', sm: 'auto' } }}
                   onClick={handleBuyNow}
                 >
                   Buy now

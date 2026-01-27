@@ -41,17 +41,19 @@ const ProductCard = ({ product, gotoProductDetail }) => {
       onClick={() => gotoProductDetail(product._id)}
       sx={{
         width: { xs: '100%', sm: 200, md: 240 },
-        minWidth: 180,
-        maxWidth: 260,
-        height: 340,
+        minWidth: { xs: '100%', sm: 180 },
+        maxWidth: { xs: '100%', sm: 260 },
+        height: { xs: 320, sm: 340 },
         boxShadow: '0 4px 24px 0 rgba(30,144,255,0.07)',
         background: '#f8fafb',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
+        flex: { xs: 1, sm: 'unset' },
+        alignSelf: { xs: 'stretch', sm: 'unset' },
+        boxSizing: 'border-box',
         p: 0,
-        mx: 'auto',
         position: 'relative',
         transition: 'transform 0.18s, box-shadow 0.18s',
         cursor: 'pointer',
@@ -60,6 +62,7 @@ const ProductCard = ({ product, gotoProductDetail }) => {
           boxShadow: '0 8px 32px 0 rgba(30,144,255,0.13)',
           background: '#f0f6fa',
         },
+        boxShadow: '0 4px 24px 0 rgba(30,144,255,0.07)',
       }}
     >
       {/* Discount Badge */}
@@ -90,8 +93,8 @@ const ProductCard = ({ product, gotoProductDetail }) => {
           src={product.image}
           alt={product.name}
           sx={{
-            width: 120,
-            height: 120,
+            width: { xs: 100, sm: 120 },
+            height: { xs: 100, sm: 120 },
             objectFit: 'contain',
             mb: 1,
           }}

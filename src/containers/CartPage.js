@@ -377,7 +377,7 @@ const CartPage = () => {
   }
 
   return (
-    <Box sx={{ mt: 6, mb: 6, width: '100%' }}>
+    <Box sx={{ mt: 6, mb: 6, width: '100%', pb: { xs: 10, sm: 6 }, px: { xs: 2, sm: 0 } }}>
       <Box sx={{ maxWidth: 1300, mx: 'auto' }}>
         {/* Show error if present */}
         {cartError && (
@@ -394,10 +394,10 @@ const CartPage = () => {
           </Typography>
           <Divider sx={{ mt: 2, mb: 3 }} />
         </Box>
-        <Grid container spacing={4}>
+        <Grid container spacing={{ xs: 2, md: 4 }}>
           {/* Cart Items */}
           <Grid item xs={12} md={8}>
-            <Paper elevation={0} sx={{ ...glass, p: 4 }}>
+            <Paper elevation={0} sx={{ ...glass, p: { xs: 3, sm: 4 } }}>
               <Typography variant="h5" fontWeight={700} sx={{ mb: 3, color: '#222' }}>
                 Cart Items ({isAuthenticated ? cart.length : guestCartProducts.length})
               </Typography>
@@ -405,12 +405,12 @@ const CartPage = () => {
               <Stack spacing={3}>
                 {isAuthenticated ? cart.map((item) => (
                   <Card key={item.product?._id} elevation={0} sx={{ bgcolor: 'rgba(255,255,255,0.5)', borderRadius: 3 }}>
-                    <CardContent sx={{ p: 3 }}>
+                    <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                       <Box sx={{
                         display: 'grid',
                         gridTemplateColumns: { xs: '1fr', sm: '120px 1fr 120px' },
                         alignItems: 'center',
-                        gap: 3
+                        gap: { xs: 2, sm: 3 }
                       }}>
                         <CardMedia
                           component="img"
@@ -450,14 +450,21 @@ const CartPage = () => {
                             </IconButton>
                           </Stack>
                         </Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', minHeight: 100 }}>
+                        <Box sx={{ 
+                          display: 'flex',
+                          flexDirection: { xs: 'row', sm: 'column' },
+                          alignItems: { xs: 'center', sm: 'flex-end' },
+                          justifyContent: { xs: 'space-between', sm: 'center' },
+                          minHeight: { xs: 'auto', sm: 100 },
+                          mt: { xs: 1, sm: 0 }
+                        }}>
                           <Typography variant="h6" fontWeight={700} color="primary">
                             ${((item.currentPrice || item.product?.price || 0) * item.quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </Typography>
                           <IconButton 
                             color="error" 
                             onClick={() => removeFromCartHandler(item.product)}
-                            sx={{ bgcolor: 'rgba(244,67,54,0.1)', mt: 2 }}
+                            sx={{ bgcolor: 'rgba(244,67,54,0.1)', mt: { xs: 0, sm: 2 } }}
                           >
                             <DeleteIcon />
                           </IconButton>
@@ -470,12 +477,12 @@ const CartPage = () => {
                   const price = item.currentPrice || item.product.price || 0;
                   return (
                     <Card key={item.productId || item.product._id} elevation={0} sx={{ bgcolor: 'rgba(255,255,255,0.5)', borderRadius: 3 }}>
-                      <CardContent sx={{ p: 3 }}>
+                    <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                         <Box sx={{
                           display: 'grid',
                           gridTemplateColumns: { xs: '1fr', sm: '120px 1fr 120px' },
                           alignItems: 'center',
-                          gap: 3
+                        gap: { xs: 2, sm: 3 }
                         }}>
                           <CardMedia
                             component="img"
@@ -515,14 +522,21 @@ const CartPage = () => {
                               </IconButton>
                             </Stack>
                           </Box>
-                          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', minHeight: 100 }}>
+                          <Box sx={{ 
+                            display: 'flex',
+                            flexDirection: { xs: 'row', sm: 'column' },
+                            alignItems: { xs: 'center', sm: 'flex-end' },
+                            justifyContent: { xs: 'space-between', sm: 'center' },
+                            minHeight: { xs: 'auto', sm: 100 },
+                            mt: { xs: 1, sm: 0 }
+                          }}>
                             <Typography variant="h6" fontWeight={700} color="primary">
                               ${(price * item.quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </Typography>
                             <IconButton 
                               color="error" 
                               onClick={() => removeFromGuestCart(item.productId)}
-                              sx={{ bgcolor: 'rgba(244,67,54,0.1)', mt: 2 }}
+                              sx={{ bgcolor: 'rgba(244,67,54,0.1)', mt: { xs: 0, sm: 2 } }}
                             >
                               <DeleteIcon />
                             </IconButton>
@@ -538,7 +552,7 @@ const CartPage = () => {
 
           {/* Order Summary */}
           <Grid item xs={12} md={4}>
-            <Paper elevation={0} sx={{ ...glass, p: 4, position: 'sticky', top: 20 }}>
+            <Paper elevation={0} sx={{ ...glass, p: { xs: 3, sm: 4 }, position: { xs: 'static', md: 'sticky' }, top: { md: 20 } }}>
               <Typography variant="h5" fontWeight={700} sx={{ mb: 3, color: '#222' }}>
                 Order Summary
               </Typography>
@@ -625,7 +639,7 @@ const CartPage = () => {
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                   We accept:
                 </Typography>
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
                   <Chip icon={<CreditCardIcon />} label="Visa" size="small" />
                   <Chip icon={<CreditCardIcon />} label="Mastercard" size="small" />
                   <Chip icon={<CreditCardIcon />} label="PayPal" size="small" />

@@ -4,17 +4,19 @@ import shopnow from "../images/shopnow.png";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "redux/actions";
 import { cartActions } from "../redux/actions/cart.actions";
-import { AppBar, Toolbar, IconButton, InputBase, Avatar, Badge, Box, Typography, Button, Paper, useTheme, Menu, MenuItem, Tooltip } from "@mui/material";
+import { AppBar, Toolbar, IconButton, InputBase, Avatar, Badge, Box, Typography, Button, Paper, useTheme, Menu, MenuItem, Tooltip, useMediaQuery } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const PublicNavbar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const cart = useSelector((state) => state.cart.cartItems) || [];
@@ -59,12 +61,19 @@ const PublicNavbar = () => {
       // Clear search and show all products
       history.push('/');
     }
+    if (isMobile) setSearchOpen(false);
   };
 
   // User menu
   const [anchorEl, setAnchorEl] = useState(null);
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
+
+  // Mobile menu + search
+  const [mobileMenuAnchorEl, setMobileMenuAnchorEl] = useState(null);
+  const handleMobileMenuOpen = (event) => setMobileMenuAnchorEl(event.currentTarget);
+  const handleMobileMenuClose = () => setMobileMenuAnchorEl(null);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(authActions.logout());
@@ -89,16 +98,108 @@ const PublicNavbar = () => {
     <Box sx={{ width: '100%', mb: 3 }}>
       {/* Removed hotline bar for a cleaner look */}
       <AppBar position="static" elevation={0} sx={{ ...glass, bgcolor: 'rgba(255,255,255,0.7)', color: '#222', p: 1, borderRadius: 4, mt: 1, mx: 'auto', maxWidth: 1400 }}>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: 72, px: { xs: 1, sm: 2 } }}>
-          {/* Logo */}
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Link to="/">
-              <Box component="img" src={shopnow} alt="Logo" sx={{ height: 44, width: 44, borderRadius: 2, mr: 2 }} />
-            </Link>
-            <Typography variant="h6" fontWeight={700} sx={{ letterSpacing: 1, color: theme.palette.primary.main }}>ShopNow</Typography>
+        <Toolbar sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 1, minHeight: { xs: 'auto', sm: 72 }, px: { xs: 1, sm: 2 } }}>
+          {/* Top row: logo + actions */}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Link to="/">
+                <Box component="img" src={shopnow} alt="Logo" sx={{ height: 40, width: 40, borderRadius: 2, mr: 1.5 }} />
+              </Link>
+              <Typography
+                variant="h6"
+                fontWeight={700}
+                sx={{ letterSpacing: 1, color: theme.palette.primary.main, display: { xs: 'none', sm: 'block' } }}
+              >
+                ShopNow
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              {/* Mobile: search + hamburger */}
+              <Box sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center', gap: 1 }}>
+                <Paper
+                  component="form"
+                  onSubmit={handleSearchSubmit}
+                  sx={{
+                    p: searchOpen ? '2px 8px' : 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    borderRadius: 8,
+                    boxShadow: 'none',
+                    background: searchOpen ? 'rgba(255,255,255,0.9)' : 'transparent',
+                    border: searchOpen ? '1px solid #e0e7ef' : 'none',
+                    width: searchOpen ? 200 : 36,
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <IconButton color="primary" onClick={() => setSearchOpen((prev) => !prev)}>
+                    <SearchIcon />
+                  </IconButton>
+                  {searchOpen && (
+                    <InputBase
+                      sx={{ ml: 0.5, flex: 1 }}
+                      placeholder="Search"
+                      inputProps={{ 'aria-label': 'search products' }}
+                      value={keyword}
+                      onChange={e => setKeyword(e.target.value)}
+                      autoFocus
+                    />
+                  )}
+                </Paper>
+                <IconButton color="primary" onClick={handleMobileMenuOpen}>
+                  <MenuIcon />
+                </IconButton>
+              </Box>
+
+              {/* Desktop actions */}
+              <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 1 }}>
+                <Tooltip title="Wishlist">
+                  <IconButton color="primary" component={Link} to="/wishlist">
+                    <FavoriteBorderIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Cart">
+                  <IconButton color="primary" component={Link} to="/cart">
+                    <Badge 
+                      badgeContent={badgeCount} 
+                      color="error"
+                      showZero={false}
+                      max={99}
+                    >
+                      <ShoppingCartOutlinedIcon />
+                    </Badge>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              {isAuthenticated && currentUser ? (
+                <>
+                  <Tooltip title={currentUser.name || "Profile"}>
+                    <IconButton onClick={handleMenuOpen} sx={{ p: 0, display: { xs: 'none', sm: 'flex' } }}>
+                      <Avatar alt={currentUser.name} src={currentUser.avatarUrl || undefined} />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                  >
+                    <MenuItem component={Link} to="/user/profile" onClick={handleMenuClose}>Profile</MenuItem>
+                    <MenuItem component={Link} to="/user/history" onClick={handleMenuClose}>History</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 1 }}>
+                  <Button color="primary" startIcon={<AppRegistrationIcon />} component={Link} to="/register">Register</Button>
+                  <Button color="primary" startIcon={<LoginIcon />} component={Link} to="/login">Login</Button>
+                </Box>
+            )}
+            </Box>
           </Box>
-          {/* Search Bar (centered) */}
-          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', mx: 2 }}>
+
+          {/* Search row */}
+          <Box sx={{ width: '100%', display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
             <Paper
               component="form"
               onSubmit={handleSearchSubmit}
@@ -110,68 +211,45 @@ const PublicNavbar = () => {
                 boxShadow: 'none',
                 background: 'rgba(255,255,255,0.9)',
                 border: '1px solid #e0e7ef',
-                minWidth: { xs: 120, sm: 250, md: 350 },
-                maxWidth: 500,
-                flex: 1,
+                width: '100%',
               }}
             >
               <SearchIcon sx={{ color: '#b0b8c1', mr: 1 }} />
               <InputBase
                 sx={{ ml: 1, flex: 1 }}
-                placeholder="Search a product..."
+                placeholder="Search products..."
                 inputProps={{ 'aria-label': 'search products' }}
                 value={keyword}
                 onChange={e => setKeyword(e.target.value)}
               />
             </Paper>
           </Box>
-          {/* Right side buttons (far right) */}
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', minWidth: 180 }}>
-            <Tooltip title="Wishlist">
-              <IconButton color="primary" component={Link} to="/wishlist">
-                <FavoriteBorderIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Cart">
-              <IconButton color="primary" component={Link} to="/cart" sx={{ ml: 1 }}>
-                <Badge 
-                  badgeContent={badgeCount} 
-                  color="error"
-                  showZero={false}
-                  max={99}
-                >
-                  <ShoppingCartOutlinedIcon />
-                </Badge>
-              </IconButton>
-            </Tooltip>
-            {isAuthenticated && currentUser ? (
-              <>
-                <Tooltip title={currentUser.name || "Profile"}>
-                  <IconButton onClick={handleMenuOpen} sx={{ p: 0, ml: 1 }}>
-                    <Avatar alt={currentUser.name} src={currentUser.avatarUrl || undefined} />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                  transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                >
-                  <MenuItem component={Link} to="/user/profile" onClick={handleMenuClose}>Profile</MenuItem>
-                  <MenuItem component={Link} to="/user/history" onClick={handleMenuClose}>History</MenuItem>
-                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <>
-                <Button color="primary" startIcon={<AppRegistrationIcon />} component={Link} to="/register" sx={{ ml: 2, mr: 1 }}>Register</Button>
-                <Button color="primary" startIcon={<LoginIcon />} component={Link} to="/login">Login</Button>
-              </>
-            )}
-          </Box>
         </Toolbar>
       </AppBar>
+
+      {/* Mobile menu: wishlist/cart/auth */}
+      <Menu
+        anchorEl={mobileMenuAnchorEl}
+        open={Boolean(mobileMenuAnchorEl)}
+        onClose={handleMobileMenuClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <MenuItem component={Link} to="/wishlist" onClick={handleMobileMenuClose}>Wishlist</MenuItem>
+        <MenuItem component={Link} to="/cart" onClick={handleMobileMenuClose}>Cart ({badgeCount})</MenuItem>
+        {isAuthenticated && currentUser ? (
+          <>
+            <MenuItem component={Link} to="/user/profile" onClick={handleMobileMenuClose}>Profile</MenuItem>
+            <MenuItem component={Link} to="/user/history" onClick={handleMobileMenuClose}>History</MenuItem>
+            <MenuItem onClick={() => { handleLogout(); handleMobileMenuClose(); }}>Logout</MenuItem>
+          </>
+        ) : (
+          <>
+            <MenuItem component={Link} to="/register" onClick={handleMobileMenuClose}>Register</MenuItem>
+            <MenuItem component={Link} to="/login" onClick={handleMobileMenuClose}>Login</MenuItem>
+          </>
+        )}
+      </Menu>
     </Box>
   );
 };

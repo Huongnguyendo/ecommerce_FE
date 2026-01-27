@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import NotFoundPage from "components/NotFoundPage";
 import ProductDetailPage from "containers/ProductDetailPage";
@@ -19,6 +19,14 @@ const PublicLayout = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
+
+  useEffect(() => {
+    const previousBg = document.body.style.background;
+    document.body.style.background = "#f5f7fa";
+    return () => {
+      document.body.style.background = previousBg || "#0f172a";
+    };
+  }, []);
 
   const handleLogout = () => {
     dispatch(authActions.logout());
