@@ -28,7 +28,6 @@ import {
   Alert,
   Snackbar,
   CircularProgress,
-  Paper,
   InputAdornment,
   Tooltip,
   Grid
@@ -38,12 +37,12 @@ import {
   Edit as EditIcon,
   Visibility as ViewIcon,
   Search as SearchIcon,
-  FilterList as FilterIcon,
   Refresh as RefreshIcon,
-  Person as PersonIcon,
   AdminPanelSettings as AdminIcon,
   Store as StoreIcon,
-  PersonAdd as UserIcon
+  PersonAdd as UserIcon,
+  CheckCircle as CheckCircleIcon,
+  Cancel as CancelIcon
 } from "@mui/icons-material";
 
 const AdminAllUsersPage = () => {
@@ -188,6 +187,48 @@ const AdminAllUsersPage = () => {
       setSnackbar({
         open: true,
         message: error.response?.data?.message || 'Error updating user',
+        severity: 'error'
+      });
+    }
+  };
+
+  const handleApproveSeller = async (seller) => {
+    try {
+      await api.put(`/auth/admin/user/${seller._id}`, { isApproved: true });
+      setSnackbar({
+        open: true,
+        message: 'Seller approved successfully',
+        severity: 'success'
+      });
+      dispatch(userActions.getAllUsersForAdmin());
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error approving seller:', error);
+      }
+      setSnackbar({
+        open: true,
+        message: 'Error approving seller',
+        severity: 'error'
+      });
+    }
+  };
+
+  const handleRejectSeller = async (seller) => {
+    try {
+      await api.put(`/auth/admin/user/${seller._id}`, { isApproved: false });
+      setSnackbar({
+        open: true,
+        message: 'Seller rejected successfully',
+        severity: 'success'
+      });
+      dispatch(userActions.getAllUsersForAdmin());
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error rejecting seller:', error);
+      }
+      setSnackbar({
+        open: true,
+        message: 'Error rejecting seller',
         severity: 'error'
       });
     }
@@ -350,6 +391,28 @@ const AdminAllUsersPage = () => {
                           <EditIcon />
                         </IconButton>
                       </Tooltip>
+                      {user.role === 'Seller' && !user.isApproved && (
+                        <Tooltip title="Approve Seller">
+                          <IconButton
+                            size="small"
+                            color="success"
+                            onClick={() => handleApproveSeller(user)}
+                          >
+                            <CheckCircleIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                      {user.role === 'Seller' && !user.isApproved && (
+                        <Tooltip title="Reject Seller">
+                          <IconButton
+                            size="small"
+                            color="error"
+                            onClick={() => handleRejectSeller(user)}
+                          >
+                            <CancelIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       {user.role !== 'Admin' && user._id !== currentUser?._id && (
                         <Tooltip title="Delete User">
                           <IconButton 
